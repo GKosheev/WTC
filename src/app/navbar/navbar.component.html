@@ -1,9 +1,100 @@
-<div>
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Store</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="#">Logout</a></li>
-  </ul>
-</div>
+<nav class="mobile-menu"   style="display: none;">
+  <input type="checkbox" id="checkbox" class="mobile-menu__checkbox">
+  <label for="checkbox" class="mobile-menu__btn"><div class="mobile-menu__icon"></div></label>
+  <div class="mobile-menu__container">
+    <ul class="mobile-menu__list">
+      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Home</a></li>
+      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Store</a></li>
+      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Contacts</a></li>
+      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Logout</a></li>
+    </ul>
+  </div>
+</nav>
 
+<div class="container">
+  <nav>
+    <ul class="mcd-menu">
+      <li>
+        <a href="" onclick="this.classList.toggle('active')">
+          <i class="fa fa-home"></i>
+          <strong>Home</strong>
+          <small>sweet home</small>
+        </a>
+      </li>
+      <li>
+        <a href="" onclick="this.classList.toggle('active')">
+          <i class="fa fa-edit"></i>
+          <strong>My Profile</strong>
+          <small>sweet home</small>
+        </a>
+      </li>
+      <li>
+        <a href="" onclick="this.classList.toggle('active')">
+          <i class="fa fa-gift"></i>
+          <strong>Tennis Court Booking</strong>
+          <small>sweet home</small>
+        </a>
+        <ul>
+          <li><a href="#"><i class="fa fa-female"></i>Booking</a></li>
+          <li>
+            <a href="#"><i class="fa fa-male"></i>Booking Info</a>
+          </li>
+          <li><a href="#"><i class="fa fa-female"></i>Search Other Player</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="" onclick="this.classList.toggle('active')">
+          <i class="fa fa-globe"></i>
+          <strong>Register for Programs Lessons Camps & Events</strong>
+        </a>
+        <ul>
+          <li><a href="#"><i class="fa fa-female"></i>Register for Programs</a></li>
+          <li>
+            <a href="#"><i class="fa fa-male"></i>Book a Private Lessons</a>
+          </li>
+          <li><a href="#"><i class="fa fa-female"></i>My Regisrations</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="">
+          <i class="fa fa-comments-o"></i>
+          <strong>My Payments</strong>
+          <small>what they say</small>
+        </a>
+        <ul>
+          <li><a href="#"><i class="fa fa-globe"></i>Other Fees ($0 pending)</a></li>
+          <li>
+            <a href="#"><i class="fa fa-group"></i>View Payments & Print Receipts</a>
+          </li>
+          <li><a href="#"><i class="fa fa-trophy"></i>View My Club Credit ($0)</a></li>
+          <li><a href="#"><i class="fa fa-certificate"></i>View My Package Credit (0.0)</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="" onclick="this.classList.toggle('active')">
+          <i class="fa fa-picture-o"></i>
+          <strong>Online Store</strong>
+          <small>sweet home</small>
+        </a>
+        <ul>
+          <li><a href="#"><i class="fa fa-female"></i>Order Product</a></li>
+          <li>
+            <a href="#"><i class="fa fa-male"></i>My Order History</a>
+          </li>
+          <li><a href="#"><i class="fa fa-female"></i>Viktoria Gibbers</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="">
+          <i class="fa fa-envelope-o"></i>
+          <strong>Player Directory</strong>
+          <small>drop a line</small>
+        </a>
+        <ul>
+          <li><a routerLink="./players"><i class="fa fa-female"></i>View Player List</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
