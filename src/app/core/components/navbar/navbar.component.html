@@ -1,100 +1,86 @@
-<nav class="mobile-menu"   style="display: none;">
-  <input type="checkbox" id="checkbox" class="mobile-menu__checkbox">
-  <label for="checkbox" class="mobile-menu__btn"><div class="mobile-menu__icon"></div></label>
-  <div class="mobile-menu__container">
-    <ul class="mobile-menu__list">
-      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Home</a></li>
-      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Store</a></li>
-      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Contacts</a></li>
-      <li class="mobile-menu__item"><a href="#" class="mobile-menu__link">Logout</a></li>
-    </ul>
+<mat-toolbar class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
+
+  Responsive side navigation
+
+  <div fxShow="true" fxHide.lt-md="true"  class="nav-buttons">
+    <button mat-raised-button color="primary" class="nav-object" routerLink=""><mat-icon>home</mat-icon> Home</button>
+    <button mat-raised-button color="primary" class="nav-object" routerLink="./profile"><mat-icon>person</mat-icon> Profile</button>
+    <button mat-raised-button color="primary" class="nav-object"><mat-icon>logout</mat-icon> Logout</button>
   </div>
-</nav>
+</mat-toolbar>
 
-<div class="container">
-  <nav>
-    <ul class="mcd-menu">
-      <li>
-        <a href="" onclick="this.classList.toggle('active')">
-          <i class="fa fa-home"></i>
-          <strong>Home</strong>
-          <small>sweet home</small>
-        </a>
-      </li>
-      <li>
-        <a href="" onclick="this.classList.toggle('active')">
-          <i class="fa fa-edit"></i>
-          <strong>My Profile</strong>
-          <small>sweet home</small>
-        </a>
-      </li>
-      <li>
-        <a href="" onclick="this.classList.toggle('active')">
-          <i class="fa fa-gift"></i>
-          <strong>Tennis Court Booking</strong>
-          <small>sweet home</small>
-        </a>
-        <ul>
-          <li><a href="#"><i class="fa fa-female"></i>Booking</a></li>
-          <li>
-            <a href="#"><i class="fa fa-male"></i>Booking Info</a>
-          </li>
-          <li><a href="#"><i class="fa fa-female"></i>Search Other Player</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="" onclick="this.classList.toggle('active')">
-          <i class="fa fa-globe"></i>
-          <strong>Register for Programs Lessons Camps & Events</strong>
-        </a>
-        <ul>
-          <li><a href="#"><i class="fa fa-female"></i>Register for Programs</a></li>
-          <li>
-            <a href="#"><i class="fa fa-male"></i>Book a Private Lessons</a>
-          </li>
-          <li><a href="#"><i class="fa fa-female"></i>My Registrations</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="">
-          <i class="fa fa-comments-o"></i>
-          <strong>My Payments</strong>
-          <small>what they say</small>
-        </a>
-        <ul>
-          <li><a href="#"><i class="fa fa-globe"></i>Other Fees ($0 pending)</a></li>
-          <li>
-            <a href="#"><i class="fa fa-group"></i>View Payments & Print Receipts</a>
-          </li>
-          <li><a href="#"><i class="fa fa-trophy"></i>View My Club Credit ($0)</a></li>
-          <li><a href="#"><i class="fa fa-certificate"></i>View My Package Credit (0.0)</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="" onclick="this.classList.toggle('active')">
-          <i class="fa fa-picture-o"></i>
-          <strong>Online Store</strong>
-          <small>sweet home</small>
-        </a>
-        <ul>
-          <li><a href="#"><i class="fa fa-female"></i>Order Product</a></li>
-          <li>
-            <a href="#"><i class="fa fa-male"></i>My Order History</a>
-          </li>
-          <li><a href="#"><i class="fa fa-female"></i>Viktoria Gibbers</a></li>
-        </ul>
-      </li>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-      <li>
-        <a href="">
-          <i class="fa fa-envelope-o"></i>
-          <strong>Player Directory</strong>
-          <small>drop a line</small>
-        </a>
-        <ul>
-          <li><a routerLink="./players"><i class="fa fa-female"></i>View Player List</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</div>
+    <img class="avatar mat-elevation-z8" src="assets/player.jpg"  alt="Your beautiful photo"/>
+
+    <h4 class="name">Big Bo</h4>
+    <p class="designation">Software Engineer</p>
+
+    <div fxShow="false" fxShow.lt-md="true" >
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button" routerLink="">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="./profile">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+    </div>
+
+
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button" routerLink="./store">
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Store</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="./players">
+      <mat-icon>people</mat-icon>
+      <span>Players</span>
+    </button>
+
+
+    <button mat-button class="menu-button" routerLink="./singles-tennis-ladder">
+      <mat-icon>info</mat-icon>
+      <span>Tennis Ladder</span>
+    </button>
+
+
+    <button mat-button class="menu-button" routerLink="./payments">
+      <mat-icon>payment</mat-icon>
+      <span>Payments</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="./court-booking">
+      <mat-icon>book_online</mat-icon>
+      <span>Court booking</span>
+    </button>
+
+
+    <div fxShow="false" fxShow.lt-md="true">
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+    </div>
+
+    <mat-divider></mat-divider>
+    <img src="assets/WTC.jpg" class="logo" alt="WTC logo">
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z15">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
