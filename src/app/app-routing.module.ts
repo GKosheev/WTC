@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {PlayerListComponent} from "./tennis/components/player-list/player-list.component";
 import {ProfileComponent} from "./tennis/components/profile/profile.component";
 import {HomeComponent} from "./shared/components/home/home.component";
-import {StoreComponent} from "./store/store.component";
+import {StoreComponent} from "./tennis/components/store/store.component";
 import {PlayerAuthGuard} from "./shared/services/auth guards/player/player.auth.guard";
 import {MembershipAuthGuard} from "./shared/services/auth guards/membership/membership.auth.guard";
 import {TennisLadderComponent} from "./tennis/components/tennis-ladder/tennis-ladder.component";

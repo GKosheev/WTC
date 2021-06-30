@@ -11,7 +11,7 @@ import {RegisterComponent} from './core/components/register/register.component';
 import {HomeComponent} from './shared/components/home/home.component';
 import {NavbarComponent} from './core/components/navbar/navbar.component';
 import {ProfileComponent} from './tennis/components/profile/profile.component';
-import {StoreComponent} from './store/store.component';
+import {StoreComponent} from './tennis/components/store/store.component';
 import {TennisLadderComponent} from './tennis/components/tennis-ladder/tennis-ladder.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {PaymentsComponent} from './tennis/components/payments/payments.component';
