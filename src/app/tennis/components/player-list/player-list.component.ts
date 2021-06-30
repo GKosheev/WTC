@@ -2,14 +2,10 @@ import {Component, AfterViewInit, ViewChild, OnInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {Player} from "../../../shared/interfaces/player";
 
 
-export interface Player {
-  name: string;
-  phone: string;
-  email: string;
-  rating: string;
-}
+
 
 
 const PLAYERS: Player[] = [
