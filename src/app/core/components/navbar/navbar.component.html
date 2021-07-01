@@ -9,23 +9,46 @@
   </button>
 
   Responsive side navigation
-
-  <div fxShow="true" fxHide.lt-md="true"  class="nav-buttons">
+  <div fxShow="true" fxHide.lt-md="true"  class="nav-buttons" *ngIf="player">
     <button mat-raised-button color="primary" class="nav-object" routerLink=""><mat-icon>home</mat-icon> Home</button>
     <button mat-raised-button color="primary" class="nav-object" routerLink="./profile"><mat-icon>person</mat-icon> Profile</button>
     <button mat-raised-button color="primary" class="nav-object"><mat-icon>logout</mat-icon> Logout</button>
   </div>
+
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <img class="avatar mat-elevation-z8" src="assets/player.jpg"  alt="Your beautiful photo"/>
+    <ng-template #anonymousUser>
+      <img class="avatar mat-elevation-z8" src="assets/anonymous.jpg"  alt="Your beautiful photo"/>
+      <h4 class="name">Anonymous User</h4>
+      <p class="designation">Anonymous</p>
+      <mat-divider></mat-divider>
 
+      <button mat-button class="menu-button" routerLink="">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+
+      <mat-divider></mat-divider>
+      <button mat-button class="menu-button" routerLink="./login">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+
+      <button mat-button class="menu-button" routerLink="./register">
+        <mat-icon>info</mat-icon>
+        <span>Register</span>
+      </button>
+    </ng-template>
+
+    <div *ngIf="this.player else anonymousUser">
+    <img class="avatar mat-elevation-z8" src="assets/player.jpg"  alt="Your beautiful photo"/>
     <h4 class="name">Big Bo</h4>
     <p class="designation">Software Engineer</p>
 
-    <div fxShow="false" fxShow.lt-md="true" >
+    <div fxShow="false" fxShow.lt-md="true">
     <mat-divider></mat-divider>
     <button mat-button class="menu-button" routerLink="">
       <mat-icon>home</mat-icon>
@@ -75,9 +98,12 @@
     </button>
     </div>
 
+    </div>
     <mat-divider></mat-divider>
     <img src="assets/WTC.jpg" class="logo" alt="WTC logo">
   </mat-sidenav>
+
+
   <mat-sidenav-content>
     <div class="content mat-elevation-z15">
       <router-outlet></router-outlet>

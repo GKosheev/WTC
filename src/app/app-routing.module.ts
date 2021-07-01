@@ -10,9 +10,23 @@ import {TennisLadderComponent} from "./tennis/components/tennis-ladder/tennis-la
 import {LadderAuthGuard} from "./shared/services/auth guards/ladder/ladder.auth.guard";
 import {PaymentsComponent} from "./tennis/components/payments/payments.component";
 import {CourtBookingComponent} from "./tennis/components/court-booking/court-booking.component";
+import {LoginComponent} from "./core/components/login/login.component";
+import {RegisterComponent} from "./core/components/register/register.component";
 
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
   {
     path: 'players',
     component: PlayerListComponent,
@@ -22,10 +36,6 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [PlayerAuthGuard]
-  },
-  {
-    path: '',
-    component: HomeComponent
   },
   {
     path: 'store',

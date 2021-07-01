@@ -16,6 +16,8 @@ import {TennisLadderComponent} from './tennis/components/tennis-ladder/tennis-la
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {PaymentsComponent} from './tennis/components/payments/payments.component';
 import {CourtBookingComponent} from './tennis/components/court-booking/court-booking.component';
+import {FormsModule} from "@angular/forms";
+import {MatOptionModule} from "@angular/material/core";
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import {CourtBookingComponent} from './tennis/components/court-booking/court-boo
     AppRoutingModule,
     DemoMaterialModule,  // stores all Angular material related modules
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    MatOptionModule
 
   ],
   providers: [],
