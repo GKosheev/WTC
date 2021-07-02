@@ -9,7 +9,7 @@ import {Player} from "../../../shared/interfaces/player";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
-  player: Player | undefined = {} as Player
+  player: Player | undefined
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;

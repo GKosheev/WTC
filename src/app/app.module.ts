@@ -16,7 +16,7 @@ import {TennisLadderComponent} from './tennis/components/tennis-ladder/tennis-la
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {PaymentsComponent} from './tennis/components/payments/payments.component';
 import {CourtBookingComponent} from './tennis/components/court-booking/court-booking.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatOptionModule} from "@angular/material/core";
 
 
@@ -34,16 +34,17 @@ import {MatOptionModule} from "@angular/material/core";
     PaymentsComponent,
     CourtBookingComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    DemoMaterialModule,  // stores all Angular material related modules
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    FormsModule,
-    MatOptionModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        DemoMaterialModule,  // stores all Angular material related modules
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        FormsModule,
+        MatOptionModule,
+        ReactiveFormsModule
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
