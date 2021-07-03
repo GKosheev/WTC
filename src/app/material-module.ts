@@ -15,6 +15,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatOptionModule} from "@angular/material/core";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   exports: [
@@ -33,7 +38,12 @@ import {MatSelectModule} from "@angular/material/select";
     MatMenuModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule
   ]
 })
 export class DemoMaterialModule {

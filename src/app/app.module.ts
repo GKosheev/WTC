@@ -17,7 +17,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {PaymentsComponent} from './tennis/components/payments/payments.component';
 import {CourtBookingComponent} from './tennis/components/court-booking/court-booking.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatOptionModule} from "@angular/material/core";
+
 
 
 @NgModule({
@@ -41,8 +41,7 @@ import {MatOptionModule} from "@angular/material/core";
         BrowserAnimationsModule,
         FlexLayoutModule,
         FormsModule,
-        MatOptionModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
 
     ],
   providers: [],
