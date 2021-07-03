@@ -23,7 +23,7 @@
         </mat-form-field>
         <mat-error *ngIf="2>1">{{serverValidationError}}</mat-error>
       </mat-card-content>
-      <button mat-stroked-button color="primary" class="btn-block">Log in</button>
+      <button mat-stroked-button color="primary" class="btn-block" (click)="login()">Log in</button>
     </form>
   </mat-card>
 
