@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import {Player} from "../../../shared/interfaces/player";
+import {User} from "../../../shared/interfaces/user";
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,7 @@ import {Player} from "../../../shared/interfaces/player";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
-  player: Player | undefined
+  player: User | undefined
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;

@@ -9,5 +9,14 @@ export interface IUserRegister {
   dateOfBirth: Date,
   receiveClubEmails: boolean,
   securityQuestion: string,
-  securityAnswer: string
+  securityAnswer: string,
+  streetAddress: string,
+  accommodation: string,
+  city: string,
+  province: string,
+  postalCode: string,
+  phone: string,
+  wtcAgreement: string,
+  wtcAgreement2: string,
+  covidAgreement: string
 }

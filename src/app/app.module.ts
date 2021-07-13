@@ -17,6 +17,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {PaymentsComponent} from './tennis/components/payments/payments.component';
 import {CourtBookingComponent} from './tennis/components/court-booking/court-booking.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { DialogFirstAgreementComponent } from './core/components/register dialog components/dialog-first-agreement/dialog-first-agreement.component';
+import { DialogSecondAgreementComponent } from './core/components/register dialog components/dialog-second-agreement/dialog-second-agreement.component';
+import { DialogCovidAgreementComponent } from './core/components/register dialog components/dialog-covid-agreement/dialog-covid-agreement.component';
 
 
 
@@ -32,7 +35,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     StoreComponent,
     TennisLadderComponent,
     PaymentsComponent,
-    CourtBookingComponent
+    CourtBookingComponent,
+    DialogFirstAgreementComponent,
+    DialogSecondAgreementComponent,
+    DialogCovidAgreementComponent
   ],
     imports: [
         BrowserModule,

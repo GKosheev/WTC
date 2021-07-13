@@ -2,13 +2,14 @@ import {Component, AfterViewInit, ViewChild, OnInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {Player} from "../../../shared/interfaces/player";
+import {ITableData} from "../../../shared/interfaces/i-table-data";
 
 
 
 
 
-const PLAYERS: Player[] = [
+
+const PLAYERS: ITableData[] = [
   {
     name: 'gleb',
     phone: '-',
@@ -62,7 +63,7 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
 
   dataLoaded: boolean;
   displayedColumns: string[] = ['name', 'phone', 'email', 'rating'];
-  dataSource = new  MatTableDataSource<Player>(PLAYERS);
+  dataSource = new  MatTableDataSource<ITableData>(PLAYERS);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
