@@ -45,10 +45,7 @@ const LocalLogin = new LocalStrategy({
 
 
 passport.serializeUser((user, done) => {
-    /*
     done(null, user._id)
-     */
-    done(null, user)
 })
 
 passport.deserializeUser((userId, done) => {

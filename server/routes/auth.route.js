@@ -9,3 +9,4 @@ router.post('/register', asyncHandler(controller.register), controller.login)
 router.post('/login', passport.authenticate('local'), controller.login)
 
 module.exports = router
+

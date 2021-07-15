@@ -19,8 +19,9 @@ mongoose()
 app.use(passport.initialize())
 
 app.use(express.static(__dirname + '../../../dist/wtc'))
-app.use('/*', homeRoute); // may be this route is unnecessary
+
 app.use('/api', allRoutes)
+app.use('/*', homeRoute);
 
 module.exports = app
 
