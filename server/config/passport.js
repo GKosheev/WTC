@@ -32,9 +32,9 @@ const LocalLogin = new LocalStrategy({
     usernameField: 'email'
 }, (email, password, done) => {
     User.findOne({email}, (err, user) => {
-        if (err) return done(err)
-        if (!user) return done(null, false)
-        if (!bcrypt.compare(password, user.hashedPassword)) return done(null, false)
+        if (err) {return done(err)}
+        if (!user) {return done(null, false)}
+        if (!bcrypt.compareSync(password, user.hashedPassword)) {return done(null, false)}
 
         user = user.toObject()
         delete user.hashedPassword
