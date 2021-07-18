@@ -12,7 +12,7 @@
   <div fxShow="true" fxHide.lt-md="true"  class="nav-buttons" *ngIf="player">
     <button mat-raised-button color="primary" class="nav-object" routerLink=""><mat-icon>home</mat-icon> Home</button>
     <button mat-raised-button color="primary" class="nav-object" routerLink="./profile"><mat-icon>person</mat-icon> Profile</button>
-    <button mat-raised-button color="primary" class="nav-object"><mat-icon>logout</mat-icon> Logout</button>
+    <button mat-raised-button color="primary" class="nav-object" (click)="logOut()"><mat-icon>logout</mat-icon> Logout</button>
   </div>
 
 </mat-toolbar>
@@ -92,7 +92,7 @@
 
     <div fxShow="false" fxShow.lt-md="true">
     <mat-divider></mat-divider>
-    <button mat-button class="menu-button">
+    <button mat-button class="menu-button" (click)="logOut()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>

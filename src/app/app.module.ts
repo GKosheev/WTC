@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_ID, APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -20,7 +20,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DialogFirstAgreementComponent } from './core/components/register dialog components/dialog-first-agreement/dialog-first-agreement.component';
 import { DialogSecondAgreementComponent } from './core/components/register dialog components/dialog-second-agreement/dialog-second-agreement.component';
 import { DialogCovidAgreementComponent } from './core/components/register dialog components/dialog-covid-agreement/dialog-covid-agreement.component';
+import {AuthService} from "./shared/services/auth/auth.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "./core/components/interceptors/header.interceptor";
+import {HttpClientModule} from '@angular/common/http';
 
+
+export function appInitializerFactory(authService: AuthService) {
+  return () => authService.checkTheUserOnFirstLoad();
+}
 
 
 @NgModule({
@@ -48,10 +56,25 @@ import { DialogCovidAgreementComponent } from './core/components/register dialog
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule
 
     ],
-  providers: [],
+  providers: [
+    AuthService,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      multi: true,
+      deps: [AuthService]
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

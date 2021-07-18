@@ -30,7 +30,7 @@ async function insertUser(user) {
 function generateToken(user) {
   const _id = user._id
 
-  const expiresIn = '25s'
+  const expiresIn = '15s'
 
   const payload = {
     sub: _id

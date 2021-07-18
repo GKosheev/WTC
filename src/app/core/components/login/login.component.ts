@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, Validators} from "@angular/forms";
 import {IUserLogin} from "../../../shared/interfaces/i-user-login";
+import {AuthService} from "../../../shared/services/auth/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   serverValidationError = ""
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -44,15 +45,9 @@ export class LoginComponent implements OnInit {
     }
 
     if (!this.email.invalid && !this.password.invalid) {
-      //http.post, error message should be hold in "serverValidationError"
-      /*
-      if (serverError){
-      this.serverValidationError = serverError
-      }
-      else
-          this.router.navigate(['/home']);
-
-       */
+        this.auth.login(logUser).subscribe(() => {
+          this.router.navigateByUrl('/')
+        })
     }
   }
 

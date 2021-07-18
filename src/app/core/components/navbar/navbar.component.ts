@@ -2,6 +2,8 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import {User} from "../../../shared/interfaces/user";
+import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../../../shared/services/auth/auth.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +11,18 @@ import {User} from "../../../shared/interfaces/user";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
-  player: User | undefined
+  player: User | null = null
+
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver) {
-
-  }
+  constructor(private observer: BreakpointObserver, private http: HttpClient, private auth: AuthService) {}
 
   async ngOnInit() {
+    this.auth.getUser().subscribe(user => {
+      this.player = user
+    })
     // async user load from Auth service
     // in order to change navbar if user isn't logged in
   }
@@ -33,5 +37,9 @@ export class NavbarComponent implements AfterViewInit, OnInit {
         this.sidenav.open();
       }
     });
+  }
+
+  logOut(): void {
+    this.auth.logOut()
   }
 }

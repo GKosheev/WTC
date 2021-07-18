@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {PlayerListComponent} from "./tennis/components/player-list/player-list.component";
 import {ProfileComponent} from "./tennis/components/profile/profile.component";
 import {HomeComponent} from "./shared/components/home/home.component";
@@ -60,7 +60,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy', useHash: true})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
