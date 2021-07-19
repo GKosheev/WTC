@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {DialogFirstAgreementComponent} from "../dialog-first-agreement/dialog-first-agreement.component";
 
 @Component({
   selector: 'app-dialog-second-agreement',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogSecondAgreementComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(public thisDialogRef: MatDialogRef<DialogFirstAgreementComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
   }
 
+  ngOnInit(): void {}
+
+  onCloseConfirm() {
+    this.thisDialogRef.close('Confirm');
+  }
+
+  onCloseCancel() {
+    this.thisDialogRef.close('Cancel');
+  }
 }

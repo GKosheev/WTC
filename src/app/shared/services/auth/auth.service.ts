@@ -89,7 +89,6 @@ export class AuthService {
 
 
   checkTheUserOnFirstLoad(): Promise<User | null> {
-  //  return firstValueFrom(this.me())
     return this.me().toPromise().then(data => {
       console.log("data from auth.service: " + JSON.stringify(data))
       return data

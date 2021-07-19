@@ -61,7 +61,6 @@ export function appInitializerFactory(authService: AuthService) {
     ],
   providers: [
     AuthService,
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   questionControl = new FormControl('', Validators.required)
   stepperOrientation: Observable<StepperOrientation>; // stepper
 
+
   constructor(private fb: FormBuilder, private observer: BreakpointObserver, public dialog: MatDialog) {
     this.stepperOrientation = observer.observe('(min-width: 800px')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'))
@@ -71,20 +72,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       password: ['', [Validators.required, Validators.pattern(regExp.password)]],
       confirmedPassword: ['', Validators.required],
       gender: ['unspecified'],
-      dateOfBirth: ['',
-        {
-          validators: [Validators.required],
-          updateOn: 'blur'
-        }],
+      dateOfBirth: ['', [Validators.required]],
       receiveClubEmails: false,
       securityQuestion: this.questionControl,
       securityAnswer: ['', [Validators.required, Validators.minLength(4)]],
       phone: ['', [Validators.required]],
-      wtcAgreement: false,
-      wtcAgreement2: ['', [Validators.required]],
-      covidAgreement: false
+      clubPolicy: '',
+      privacyPolicy: '',
+      covidPolicy: ''
     }, {
-      validator: MustMatch('password', 'confirmedPassword'),
+      validator: MustMatch('password', 'confirmedPassword')
     });
 
     // this.registerForm.controls.registrationType.disable(); // Non-Member is constant value for new users
@@ -98,39 +95,48 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     return this.registerForm.controls; // for easier access
   }
 
-  dialogResult: any;
-
   openFirstAgreement() {
-    const firstAgreement = this.dialog.open(DialogFirstAgreementComponent, {
+    const clubPolicy = this.dialog.open(DialogFirstAgreementComponent, {
       width: '600px'
     });
 
-    firstAgreement.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
-      this.dialogResult = result;
-    });
-    firstAgreement.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    clubPolicy.afterClosed().subscribe(result => {
+      this.registerForm.controls['clubPolicy'].setValue(result)
     });
   }
 
-  openSecondAgreement(){
-    const secondAgreement = this.dialog.open(DialogSecondAgreementComponent, {
+  openSecondAgreement() {
+    const privacyPolicy = this.dialog.open(DialogSecondAgreementComponent, {
       width: '600px'
     });
 
+    privacyPolicy.afterClosed().subscribe(result => {
+      this.registerForm.controls['privacyPolicy'].setValue(result)
+    })
+
   }
-  openCovidAgreement(){
-    const covidAgreement = this.dialog.open(DialogCovidAgreementComponent, {
+
+  openCovidAgreement() {
+    const covidPolicy = this.dialog.open(DialogCovidAgreementComponent, {
       width: '600px'
     });
+    covidPolicy.afterClosed().subscribe(result => {
+      this.registerForm.controls['covidPolicy'].setValue(result)
+    })
   }
 
 
+  agreementIsValid(): boolean {
+    return this.f['clubPolicy'].value === 'Confirm' && this.f['privacyPolicy'].value === 'Confirm' &&
+      this.f['covidPolicy'].value === 'Confirm'
+  }
+
+errorMessage: string = ''
   onSubmit(): void {
     console.log(this.registerForm.value)
     //TODO if statement might not be important due to [disabled]="!registerForm.valid"  html (line 108)
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || !this.agreementIsValid()) {
+      this.errorMessage = 'something went wrong'
       return;
     } else {
 
