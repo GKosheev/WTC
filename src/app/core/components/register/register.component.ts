@@ -7,10 +7,12 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-
+import {IUserRegister} from "../../../shared/interfaces/i-user-register";
 import {DialogFirstAgreementComponent} from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
 import {DialogSecondAgreementComponent} from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
 import {DialogCovidAgreementComponent} from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
+import {AuthService} from "../../../shared/services/auth/auth.service";
+import {Router} from "@angular/router";
 
 function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
@@ -58,7 +60,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   stepperOrientation: Observable<StepperOrientation>; // stepper
 
 
-  constructor(private fb: FormBuilder, private observer: BreakpointObserver, public dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private observer: BreakpointObserver, public dialog: MatDialog, private auth: AuthService, private router: Router) {
     this.stepperOrientation = observer.observe('(min-width: 800px')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'))
   }
@@ -125,7 +127,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     })
   }
 
-
   agreementIsValid(): boolean {
     return this.f['clubPolicy'].value === 'Confirm' && this.f['privacyPolicy'].value === 'Confirm' &&
       this.f['covidPolicy'].value === 'Confirm'
@@ -139,7 +140,11 @@ errorMessage: string = ''
       this.errorMessage = 'something went wrong'
       return;
     } else {
-
+      let userRegister: IUserRegister = this.registerForm.value
+      console.log("userRegister: "+ '\n' + JSON.stringify(userRegister))
+      this.auth.register(userRegister).subscribe(() => {
+        this.router.navigateByUrl('/')
+      })
       //TODO server-side email checking with further registration
     }
   }

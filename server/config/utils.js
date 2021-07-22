@@ -10,20 +10,31 @@ const userSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().email(),
+  registrationType: "nonMember",
   password: Joi.string().required().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
-  repeatPassword: Joi.string().required().valid(Joi.ref('password'))
+  repeatPassword: Joi.string().required().valid(Joi.ref('password')),
+  gender: Joi.required(),
+  dateOfBirth: Joi.date().required(),
+  receiveClubEmails: Joi.bool().required(),
+  securityQuestion: Joi.string().required(),
+  securityAnswer: Joi.string().required(),
+  phone: Joi.string().required(),
+  clubPolicy: Joi.string().required(),
+  privacyPolicy: Joi.string().required(),
+  covidPolicy: Joi.string().required()
 })
 
 async function insertUser(user) {
-  console.log(JSON.stringify(user))
-  user = await userSchema.validate(user)
-  user.value.hashedPassword = bcrypt.hashSync(user.value.password, 10)
-  user.value.test = 'test'
-  delete user.value.password
+  let userRegister = user.userRegister
+  userRegister = await userSchema.validate(userRegister)
+  userRegister.value.roles = [userRegister.value.registrationType]
+  userRegister.value.hashedPassword = bcrypt.hashSync(userRegister.value.password, 10)
+  userRegister.value.test = 'test'
+  delete userRegister.value.password
+  delete userRegister.value.registrationType
   // TODO should we delete user.value.repeatPassword?
 
-  console.log(JSON.stringify(user.value))
-  return await new User(user.value).save()
+  return await new User(userRegister.value).save()
 }
 
 

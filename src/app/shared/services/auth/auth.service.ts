@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   register(userRegister: IUserRegister): Observable<User> {
-    return this.http.post<AuthResponse>('/api/auth/register', {userRegister})
+    return this.http.post<AuthResponse>('http://localhost:5000/api/auth/register', {userRegister})
       .pipe(
         tap(({token, user}) => {
           this.setUser(user);

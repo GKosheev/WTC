@@ -131,7 +131,7 @@
           <button class="policy" mat-button mat-raised-button (click)="openCovidAgreement()">COVID 19 Agreement</button>
           <br>
           <br>
-          <button mat-stroked-button type="submit" color="primary" class="btn-block" [disabled]="!registerForm.valid || !agreementIsValid()">Register</button>
+          <button mat-stroked-button type="submit" color="primary" class="btn-block" [disabled]="!registerForm.valid || !agreementIsValid()" (click)="onSubmit()">Register</button>
         </form>
       </mat-card>
     </mat-step>
