@@ -23,7 +23,6 @@ interface AuthResponse {
 export class AuthService {
 
   private user$ = new BehaviorSubject<User | null>(null);
-  private user: User = {} as User
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorage, private router: Router) {}
 

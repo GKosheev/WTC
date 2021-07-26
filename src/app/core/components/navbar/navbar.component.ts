@@ -12,7 +12,8 @@ import {AuthService} from "../../../shared/services/auth/auth.service";
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
   player: User | null = null
-
+  firstName: string | undefined = undefined
+  lastName: string | undefined = undefined
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -22,6 +23,8 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   async ngOnInit() {
     this.auth.getUser().subscribe(user => {
       this.player = user
+      this.firstName = user?.firstName
+      this.lastName = user?.lastName
     })
     // async user load from Auth service
     // in order to change navbar if user isn't logged in

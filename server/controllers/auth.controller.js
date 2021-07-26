@@ -13,6 +13,8 @@ module.exports.register = async function (req, res, next) {
 
 module.exports.login = function (req, res) {
     let user = req.user
+    user = user.toObject()
+    delete user.hashedPassword
     let token = generateToken(user)
     res.json({user, token})
 }

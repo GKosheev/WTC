@@ -45,7 +45,7 @@
 
     <div *ngIf="this.player else anonymousUser">
     <img class="avatar mat-elevation-z8" src="assets/player.jpg"  alt="Your beautiful photo"/>
-    <h4 class="name">Big Bo</h4>
+    <h4 class="name">{{this.firstName+ ' ' + this.lastName}}</h4>
     <p class="designation">Software Engineer</p>
 
     <div fxShow="false" fxShow.lt-md="true">
