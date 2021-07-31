@@ -56,6 +56,8 @@ const PLAYERS: ITableData[] = [
 })
 export class PlayerListComponent implements AfterViewInit, OnInit {
 
+  //TODO player-list component TS
+
   constructor() {
     this.dataLoaded = false;
 
