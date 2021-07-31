@@ -19,7 +19,7 @@ function MustMatch(controlName: string, matchingControlName: string) {
     const control = formGroup.controls[controlName];
     const matchingControl = formGroup.controls[matchingControlName];
 
-    // TODO I think if statement is not necessary
+    // I think if statement is not necessary
     if (matchingControl.errors && !matchingControl.errors.mustMatch) {
       // return if another validator has already found an error on the matchingControl
       return;
@@ -135,7 +135,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 errorMessage: string = ''
   onSubmit(): void {
     console.log(this.registerForm.value)
-    //TODO if statement might not be important due to [disabled]="!registerForm.valid"  html (line 108)
+    //if statement might not be important due to [disabled]="!registerForm.valid"  html (line 108)
     if (this.registerForm.invalid || !this.agreementIsValid()) {
       this.errorMessage = 'something went wrong'
       return;
@@ -145,7 +145,7 @@ errorMessage: string = ''
       this.auth.register(userRegister).subscribe(() => {
         this.router.navigateByUrl('/')
       })
-      //TODO server-side email checking with further registration
+      //server-side email checking with further registration
     }
   }
 }

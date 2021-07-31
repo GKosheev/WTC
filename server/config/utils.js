@@ -32,7 +32,6 @@ async function insertUser(user) {
   userRegister.value.test = 'test'
   delete userRegister.value.password
   delete userRegister.value.registrationType
-  // TODO should we delete user.value.repeatPassword?
 
   return await new User(userRegister.value).save()
 }
