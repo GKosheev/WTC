@@ -21,6 +21,8 @@ const JwtLogin = new JwtStrategy(options, (jwt_payload, done) => {
             return done(err, false)
         }
         if (user) {
+            user = user.toObject()
+            delete user.hashedPassword
             return done(null, user)
         } else {
             return done(null, false)
@@ -38,6 +40,7 @@ const LocalLogin = new LocalStrategy({
 
         user = user.toObject()
         delete user.hashedPassword
+
         done(null, user)
     })
 })
