@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {regExp} from "../../../shared/regExp/regExp";
 import {BreakpointObserver} from "@angular/cdk/layout";
