@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-profile',
@@ -7,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   // TODO TS
+  receiveClubEmails = true;
+  shareEmail = false;
+  message = new FormControl('Your email will be added to the list of players');
+
   constructor() { }
 
   ngOnInit(): void {
