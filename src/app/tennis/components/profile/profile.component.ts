@@ -7,7 +7,6 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  // TODO TS
   receiveClubEmails = true;
   shareEmail = false;
   message = new FormControl('Your email will be added to the list of players');
