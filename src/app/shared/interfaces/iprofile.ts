@@ -1,5 +1,6 @@
 export interface IProfile {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   registerType: string;
   phone: string;

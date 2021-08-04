@@ -1,5 +1,6 @@
 export interface IProfileEdit {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   twitter: string;
   instagram: string;
