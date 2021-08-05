@@ -5,37 +5,58 @@ const jsonwebtoken = require('jsonwebtoken');
 const Joi = require('joi')
 const User = require('../models/user.model')
 
-
-const userSchema = Joi.object({
+const userProfile = Joi.object().keys({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  email: Joi.string().email(),
+  email: Joi.string().email().required(),
   registrationType: "nonMember",
-  password: Joi.string().required().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
-  repeatPassword: Joi.string().required().valid(Joi.ref('password')),
+  phone: Joi.string().required(),
   gender: Joi.required(),
   dateOfBirth: Joi.date().required(),
-  receiveClubEmails: Joi.bool().required(),
+  receiveClubEmails: Joi.bool().required()
+})
+
+
+const userSchema = Joi.object({
+  profile: userProfile,
+  password: Joi.string().required().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
+  repeatPassword: Joi.string().required().valid(Joi.ref('password')),
   securityQuestion: Joi.string().required(),
   securityAnswer: Joi.string().required(),
-  phone: Joi.string().required(),
   clubPolicy: Joi.string().required(),
   privacyPolicy: Joi.string().required(),
   covidPolicy: Joi.string().required()
 })
 
-async function insertUser(user) {
-  let userRegister = user.userRegister
-  userRegister = await userSchema.validate(userRegister)
-  userRegister.value.roles = [userRegister.value.registrationType]
-  userRegister.value.hashedPassword = bcrypt.hashSync(userRegister.value.password, 10)
-  userRegister.value.test = 'test'
-  delete userRegister.value.password
-  delete userRegister.value.registrationType
+async function insertUser(data) {
+  //console.log(JSON.stringify(data))
+  let user = data.user;
+  user = await userSchema.validate(user);
+  user.value.roles = [user.value.profile.registrationType]
+  user.value.hashedPassword = bcrypt.hashSync(user.value.password, 10)
 
-  return await new User(userRegister.value).save()
+  let secureAnswer = user.value.securityAnswer;
+  user.value.securityAnswer = bcrypt.hashSync(secureAnswer, 10)
+  user.value.profile.memberID = await generateId()
+  user.value.profile.twitter = '-'
+  user.value.profile.instagram = '-'
+  user.value.profile.facebook = '-'
+  user.value.profile.shareMyEmail = false
+  user.value.profile.rating = '-'
+  delete user.value.password
+  return await new User(user.value).save()
 }
 
+async function generateId(){
+  let randomNumber = (Math.random() * (999999-100000 + 1) | 0) + 100000
+  let user = await User.findOne({"profile.memberID": randomNumber})
+  //console.log("findOne: " + user)
+  if (user) {
+    return generateId()
+  }
+ // console.log("return random number: " + randomNumber)
+  return randomNumber;
+}
 
 function generateToken(user) {
   const _id = user._id
