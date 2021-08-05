@@ -7,7 +7,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {IUserRegister} from "../../../shared/interfaces/i-user-register";
+import {IUserRegister} from "../../../shared/interfaces/auth/i-user-register";
 import {DialogFirstAgreementComponent} from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
 import {DialogSecondAgreementComponent} from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
 import {DialogCovidAgreementComponent} from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
@@ -172,13 +172,34 @@ export class RegisterComponent implements OnInit {
   errorMessage: string = ''
 
   onSubmit(): void {
-    console.log(this.registerForm.value)
+    // console.log(this.registerForm.value)
+
     //if statement might not be important due to [disabled]="!registerForm.valid"
     if (this.registerForm.invalid || !this.agreementIsValid()) {
       this.errorMessage = 'something went wrong'
       return;
     } else {
-      let userRegister: IUserRegister = this.registerForm.value
+
+     // let userRegister: IUserRegister = this.registerForm.value
+      let userRegister: IUserRegister = {
+        profile: {
+          firstName: this.registerForm.get('firstName').value,
+          lastName: this.registerForm.get('lastName').value,
+          email: this.registerForm.get('email').value,
+          registrationType: this.registerForm.get('registrationType').value,
+          phone: this.registerForm.get('phone').value,
+          gender: this.registerForm.get('gender').value,
+          dateOfBirth: this.registerForm.get('dateOfBirth').value,
+          receiveClubEmails: this.registerForm.get('receiveClubEmails').value
+        },
+        password: this.registerForm.get('password').value,
+        confirmedPassword: this.registerForm.get('confirmedPassword').value,
+        securityQuestion: this.registerForm.get('securityQuestion').value,
+        securityAnswer: this.registerForm.get('securityAnswer').value,
+        clubPolicy: this.registerForm.get('clubPolicy').value,
+        privacyPolicy: this.registerForm.get('privacyPolicy').value,
+        covidPolicy: this.registerForm.get('covidPolicy').value
+      };
       console.log("userRegister: " + '\n' + JSON.stringify(userRegister))
       this.auth.register(userRegister).subscribe(() => {
         this.router.navigateByUrl('/')
