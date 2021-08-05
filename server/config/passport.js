@@ -33,7 +33,7 @@ const JwtLogin = new JwtStrategy(options, (jwt_payload, done) => {
 const LocalLogin = new LocalStrategy({
     usernameField: 'email'
 }, (email, password, done) => {
-    User.findOne({email}, (err, user) => {
+    User.findOne({"profile.email":email}, (err, user) => {
         if (err) {return done(err)}
         if (!user) {return done(null, false)}
         if (!bcrypt.compareSync(password, user.hashedPassword)) {return done(null, false)}
