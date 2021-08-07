@@ -13,25 +13,25 @@ export class ProfileService {
   private USER_PROFILE_URL = '';
   private SAVE_CHANGES_URL = '';
 
-  private user$ = new BehaviorSubject<IProfile | null>(null)
+  private user$ = new BehaviorSubject<IProfile | undefined>(undefined)
 
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
   loadUserProfile(): void{
-    /*
     this.auth.getUser()
       .subscribe(user => {
-        this.setUserProfile(user.info)
+        this.setUserProfile(user?.profile)
       })
-    */
+
   }
 
-  setUserProfile(user: IProfile | null): void {
+  setUserProfile(user: IProfile | undefined): void {
     this.user$.next(user)
   }
 
-  getUserProfile(): Observable<IProfile | null> {
+  getUserProfile(): Observable<IProfile | undefined> {
+    this.loadUserProfile()
     return this.user$.asObservable()
   }
 
