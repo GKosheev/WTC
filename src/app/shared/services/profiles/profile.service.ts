@@ -5,6 +5,7 @@ import {IProfileEdit} from "../../interfaces/iprofile-edit";
 import {HttpClient} from "@angular/common/http";
 import {pluck, tap} from "rxjs/operators";
 import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class ProfileService {
 
   private user$ = new BehaviorSubject<IProfile | undefined>(undefined)
 
-  constructor(private http: HttpClient, private auth: AuthService) {
+  constructor(private router: Router, private http: HttpClient, private auth: AuthService) {
   }
 
-  loadUserProfile(): void{
+  loadUserProfile(): void {
     this.auth.getUser()
       .subscribe(user => {
         this.setUserProfile(user?.profile)
@@ -33,6 +34,11 @@ export class ProfileService {
   getUserProfile(): Observable<IProfile | undefined> {
     this.loadUserProfile()
     return this.user$.asObservable()
+  }
+
+  saveChanges(user: IProfile | undefined): void {
+    // TODO
+    this.router.navigateByUrl('/profile')
   }
 
 }
