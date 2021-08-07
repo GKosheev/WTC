@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
 import {IProfile} from "../../../shared/interfaces/iprofile";
 import {ProfileService} from "../../../shared/services/profiles/profile.service";
 
@@ -9,22 +8,19 @@ import {ProfileService} from "../../../shared/services/profiles/profile.service"
   styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
-  receiveClubEmails = true;
-  shareEmail = false;
-  twitter = '-'
-  instagram = '-'
-  facebook = '-'
-  userProfile: IProfile | null = null
+  profile: IProfile = {} as IProfile
 
-  constructor(private router: Router, private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
     this.profileService.getUserProfile().subscribe(user => {
-      this.userProfile = user
+      if (user !== undefined) {
+        this.profile = user
+      }
     })
   }
   saveChanges(): void{
-    // TODO
-    this.router.navigateByUrl('/profile')
+   // console.log("changed data: " + JSON.stringify(this.profile))
+    this.profileService.saveChanges(this.profile)
   }
 }
