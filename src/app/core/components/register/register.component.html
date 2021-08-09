@@ -2,10 +2,10 @@
 
 
   <mat-stepper [orientation]="(stepperOrientation | async)!">
-    <mat-step [stepControl]="registerForm" label="Fill your general information">
+    <mat-step [stepControl]="registerForm" label="Fill your general information" errorMessage="Fill the form">
 
-      <mat-card class="box">
-      <form class="example-form" [formGroup]="registerForm">
+      <form [formGroup]="registerForm" class="example-form">
+
         <mat-card-content>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="First Name" formControlName="firstName">
@@ -117,13 +117,11 @@
         <button mat-button mat-raised-button matStepperNext>Next</button>
 
       </form>
-      </mat-card>
     </mat-step>
 
 
-    <mat-step [stepControl]="registerForm" label="Confirm club rules">
-      <mat-card class="box">
-        <form class="example-form" [formGroup]="registerForm">
+    <mat-step [stepControl]="registerForm2" label="Confirm club rules">
+        <form class="example-form" [formGroup]="registerForm2">
           <button class="policy" mat-button mat-raised-button (click)="openFirstAgreement()">Club policy</button>
             <br>
           <button class="policy" mat-button mat-raised-button (click)="openSecondAgreement()">Privacy policy</button>
@@ -133,7 +131,6 @@
           <br>
           <button mat-stroked-button type="submit" color="primary" class="btn-block" [disabled]="!registerForm.valid || !agreementIsValid()" (click)="onSubmit()">Register</button>
         </form>
-      </mat-card>
     </mat-step>
 
   </mat-stepper>

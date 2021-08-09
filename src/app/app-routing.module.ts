@@ -12,6 +12,7 @@ import {PaymentsComponent} from "./tennis/components/payments/payments.component
 import {CourtBookingComponent} from "./tennis/components/court-booking/court-booking.component";
 import {LoginComponent} from "./core/components/login/login.component";
 import {RegisterComponent} from "./core/components/register/register.component";
+import {ProfileEditComponent} from "./tennis/components/profile-edit/profile-edit.component";
 
 
 const routes: Routes = [
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [PlayerAuthGuard]
+  },
+  {
+    path:'profile-edit',
+    component: ProfileEditComponent,
     canActivate: [PlayerAuthGuard]
   },
   {

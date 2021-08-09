@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {regExp} from "../../../shared/regExp/regExp";
 import {BreakpointObserver} from "@angular/cdk/layout";
@@ -7,7 +7,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {IUserRegister} from "../../../shared/interfaces/i-user-register";
+import {IUserRegister} from "../../../shared/interfaces/auth/i-user-register";
 import {DialogFirstAgreementComponent} from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
 import {DialogSecondAgreementComponent} from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
 import {DialogCovidAgreementComponent} from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
@@ -34,17 +34,41 @@ function MustMatch(controlName: string, matchingControlName: string) {
   }
 }
 
+function MustBeConfirmed() {
+  return (formGroup: FormGroup) => {
+    const conf1 = formGroup.controls['clubPolicy']
+    const conf2 = formGroup.controls['privacyPolicy']
+    const conf3 = formGroup.controls['covidPolicy']
+
+    if (conf1.value !== 'Confirm') {
+      conf1.setErrors({MustBeConfirmed: false})
+    } else if (conf2.value !== 'Confirm') {
+      conf2.setErrors({MustBeConfirmed: false})
+    } else if (conf3.value !== 'Confirm') {
+      conf3.setErrors({MustBeConfirmed: false})
+    } else {
+      conf1.setErrors(null)
+      conf2.setErrors(null)
+      conf3.setErrors(null)
+    }
+
+  }
+}
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false, showError: true}
   }]
 })
-export class RegisterComponent implements OnInit, AfterViewInit {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup | any;
+  registerForm2: FormGroup | any;
+
+  finalForm: FormGroup | any;
 
   hidePass = true;
   hideConfPass = true;
@@ -61,7 +85,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
 
   constructor(private fb: FormBuilder, private observer: BreakpointObserver, public dialog: MatDialog, private auth: AuthService, private router: Router) {
-    this.stepperOrientation = observer.observe('(min-width: 800px')
+    this.stepperOrientation = observer.observe('(min-width: 959px')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'))
   }
 
@@ -86,16 +110,26 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       validator: MustMatch('password', 'confirmedPassword')
     });
 
+    this.registerForm2 = this.fb.group({
+      clubPolicy: '',
+      privacyPolicy: '',
+      covidPolicy: ''
+    }, {
+      validator: MustBeConfirmed()
+    })
     // this.registerForm.controls.registrationType.disable(); // Non-Member is constant value for new users
-  }
 
-  ngAfterViewInit() {
 
   }
 
   get f() {
     return this.registerForm.controls; // for easier access
   }
+
+  get f2() {
+    return this.registerForm2.controls;
+  }
+
 
   openFirstAgreement() {
     const clubPolicy = this.dialog.open(DialogFirstAgreementComponent, {
@@ -104,6 +138,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     clubPolicy.afterClosed().subscribe(result => {
       this.registerForm.controls['clubPolicy'].setValue(result)
+      this.registerForm2.controls['clubPolicy'].setValue(result)
     });
   }
 
@@ -114,6 +149,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     privacyPolicy.afterClosed().subscribe(result => {
       this.registerForm.controls['privacyPolicy'].setValue(result)
+      this.registerForm2.controls['privacyPolicy'].setValue(result)
     })
 
   }
@@ -124,24 +160,47 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     });
     covidPolicy.afterClosed().subscribe(result => {
       this.registerForm.controls['covidPolicy'].setValue(result)
+      this.registerForm2.controls['covidPolicy'].setValue(result)
     })
   }
 
   agreementIsValid(): boolean {
-    return this.f['clubPolicy'].value === 'Confirm' && this.f['privacyPolicy'].value === 'Confirm' &&
-      this.f['covidPolicy'].value === 'Confirm'
+    return this.f2['clubPolicy'].value === 'Confirm' && this.f2['privacyPolicy'].value === 'Confirm' &&
+      this.f2['covidPolicy'].value === 'Confirm'
   }
 
-errorMessage: string = ''
+  errorMessage: string = ''
+
   onSubmit(): void {
-    console.log(this.registerForm.value)
-    //if statement might not be important due to [disabled]="!registerForm.valid"  html (line 108)
+    // console.log(this.registerForm.value)
+
+    //if statement might not be important due to [disabled]="!registerForm.valid"
     if (this.registerForm.invalid || !this.agreementIsValid()) {
       this.errorMessage = 'something went wrong'
       return;
     } else {
-      let userRegister: IUserRegister = this.registerForm.value
-      console.log("userRegister: "+ '\n' + JSON.stringify(userRegister))
+
+     // let userRegister: IUserRegister = this.registerForm.value
+      let userRegister: IUserRegister = {
+        profile: {
+          firstName: this.registerForm.get('firstName').value,
+          lastName: this.registerForm.get('lastName').value,
+          email: this.registerForm.get('email').value,
+          registrationType: this.registerForm.get('registrationType').value,
+          phone: this.registerForm.get('phone').value,
+          gender: this.registerForm.get('gender').value,
+          dateOfBirth: this.registerForm.get('dateOfBirth').value,
+          receiveClubEmails: this.registerForm.get('receiveClubEmails').value
+        },
+        password: this.registerForm.get('password').value,
+        confirmedPassword: this.registerForm.get('confirmedPassword').value,
+        securityQuestion: this.registerForm.get('securityQuestion').value,
+        securityAnswer: this.registerForm.get('securityAnswer').value,
+        clubPolicy: this.registerForm.get('clubPolicy').value,
+        privacyPolicy: this.registerForm.get('privacyPolicy').value,
+        covidPolicy: this.registerForm.get('covidPolicy').value
+      };
+      console.log("userRegister: " + '\n' + JSON.stringify(userRegister))
       this.auth.register(userRegister).subscribe(() => {
         this.router.navigateByUrl('/')
       })

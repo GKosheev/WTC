@@ -11,7 +11,7 @@ import {AuthService} from "../../../shared/services/auth/auth.service";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
-  player: User | null = null
+  user: User | null = null
   firstName: string | undefined = undefined
   lastName: string | undefined = undefined
 
@@ -22,9 +22,9 @@ export class NavbarComponent implements AfterViewInit, OnInit {
 
   async ngOnInit() {
     this.auth.getUser().subscribe(user => {
-      this.player = user
-      this.firstName = user?.firstName
-      this.lastName = user?.lastName
+      this.user = user
+      this.firstName = user?.profile.firstName
+      this.lastName = user?.profile.lastName
     })
     // async user load from Auth service
     // in order to change navbar if user isn't logged in

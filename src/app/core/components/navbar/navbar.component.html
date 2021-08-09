@@ -9,7 +9,7 @@
   </button>
 
   Waterloo Tennis Club
-  <div fxShow="true" fxHide.lt-md="true"  class="nav-buttons" *ngIf="player">
+  <div fxShow="true" fxHide.lt-md="true"  class="nav-buttons" *ngIf="user">
     <button mat-raised-button color="primary" class="nav-object" routerLink=""><mat-icon>home</mat-icon> Home</button>
     <button mat-raised-button color="primary" class="nav-object" routerLink="./profile"><mat-icon>person</mat-icon> Profile</button>
     <button mat-raised-button color="primary" class="nav-object" (click)="logOut()"><mat-icon>logout</mat-icon> Logout</button>
@@ -43,7 +43,7 @@
       </button>
     </ng-template>
 
-    <div *ngIf="this.player else anonymousUser">
+    <div *ngIf="this.user else anonymousUser">
     <img class="avatar mat-elevation-z8" src="assets/player.jpg"  alt="Your beautiful photo"/>
     <h4 class="name">{{this.firstName+ ' ' + this.lastName}}</h4>
     <p class="designation">Software Engineer</p>
@@ -105,8 +105,6 @@
 
 
   <mat-sidenav-content>
-    <div class="content mat-elevation-z15">
       <router-outlet></router-outlet>
-    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {User} from "../../interfaces/user";
 import {HttpClient} from "@angular/common/http";
-import {IUserRegister} from "../../interfaces/i-user-register";
+import {IUserRegister} from "../../interfaces/auth/i-user-register";
 import {catchError, pluck, tap} from "rxjs/operators";
 
 import {TokenStorage} from './token.storage';
-import {IUserLogin} from "../../interfaces/i-user-login";
+import {IUserLogin} from "../../interfaces/auth/i-user-login";
 import {IToken} from "../../interfaces/itoken";
 import {Router} from "@angular/router";
-import {BoundEventAst} from "@angular/compiler";
 
 interface AuthResponse {
   token: IToken;
@@ -43,8 +42,8 @@ export class AuthService {
       )
   }
 
-  register(userRegister: IUserRegister): Observable<User> {
-    return this.http.post<AuthResponse>('http://localhost:5000/api/auth/register', {userRegister})
+  register(user: IUserRegister): Observable<User> {
+    return this.http.post<AuthResponse>('http://localhost:5000/api/auth/register', {user})
       .pipe(
         tap(({token, user}) => {
           this.setUser(user);
@@ -89,7 +88,9 @@ export class AuthService {
 
   checkTheUserOnFirstLoad(): Promise<User | null> {
     return this.me().toPromise().then(data => {
-      console.log("data from auth.service: " + JSON.stringify(data))
+      if (data === null){
+        this.logOut()
+      }
       return data
     })
   }
