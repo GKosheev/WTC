@@ -9,7 +9,6 @@ import {TokenStorage} from './token.storage';
 import {IUserLogin} from "../../interfaces/auth/i-user-login";
 import {IToken} from "../../interfaces/itoken";
 import {Router} from "@angular/router";
-import {BoundEventAst} from "@angular/compiler";
 
 interface AuthResponse {
   token: IToken;
@@ -89,7 +88,9 @@ export class AuthService {
 
   checkTheUserOnFirstLoad(): Promise<User | null> {
     return this.me().toPromise().then(data => {
-      console.log("data from auth.service: " + JSON.stringify(data))
+      if (data === null){
+        this.logOut()
+      }
       return data
     })
   }
