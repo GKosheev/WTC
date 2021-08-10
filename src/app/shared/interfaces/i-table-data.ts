@@ -1,5 +1,5 @@
 export interface ITableData {
-  name: string,
+  fullName: string,
   phone: string,
   email: string,
   rating: string
