@@ -1,9 +1,28 @@
+$base_width: 100%;
+.table-config {
+  margin: 16px 16px 16px 32px;
+
+}
+
+
 table {
-  width: 100%;
+  width: $base_width;
+}
+
+.paginator {
+  width: $base_width;
+}
+
+.filter {
+  background-color: white;
 }
 
 .mat-form-field {
   top: 20px;
   font-size: 14px;
-  width: 100%;
+  width: $base_width;
+}
+
+td, th {
+  width: 27%;
 }

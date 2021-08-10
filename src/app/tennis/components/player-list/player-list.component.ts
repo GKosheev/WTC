@@ -3,50 +3,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ITableData} from "../../../shared/interfaces/i-table-data";
+import {TableService} from "../../../shared/services/player list/table.service";
 
-
-
-
-
-
-const PLAYERS: ITableData[] = [
-  {
-    name: 'gleb',
-    phone: '-',
-    email:'-',
-    rating: '1'
-  },
-  {
-    name: 'anton',
-    phone: '-',
-    email:'-',
-    rating: '2'
-  },
-  {
-    name: 'oleg',
-    phone: '-',
-    email: '-',
-    rating: '3'
-  },
-  {
-    name: 'eneg',
-    phone: '-',
-    email:'-',
-    rating: '4'
-  },
-  {
-    name: 'sergey',
-    phone: '-',
-    email:'-',
-    rating: '5'
-  },
-  {
-    name: 'aleg',
-    phone: '-',
-    email:'-',
-    rating: '6'
-  }
-]
 
 
 @Component({
@@ -56,30 +14,32 @@ const PLAYERS: ITableData[] = [
 })
 export class PlayerListComponent implements AfterViewInit, OnInit {
 
-  //TODO player-list component TS
-
-  constructor() {
+  constructor(private tableService: TableService) {
     this.dataLoaded = false;
-
   }
 
   dataLoaded: boolean;
-  displayedColumns: string[] = ['name', 'phone', 'email', 'rating'];
-  dataSource = new  MatTableDataSource<ITableData>(PLAYERS);
+  displayedColumns: string[] = ['fullName', 'phone', 'email', 'rating'];
+  dataSource = new MatTableDataSource<ITableData>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
+  ngOnInit() {
+    this.tableService.loadTableData().subscribe(data => {
+      let users: ITableData[] = [];
+      data.forEach(data => {
+        users.push(data.user)
+      })
+      this.dataSource.data = users
+    })
+    //TODO add progress spinner if data isn't loaded
+    this.dataLoaded = true;
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  ngOnInit() {
-    //server logic implementation
-    this.dataSource.data = PLAYERS;
-    this.dataLoaded = true;
   }
 
 
