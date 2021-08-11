@@ -22,6 +22,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatNativeDateModule,
     MatCheckboxModule,
     MatStepperModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressBarModule
   ]
 })
 export class DemoMaterialModule {
