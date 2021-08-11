@@ -1,6 +1,9 @@
 export interface ITableData {
-  fullName: string,
-  phone: string,
-  email: string,
-  rating: string
+  id: string,
+  user: {
+    fullName: string,
+    phone: string,
+    email: string,
+    rating: string
+  }
 }

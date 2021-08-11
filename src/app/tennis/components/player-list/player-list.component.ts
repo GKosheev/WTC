@@ -19,7 +19,7 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
   }
 
   dataLoaded: boolean;
-  displayedColumns: string[] = ['fullName', 'phone', 'email', 'rating'];
+  displayedColumns: string[] = ['fullName', 'phone', 'email', 'rating', 'message'];
   dataSource = new MatTableDataSource<ITableData>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
@@ -27,14 +27,9 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.tableService.loadTableData().subscribe(data => {
-      let users: ITableData[] = [];
-      data.forEach(data => {
-        users.push(data.user)
-      })
-      this.dataSource.data = users
+      this.dataSource.data = data
+        this.dataLoaded = true;
     })
-    //TODO add progress spinner if data isn't loaded
-    this.dataLoaded = true;
   }
 
   ngAfterViewInit() {
@@ -50,6 +45,9 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  redirectToSendEmail(id: string){
   }
 }
 

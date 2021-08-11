@@ -4,24 +4,20 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {ITableData} from "../../interfaces/i-table-data";
 import {tap} from "rxjs/operators";
 
-interface ITableResponse {
-  id: string,
-  user: ITableData
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableService {
   private GET_USERS_URL = 'http://localhost:5000/api/table/users';
-  private users$ = new BehaviorSubject<ITableResponse[] | undefined>(undefined)
+  private users$ = new BehaviorSubject<ITableData[] | undefined>(undefined)
 
   constructor(private http: HttpClient) {
   }
 
 
-  loadTableData(): Observable<ITableResponse[]> {
-    return this.http.get<ITableResponse[]>(this.GET_USERS_URL)
+  loadTableData(): Observable<ITableData[]> {
+    return this.http.get<ITableData[]>(this.GET_USERS_URL)
      /* // if data will be needed more than in 1 component
       .pipe(
       tap(data => {
@@ -31,7 +27,7 @@ export class TableService {
       */
   }
 
-  setTableData(data: ITableResponse[]): void {
+  setTableData(data: ITableData[]): void {
     this.users$.next(data)
   }
 

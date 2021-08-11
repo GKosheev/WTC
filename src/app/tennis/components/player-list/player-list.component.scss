@@ -4,7 +4,6 @@ $base_width: 100%;
 
 }
 
-
 table {
   width: $base_width;
 }
@@ -22,7 +21,8 @@ table {
   font-size: 14px;
   width: $base_width;
 }
-
-td, th {
-  width: 27%;
+@media only screen and (min-width: 748px) {
+  td, th {
+    width: 22%;
+  }
 }
