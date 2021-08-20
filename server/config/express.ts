@@ -18,7 +18,7 @@ mongoose()
 
 app.use(passport.initialize())
 
-app.use(express.static(__dirname + '../../../dist/wtc'))
+app.use(express.static(__dirname + '../../../wtc'))
 
 app.use('/api', allRoutes)
 app.use('/*', homeRoute);
