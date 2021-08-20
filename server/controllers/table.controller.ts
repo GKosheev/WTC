@@ -1,15 +1,17 @@
-const User = require('../models/user.model')
-const nodemailer = require('nodemailer')
-const config = require('../config/config')
-const mongoose = require('mongoose');
+import User from '../models/user.model'
+import nodemailer from 'nodemailer'
+import {Request, Response} from 'express'
+import config from '../config/config'
+import mongoose from 'mongoose'
 
-module.exports.users = async function (req, res) {
+module.exports.users = async (req: Request, res: Response) => {
+
   await User.find({}, (err, users) => {
-    let userMap = [];
+    let userMap: any = [];
     users.forEach((user) => {
       userMap.push({
-        'id': user._id,
-        'user': {
+        id: user._id,
+        user: {
           'fullName': user.profile.firstName + ' ' + user.profile.lastName,
           'phone': user.profile.phone,
           'email': user.profile.shareMyEmail ? user.profile.email : '-',
@@ -21,16 +23,16 @@ module.exports.users = async function (req, res) {
   })
 }
 
-module.exports.sendMessage = async function (req, res) {
+module.exports.sendMessage = async function (req: Request, res: Response) {
   try {
     let id = mongoose.Types.ObjectId(req.body.id)
     let user = await User.collection.findOne({_id: id});
     if (!user) {
-      res.status(300).json("User not found")
+      res.status(300).json("UserDocument.ts not found")
     }
-    let firstName = user.profile.firstName
-    let lastName = user.profile.lastName
-    let email = user.profile.email
+    let firstName = user?.profile.firstName
+    let lastName = user?.profile.lastName
+    let email = user?.profile.email
 
     let transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -46,12 +48,11 @@ module.exports.sendMessage = async function (req, res) {
       text: req.body.text
     }
     let sendMailResponse = await transporter.sendMail(mailOptions)
-    if (!sendMailResponse){
+    if (!sendMailResponse) {
       res.status(300).json('Send Mail error')
     }
     res.status(200).json(sendMailResponse.response)
-  }
-  catch (error){
+  } catch (error) {
     res.status(400).json(error)
   }
   /*

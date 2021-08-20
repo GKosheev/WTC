@@ -1,9 +1,9 @@
-const bcrypt = require('bcrypt')
-const config = require('../config/config')
-const jsonwebtoken = require('jsonwebtoken');
-
-const Joi = require('joi')
-const User = require('../models/user.model')
+import {UserDocument} from "../interfaces/UserDocument";
+import config from '../config/config'
+import jsonwebtoken from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import Joi from 'joi'
+import User from '../models/user.model'
 
 const userProfile = Joi.object().keys({
   firstName: Joi.string().required(),
@@ -28,9 +28,10 @@ const userSchema = Joi.object({
   covidPolicy: Joi.string().required()
 })
 
-async function insertUser(data) {
-  //console.log(JSON.stringify(data))
+async function insertUser(data: any) {
+  // console.log(JSON.stringify(data))
   let user = data.user;
+  console.log("USER: " + JSON.stringify(user))
   user = await userSchema.validate(user);
   user.value.roles = [user.value.profile.registrationType]
   user.value.hashedPassword = bcrypt.hashSync(user.value.password, 10)
@@ -47,7 +48,7 @@ async function insertUser(data) {
   return await new User(user.value).save()
 }
 
-async function generateId(){
+async function generateId(): Promise<number> {
   let randomNumber = (Math.random() * (999999-100000 + 1) | 0) + 100000
   let user = await User.findOne({"profile.memberID": randomNumber})
   //console.log("findOne: " + user)
@@ -58,7 +59,12 @@ async function generateId(){
   return randomNumber;
 }
 
-function generateToken(user) {
+interface IGenerateToken{
+  token: string,
+  expires: string
+}
+
+function generateToken(user: UserDocument): IGenerateToken {
   const _id = user._id
 
   const expiresIn = '1h'
@@ -67,7 +73,7 @@ function generateToken(user) {
     sub: _id
   }
 
-  const signedToken = jsonwebtoken.sign(payload, config.jwtSecret, {expiresIn: expiresIn})
+  const signedToken = jsonwebtoken.sign(payload, String(config.jwtSecret), {expiresIn: expiresIn})
 
   return {
     token: "Bearer " + signedToken,

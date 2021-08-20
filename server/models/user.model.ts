@@ -1,6 +1,8 @@
-const mongoose = require('mongoose')
+import * as mongoose from 'mongoose'
+import {UserDocument} from "../interfaces/UserDocument";
+import {UserProfileDocument} from "../interfaces/UserProfileDocument";
 
-const userProfile = new mongoose.Schema({
+const userProfile = new mongoose.Schema<UserProfileDocument>({
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   email: {
@@ -36,7 +38,7 @@ const userProfile = new mongoose.Schema({
   rating: {type: String}
 }, {_id:false})
 
-const schema = new mongoose.Schema({
+const schema = new mongoose.Schema<UserDocument>({
   profile: {type: userProfile},
   securityQuestion: {
     type: String, required: true
@@ -60,6 +62,5 @@ const schema = new mongoose.Schema({
   createdAt: {type: Date, required: true, default: Date.now},
   roles: [{type: String}]
 })
-
-
-module.exports = mongoose.model('User', schema)
+const User = mongoose.model<UserDocument>('User', schema)
+export default User

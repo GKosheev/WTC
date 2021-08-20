@@ -1,4 +1,17 @@
-require('dotenv').config();
+import * as dotenv from 'dotenv'
+dotenv.config()
+/*
+
+
+const result = dotenv.config()
+
+if (result.error) {
+  throw result.error
+}
+
+console.log(result.parsed)
+ */
+
 
 const config = {
  port: process.env.PORT,
@@ -9,4 +22,4 @@ const config = {
  password: process.env.EMAIL_PASSWORD,
 };
 
-module.exports = config
+export default config

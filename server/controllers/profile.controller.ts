@@ -1,8 +1,10 @@
-const User = require('../models/user.model')
+import User from '../models/user.model'
+import {Request, Response} from 'express'
+
 const mongoose = require('mongoose');
 
 
-module.exports.editProfile = async function (req, res) {
+module.exports.editProfile = async function (req: Request, res: Response) {
   let id = mongoose.Types.ObjectId(req.body.id)
   let profile = req.body.profile
   await User.collection.updateOne({_id: id},

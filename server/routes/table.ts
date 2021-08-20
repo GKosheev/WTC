@@ -1,4 +1,4 @@
-const app = require('express')
+import app from 'express'
 const controller = require("../controllers/table.controller")
 const router = app.Router()
 const passport = require('passport')

@@ -1,8 +1,9 @@
-const app = require('express')
+import app from 'express'
+import asyncHandler from "express-async-handler";
+import passport from 'passport'
+
 const controller = require('../controllers/profile.controller')
 const router = app.Router()
-const passport = require('passport')
-const asyncHandler = require('express-async-handler')
 
 router.post('/edit-profile', passport.authenticate('jwt', {session: false}), asyncHandler(controller.editProfile))
 

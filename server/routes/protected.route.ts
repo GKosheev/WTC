@@ -1,7 +1,8 @@
-const app = require('express')
+import app from 'express'
+import passport from "passport";
+
 const controller = require("../controllers/protected.controller")
 const router = app.Router()
-const passport = require('passport')
 
 router.get('/protected', passport.authenticate('jwt',{session: false}), controller.protected)
 

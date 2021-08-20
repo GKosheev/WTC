@@ -1,4 +1,5 @@
-const app = require('express')
+import app from 'express'
+
 const controller = require('../controllers/home.controller')
 const router = app.Router()
 
