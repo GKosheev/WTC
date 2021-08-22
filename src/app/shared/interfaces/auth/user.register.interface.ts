@@ -1,4 +1,4 @@
-export interface IUserRegister {
+export interface UserRegister {
   profile: {
     firstName: string,
     lastName: string,

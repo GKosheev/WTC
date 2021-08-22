@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, Validators} from "@angular/forms";
-import {IUserLogin} from "../../../shared/interfaces/auth/i-user-login";
+import {UserLogin} from "../../../shared/interfaces/auth/user.login.interface";
 import {AuthService} from "../../../shared/services/auth/auth.service";
 
 @Component({
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    let logUser: IUserLogin = {
+    let logUser: UserLogin = {
       email: this.email.value,
       password: this.password.value
     }

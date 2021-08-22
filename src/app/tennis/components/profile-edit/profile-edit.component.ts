@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IProfile} from "../../../shared/interfaces/iprofile";
+import {Profile} from "../../../shared/interfaces/profile/profile.interface";
 import {ProfileService} from "../../../shared/services/profiles/profile.service";
 import {Router} from "@angular/router";
 
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
-  profile: IProfile = {} as IProfile
+  profile: Profile = {} as Profile
   firstName: string = '';
   lastName: string = '';
   twitter: string = '';

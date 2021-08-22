@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
-import {IProfile} from "../../interfaces/iprofile";
+import {Profile} from "../../interfaces/profile/profile.interface";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 
@@ -15,7 +15,7 @@ interface IEditProfileResponse {
 export class ProfileService {
   private SAVE_CHANGES_URL = 'http://localhost:5000/api/profile/edit-profile';
   private userID: string = '';
-  private profile$ = new BehaviorSubject<IProfile | undefined>(undefined)
+  private profile$ = new BehaviorSubject<Profile | undefined>(undefined)
 
   constructor(private http: HttpClient, private auth: AuthService) {
   }
@@ -34,16 +34,16 @@ export class ProfileService {
       })
   }
 
-  setUserProfile(user: IProfile | undefined): void {
+  setUserProfile(user: Profile | undefined): void {
     this.profile$.next(user)
   }
 
-  getUserProfile(): Observable<IProfile | undefined> {
+  getUserProfile(): Observable<Profile | undefined> {
     this.loadUserProfile()
     return this.profile$.asObservable()
   }
 
-  saveChanges(profile: IProfile | undefined, userID: string): Observable<IEditProfileResponse> {
+  saveChanges(profile: Profile | undefined, userID: string): Observable<IEditProfileResponse> {
     return this.http.post<IEditProfileResponse>(this.SAVE_CHANGES_URL, {id: userID, profile: profile})
   }
 

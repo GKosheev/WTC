@@ -7,7 +7,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {IUserRegister} from "../../../shared/interfaces/auth/i-user-register";
+import {UserRegister} from "../../../shared/interfaces/auth/user.register.interface";
 import {DialogFirstAgreementComponent} from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
 import {DialogSecondAgreementComponent} from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
 import {DialogCovidAgreementComponent} from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
@@ -180,8 +180,8 @@ export class RegisterComponent implements OnInit {
       return;
     } else {
 
-     // let userRegister: IUserRegister = this.registerForm.value
-      let userRegister: IUserRegister = {
+     // let userRegister: UserRegister = this.registerForm.value
+      let userRegister: UserRegister = {
         profile: {
           firstName: this.registerForm.get('firstName').value,
           lastName: this.registerForm.get('lastName').value,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {IToken} from "../../interfaces/itoken";
+import {Token} from "../../interfaces/token.interface";
 
 @Injectable({ providedIn: 'root' })
 export class TokenStorage {
@@ -12,7 +12,7 @@ export class TokenStorage {
     localStorage.clear();
   }
 
-  saveToken(token?: IToken): void {
+  saveToken(token?: Token): void {
     if (!token) return;
     localStorage.setItem(this.tokenKey, token.token);
     if (!token.expires) return

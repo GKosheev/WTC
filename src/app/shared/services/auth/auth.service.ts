@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {User} from "../../interfaces/user";
+import {User} from "../../interfaces/user.interface";
 import {HttpClient} from "@angular/common/http";
-import {IUserRegister} from "../../interfaces/auth/i-user-register";
+import {UserRegister} from "../../interfaces/auth/user.register.interface";
 import {catchError, pluck, tap} from "rxjs/operators";
 
 import {TokenStorage} from './token.storage';
-import {IUserLogin} from "../../interfaces/auth/i-user-login";
-import {IToken} from "../../interfaces/itoken";
+import {UserLogin} from "../../interfaces/auth/user.login.interface";
+import {Token} from "../../interfaces/token.interface";
 import {Router} from "@angular/router";
 
 interface AuthResponse {
-  token: IToken;
+  token: Token;
   user: User;
 }
 
@@ -25,7 +25,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorage, private router: Router) {}
 
-  login(login: IUserLogin): Observable<User> {
+  login(login: UserLogin): Observable<User> {
     let email = login.email
     let password = login.password
     ///api/auth/login
@@ -42,7 +42,7 @@ export class AuthService {
       )
   }
 
-  register(user: IUserRegister): Observable<User> {
+  register(user: UserRegister): Observable<User> {
     return this.http.post<AuthResponse>('http://localhost:5000/api/auth/register', {user})
       .pipe(
         tap(({token, user}) => {

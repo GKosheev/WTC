@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {IProfile} from "../../../shared/interfaces/iprofile";
+import {Profile} from "../../../shared/interfaces/profile/profile.interface";
 import {ProfileService} from "../../../shared/services/profiles/profile.service";
 
 @Component({
@@ -9,7 +9,7 @@ import {ProfileService} from "../../../shared/services/profiles/profile.service"
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  profile: IProfile | undefined
+  profile: Profile | undefined
   message = new FormControl('Your email will be added to the list of players');
 
   constructor(private profileService: ProfileService) {

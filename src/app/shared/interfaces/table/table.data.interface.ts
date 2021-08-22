@@ -1,4 +1,4 @@
-export interface ITableData {
+export interface TableData {
   id: string,
   user: {
     fullName: string,

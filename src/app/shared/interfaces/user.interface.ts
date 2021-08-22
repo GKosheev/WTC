@@ -1,9 +1,9 @@
-import {IProfile} from "./iprofile";
+import {Profile} from "./profile/profile.interface";
 
 export interface User {
   roles: string[];
   _id: string;
-  profile: IProfile
+  profile: Profile
   securityQuestion: string;
   securityAnswer: string;
   clubPolicy: string;

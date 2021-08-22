@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import {User} from "../../../shared/interfaces/user";
+import {User} from "../../../shared/interfaces/user.interface";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../../shared/services/auth/auth.service";
 
