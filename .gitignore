@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+server/dist
 /tmp
 /out-tsc
 # Only exists if Bazel was run
@@ -48,3 +49,6 @@ Thumbs.db
 
 # dotenv
 server/.env
+
+# .rest file
+test.rest
