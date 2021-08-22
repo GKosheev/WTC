@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {TableData} from "../../interfaces/table/table.data.interface";
-import {tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {UserProfile} from "../../interfaces/table/user.profile.interface";
 
 
@@ -11,7 +11,7 @@ import {UserProfile} from "../../interfaces/table/user.profile.interface";
 })
 export class TableService {
   private GET_USERS_URL = 'http://localhost:5000/api/table/users';
-  private GET_USER_PROFILE_URL = 'http://localhost:5000/api/table/'
+  private GET_USER_PROFILE_URL = 'http://localhost:5000/api/table/users/'
   private users$ = new BehaviorSubject<TableData[] | undefined>(undefined)
 
   constructor(private http: HttpClient) {
@@ -34,7 +34,9 @@ export class TableService {
   }
 
   loadUserData(id: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.GET_USER_PROFILE_URL + id)
+    return this.http.get<UserProfile>(this.GET_USER_PROFILE_URL+ id).pipe(
+      map((userProfile: UserProfile) => userProfile)
+    )
   }
 
 }
