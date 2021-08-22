@@ -65,3 +65,24 @@ module.exports.sendMessage = async function (req: Request, res: Response) {
   }
   */
 }
+
+
+module.exports.userId = async (req: Request, res: Response) => {
+  let id = mongoose.Types.ObjectId(req.params.id)
+  await User.collection.findOne({_id: id}, (err, user) => {
+      if (err){
+        res.status(400).json({error: err});
+      }
+      let userProfile = {
+        firstName: user?.profile.firstName,
+        lastName: user?.profile.lastName,
+        email: user?.profile.shareEmail ? user?.profile.email: '-',
+        phone: user?.profile.phone,
+        rating: user?.profile.rating,
+        twitter: user?.profile.twitter,
+        instagram: user?.profile.instagram,
+        facebook: user?.profile.facebook
+      }
+      res.status(200).json(userProfile)
+  })
+}
