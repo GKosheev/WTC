@@ -2,8 +2,9 @@ import {Component, AfterViewInit, ViewChild, OnInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {ITableData} from "../../../shared/interfaces/i-table-data";
+import {TableData} from "../../../shared/interfaces/table/table.data.interface";
 import {TableService} from "../../../shared/services/player list/table.service";
+import {Router} from "@angular/router";
 
 
 
@@ -14,13 +15,13 @@ import {TableService} from "../../../shared/services/player list/table.service";
 })
 export class PlayerListComponent implements AfterViewInit, OnInit {
 
-  constructor(private tableService: TableService) {
+  constructor(private tableService: TableService, private router: Router) {
     this.dataLoaded = false;
   }
 
   dataLoaded: boolean;
   displayedColumns: string[] = ['fullName', 'phone', 'email', 'rating', 'message'];
-  dataSource = new MatTableDataSource<ITableData>();
+  dataSource = new MatTableDataSource<TableData>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
@@ -48,6 +49,7 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
   }
 
   redirectToSendEmail(id: string){
+    this.router.navigateByUrl('players/'+ id)
   }
 }
 
