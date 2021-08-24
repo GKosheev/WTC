@@ -26,6 +26,7 @@ import {AuthInterceptor} from "./core/components/interceptors/header.interceptor
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileEditComponent } from './tennis/components/profile-edit/profile-edit.component';
 import { UserProfileComponent } from './tennis/components/user-profile/user-profile.component';
+import { MessageDialogComponent } from './tennis/components/message-dialog/message-dialog.component';
 
 
 export function appInitializerFactory(authService: AuthService) {
@@ -50,7 +51,8 @@ export function appInitializerFactory(authService: AuthService) {
     DialogSecondAgreementComponent,
     DialogCovidAgreementComponent,
     ProfileEditComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MessageDialogComponent
   ],
     imports: [
         BrowserModule,

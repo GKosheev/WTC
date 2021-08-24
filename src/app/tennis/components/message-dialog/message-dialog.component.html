@@ -1,0 +1,15 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Subject</mat-label>
+    <input matInput [(ngModel)]="data.message.subject" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Leave a message</mat-label>
+    <textarea matInput [(ngModel)]="data.message.text" [ngModelOptions]="{standalone: true}"></textarea>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+  <button mat-button (click)="sendMessage()" [mat-dialog-close]="data.response">Send</button>
+</div>

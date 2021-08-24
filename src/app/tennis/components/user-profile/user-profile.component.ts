@@ -4,6 +4,9 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {map, switchMap} from "rxjs/operators";
 import {UserProfile} from "../../../shared/interfaces/table/user.profile.interface";
 import {TableService} from "../../../shared/services/player list/table.service";
+import {MatDialog} from "@angular/material/dialog";
+import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
+import {MessageFormat} from "../../../shared/interfaces/table/message.format.interface";
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +24,10 @@ export class UserProfileComponent implements OnInit {
   instagramValid = false;
   facebookValid = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private tableService: TableService) {
+  message: MessageFormat = {} as MessageFormat;
+  response: string = '';
+
+  constructor(private activatedRoute: ActivatedRoute, private tableService: TableService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -45,5 +51,19 @@ export class UserProfileComponent implements OnInit {
   facebook(link: string): boolean {
     // TODO facebook regExp
     return false;
+  }
+
+  openMessageDialog(): void {
+    this.userId$.subscribe(id => {
+      this.message.id = id
+      const dialogRef = this.dialog.open(MessageDialogComponent, {
+        width: '400px',
+        data: {
+          message: this.message,
+          response: this.response
+        }
+      })
+    })
+
   }
 }
