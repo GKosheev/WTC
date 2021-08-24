@@ -49,11 +49,11 @@ module.exports.sendMessage = async function (req: Request, res: Response) {
     }
     let sendMailResponse = await transporter.sendMail(mailOptions)
     if (!sendMailResponse) {
-      res.status(300).json('Send Mail error')
+      res.status(300).json({error:'Send Mail error'})
     }
-    res.status(200).json(sendMailResponse.response)
+    res.status(200).json({message: sendMailResponse.response})
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json({error: error})
   }
   /*
   Response if Error
