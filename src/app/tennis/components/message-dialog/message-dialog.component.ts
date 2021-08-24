@@ -5,7 +5,10 @@ import {TableService} from "../../../shared/services/player list/table.service";
 
 export interface MessageDialog {
   message: MessageFormat,
-  response: string
+  response: {
+    message: string,
+    hasError: boolean
+  }
 }
 
 @Component({
@@ -14,7 +17,10 @@ export interface MessageDialog {
   styleUrls: ['./message-dialog.component.scss']
 })
 export class MessageDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<MessageDialogComponent>,
+  sendButtonClicked = false;
+  messageSent = false;
+
+  constructor(public dialogRef: MatDialogRef<MessageDialogComponent, MessageDialog>,
               @Inject(MAT_DIALOG_DATA) public data: MessageDialog,
               private tableService: TableService) {
   }
@@ -23,15 +29,27 @@ export class MessageDialogComponent implements OnInit {
   }
 
   sendMessage(): void {
+    this.sendButtonClicked = true;
+
     this.tableService.sendMessage(this.data.message).subscribe(response => {
-      if (response.error){
-        this.data.response = 'Something went wrong'
-      }
-      if (response.message){
-        this.data.response = 'Message was sent'
-      }
-    })
+        this.data.response = {
+          message: 'Message was sent',
+          hasError: false
+        }
+        this.messageSent = true
+        this.dialogRef.close(this.data)
+      },
+      error => {
+        if (error)
+          this.data.response = {
+            message: 'Something went wrong',
+            hasError: true
+          }
+        this.messageSent = true
+        this.dialogRef.close(this.data)
+      })
   }
+
   closeDialog(): void {
     this.dialogRef.close()
   }

@@ -4,9 +4,15 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {map, switchMap} from "rxjs/operators";
 import {UserProfile} from "../../../shared/interfaces/table/user.profile.interface";
 import {TableService} from "../../../shared/services/player list/table.service";
-import {MatDialog} from "@angular/material/dialog";
-import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MessageDialog, MessageDialogComponent} from "../message-dialog/message-dialog.component";
 import {MessageFormat} from "../../../shared/interfaces/table/message.format.interface";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
+export interface DialogResponse {
+  message: string,
+  hasError: boolean
+}
 
 @Component({
   selector: 'app-user-profile',
@@ -27,7 +33,10 @@ export class UserProfileComponent implements OnInit {
   message: MessageFormat = {} as MessageFormat;
   response: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private tableService: TableService, public dialog: MatDialog) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private tableService: TableService,
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -54,9 +63,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   openMessageDialog(): void {
+    let dialogRef: MatDialogRef<MessageDialogComponent, MessageDialog> = {} as MatDialogRef<MessageDialogComponent, any>
     this.userId$.subscribe(id => {
       this.message.id = id
-      const dialogRef = this.dialog.open(MessageDialogComponent, {
+      dialogRef = this.dialog.open(MessageDialogComponent, {
         width: '400px',
         data: {
           message: this.message,
@@ -64,6 +74,27 @@ export class UserProfileComponent implements OnInit {
         }
       })
     })
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.openSnackBar(result.response)
+      }
+    },
+      error => {
+        this.openSnackBar(error.response)
+      })
   }
+
+  openSnackBar(response: DialogResponse): void {
+    let panelClass = []
+    if (!response.hasError)
+      panelClass = ['mat-toolbar', 'mat-primary']
+    else
+      panelClass = ['mat-toolbar', 'mat-warn']
+
+    this._snackBar.open(response.message, 'close', {
+      duration: 5000, //5 sec
+      panelClass: panelClass
+    })
+  }
+
 }

@@ -1,15 +1,29 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Subject</mat-label>
-    <input matInput [(ngModel)]="data.message.subject" [ngModelOptions]="{standalone: true}">
+    <input matInput [(ngModel)]="data.message.subject" [ngModelOptions]="{standalone: true}" [disabled]="sendButtonClicked">
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Leave a message</mat-label>
-    <textarea matInput [(ngModel)]="data.message.text" [ngModelOptions]="{standalone: true}"></textarea>
+    <textarea matInput [(ngModel)]="data.message.text" [ngModelOptions]="{standalone: true}" [disabled]="sendButtonClicked"></textarea>
   </mat-form-field>
 </form>
 <div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Close</button>
-  <button mat-button (click)="sendMessage()" [mat-dialog-close]="data.response">Send</button>
+
+
+  <div *ngIf="sendButtonClicked" class="progress-bar">
+    <div *ngIf="!messageSent; else sent">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <ng-template #sent>
+    <!-- in case we want to display some information before going back to user profile -->
+    </ng-template>
+    <br>
+  </div>
+  <button mat-raised-button (click)="closeDialog()" [disabled]="sendButtonClicked">Close</button>
+  <button mat-raised-button color=primary (click)="sendMessage()" [disabled]="sendButtonClicked">Send</button>
+
+
+
 </div>
