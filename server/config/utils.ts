@@ -39,27 +39,25 @@ async function insertUser(data: any) {
   let secureAnswer = user.value.securityAnswer;
   user.value.securityAnswer = bcrypt.hashSync(secureAnswer, 10)
   user.value.profile.memberID = await generateId()
-  user.value.profile.twitter = '-'
-  user.value.profile.instagram = '-'
-  user.value.profile.facebook = '-'
-  user.value.profile.shareMyEmail = false
-  user.value.profile.rating = '-'
   delete user.value.password
-  return await new User(user.value).save()
+
+  user = new User(user.value)
+  await user.save()
+  return user
 }
 
 async function generateId(): Promise<number> {
-  let randomNumber = (Math.random() * (999999-100000 + 1) | 0) + 100000
+  let randomNumber = (Math.random() * (999999 - 100000 + 1) | 0) + 100000
   let user = await User.findOne({"profile.memberID": randomNumber})
   //console.log("findOne: " + user)
   if (user) {
     return generateId()
   }
- // console.log("return random number: " + randomNumber)
+  // console.log("return random number: " + randomNumber)
   return randomNumber;
 }
 
-interface IGenerateToken{
+interface IGenerateToken {
   token: string,
   expires: string
 }
