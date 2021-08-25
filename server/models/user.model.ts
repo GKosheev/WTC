@@ -28,15 +28,15 @@ const userProfile = new mongoose.Schema<UserProfileDocument>({
   memberID: {
     type: String, required: true// , unique: true
   },
-  twitter: {type: String},
-  instagram: {type: String},
-  facebook: {type: String},
+  twitter: {type: String, default: '-'},
+  instagram: {type: String, default: '-'},
+  facebook: {type: String, default: '-'},
   receiveClubEmails: {
     type: Boolean, required: true
   },
-  shareMyEmail: {type: Boolean},
-  rating: {type: String}
-}, {_id:false})
+  shareMyEmail: {type: Boolean, default: false},
+  rating: {type: String, default: '-'}
+}, {_id: false})
 
 const schema = new mongoose.Schema<UserDocument>({
   profile: {type: userProfile},
@@ -60,7 +60,8 @@ const schema = new mongoose.Schema<UserDocument>({
     required: true,
   },
   createdAt: {type: Date, required: true, default: Date.now},
-  roles: [{type: String}]
+  roles: [{type: String}],
+  isVerified: {type: Boolean, default: false},
 })
 const User = mongoose.model<UserDocument>('User', schema)
 export default User

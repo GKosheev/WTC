@@ -11,5 +11,6 @@ export type UserDocument = mongoose.Document & {
   covidPolicy: string,
   hashedPassword: string,
   createdAt: Date,
-  roles: string[]
+  roles: string[],
+  isVerified: string
 }
