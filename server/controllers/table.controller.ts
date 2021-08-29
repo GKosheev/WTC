@@ -5,20 +5,22 @@ import config from '../config/config'
 import mongoose from 'mongoose'
 
 module.exports.users = async (req: Request, res: Response) => {
-
   await User.find({}, (err, users) => {
     let userMap: any = [];
     users.forEach((user) => {
-      userMap.push({
-        id: user._id,
-        user: {
-          'fullName': user.profile.firstName + ' ' + user.profile.lastName,
-          'phone': user.profile.phone,
-          'email': user.profile.shareMyEmail ? user.profile.email : '-',
-          'rating': user.profile.rating
-        }
-      })
+      if (user.isVerified) {
+        userMap.push({
+          id: user._id,
+          user: {
+            'fullName': user.profile.firstName + ' ' + user.profile.lastName,
+            'phone': user.profile.phone,
+            'email': user.profile.shareMyEmail ? user.profile.email : '-',
+            'rating': user.profile.rating
+          }
+        })
+      }
     })
+
     res.status(200).json(userMap)
   })
 }
