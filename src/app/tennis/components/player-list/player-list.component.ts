@@ -5,7 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {TableData} from "../../../shared/interfaces/table/table.data.interface";
 import {TableService} from "../../../shared/services/player list/table.service";
 import {Router} from "@angular/router";
-
+import {AuthService} from "../../../shared/services/auth/auth.service";
 
 
 @Component({
@@ -15,10 +15,13 @@ import {Router} from "@angular/router";
 })
 export class PlayerListComponent implements AfterViewInit, OnInit {
 
-  constructor(private tableService: TableService, private router: Router) {
+  constructor(private router: Router,
+              private tableService: TableService,
+              private authService: AuthService) {
     this.dataLoaded = false;
   }
 
+  userId: string = ''
   dataLoaded: boolean;
   displayedColumns: string[] = ['fullName', 'phone', 'email', 'rating', 'message'];
   dataSource = new MatTableDataSource<TableData>();
@@ -29,7 +32,12 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.tableService.loadTableData().subscribe(data => {
       this.dataSource.data = data
+      this.authService.getUser().subscribe(user => {
+        if (user?._id)
+          this.userId = user?._id
         this.dataLoaded = true;
+
+      })
     })
   }
 
@@ -48,8 +56,11 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
     }
   }
 
-  redirectToSendEmail(id: string){
-    this.router.navigateByUrl('players/'+ id)
+  redirectToSendEmail(id: string) {
+    if (this.userId !== id)
+      this.router.navigateByUrl('players/' + id)
+    else
+      this.router.navigateByUrl('/profile')
   }
 }
 
