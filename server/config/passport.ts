@@ -22,11 +22,14 @@ const JwtLogin = new JwtStrategy(options, (jwt_payload, done) => {
       return done(err, false)
     }
     if (user) {
+      if (!user.isVerified)
+        return done(null, false, {message: 'Please verify your email'})
+
       user = user.toObject()
       delete user.hashedPassword
       return done(null, user)
     } else {
-      return done(null, false)
+      return done('User was not found', false)
     }
   })
 })
@@ -39,11 +42,13 @@ const LocalLogin = new LocalStrategy({
       return done(err)
     }
     if (!user) {
-      return done(null, false)
+      return done('Incorrect username', false)
     }
     if (!bcrypt.compareSync(password, user.hashedPassword)) {
-      return done(null, false)
+      return done('Incorrect password', false)
     }
+    if (!user.isVerified)
+      return done('Please verify your email', false)
 
     user = user.toObject()
     delete user.hashedPassword
