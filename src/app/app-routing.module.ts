@@ -14,6 +14,7 @@ import {LoginComponent} from "./core/components/login/login.component";
 import {RegisterComponent} from "./core/components/register/register.component";
 import {ProfileEditComponent} from "./tennis/components/profile-edit/profile-edit.component";
 import {UserProfileComponent} from "./tennis/components/user-profile/user-profile.component";
+import {ConfirmEmailComponent} from "./core/components/confirm-email/confirm-email.component";
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'confirm-email/:email/:token',
+    component: ConfirmEmailComponent,
   },
   {
     path: 'players',
