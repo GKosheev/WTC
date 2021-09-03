@@ -28,6 +28,7 @@ import { ProfileEditComponent } from './tennis/components/profile-edit/profile-e
 import { UserProfileComponent } from './tennis/components/user-profile/user-profile.component';
 import { MessageDialogComponent } from './tennis/components/message-dialog/message-dialog.component';
 import { ConfirmEmailComponent } from './core/components/confirm-email/confirm-email.component';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
 
 export function appInitializerFactory(authService: AuthService) {
@@ -54,7 +55,8 @@ export function appInitializerFactory(authService: AuthService) {
     ProfileEditComponent,
     UserProfileComponent,
     MessageDialogComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    NotFoundComponent
   ],
     imports: [
         BrowserModule,

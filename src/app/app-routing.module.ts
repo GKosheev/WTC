@@ -15,6 +15,7 @@ import {RegisterComponent} from "./core/components/register/register.component";
 import {ProfileEditComponent} from "./tennis/components/profile-edit/profile-edit.component";
 import {UserProfileComponent} from "./tennis/components/user-profile/user-profile.component";
 import {ConfirmEmailComponent} from "./core/components/confirm-email/confirm-email.component";
+import {NotFoundComponent} from "./core/components/not-found/not-found.component";
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'confirm-email/:email/:token',
     component: ConfirmEmailComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   },
   {
     path: 'players',
@@ -54,7 +59,7 @@ const routes: Routes = [
     canActivate: [PlayerAuthGuard]
   },
   {
-    path:'profile-edit',
+    path: 'profile-edit',
     component: ProfileEditComponent,
     canActivate: [PlayerAuthGuard]
   },
