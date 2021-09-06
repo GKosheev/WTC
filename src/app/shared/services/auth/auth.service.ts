@@ -15,6 +15,9 @@ interface AuthResponse {
   user: User;
 }
 
+interface ConfirmResponse {
+  message?: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +57,7 @@ export class AuthService {
   }
 
   setUser(user: User | null): void {
-    if (user){
+    if (user) {
       user.isAdmin = user.roles.includes('admin')
     }
 
@@ -65,7 +68,7 @@ export class AuthService {
     return this.user$.asObservable();
   }
 
-  me(): Observable<User | null>{
+  me(): Observable<User | null> {
     return this.http.get<AuthResponse>('http://localhost:5000/api/auth/me').pipe(
       tap(({user}) => this.setUser(user)),
       pluck('user'),
@@ -76,19 +79,19 @@ export class AuthService {
   logOut(): void {
     this.tokenStorage.signOut();
     this.setUser(null);
-    this.router.navigateByUrl('/login')
+    // this.router.navigateByUrl('/login')
   }
 
 
-  getAuthorizationHeaders(){
+  getAuthorizationHeaders() {
     const token: string | null = this.tokenStorage.getToken() || '';
-    return { Authorization: `Bearer ${token}` }
+    return {Authorization: `Bearer ${token}`}
   }
 
 
   checkTheUserOnFirstLoad(): Promise<User | null> {
     return this.me().toPromise().then(data => {
-      if (data === null){
+      if (data === null) {
         this.logOut()
       }
       return data
@@ -98,10 +101,15 @@ export class AuthService {
 
   isTokenStillValid(): void {
     this.me().toPromise().then(token => {
-     console.log("isTokenStillValid: " + token)
-      if (token === null){
-          this.logOut()
+      console.log("isTokenStillValid: " + token)
+      if (token === null) {
+        this.logOut()
       }
     });
   }
+
+  confirmEmail(email: string, token: string): Observable<ConfirmResponse> {
+    return this.http.get<ConfirmResponse>(`http://localhost:5000/api/auth/confirmation/${email}/${token}`)
+  }
+
 }
