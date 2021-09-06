@@ -36,10 +36,6 @@ const routes: Routes = [
     component: ConfirmEmailComponent,
   },
   {
-    path: '**',
-    component: NotFoundComponent
-  },
-  {
     path: 'players',
     children: [
       {
@@ -82,7 +78,9 @@ const routes: Routes = [
     path: 'court-booking',
     component: CourtBookingComponent,
     canActivate: [PlayerAuthGuard, MembershipAuthGuard]
-  }
+  },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({
