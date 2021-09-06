@@ -35,7 +35,7 @@ module.exports.register = async function (req: Request, res: Response, next: Nex
       from: config.email,
       to: user.profile.email,
       subject: 'Email validation',
-      text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/' + '\auth\/' + '\confirmation\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
+      text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/+ '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
     }
 
     let sendMailResponse = await transporter.sendMail(mailOptions)
@@ -66,14 +66,14 @@ module.exports.confirmEmail = function (req: Request, res: Response) {
         if (!user)
           return res.status(401).send({error: 'We were unable to find a user for this verification. Please SignUp!'})
         else if (user.isVerified)
-          return res.status(200).send('User has already been verified. Please Login')
+          return res.status(200).send({message: 'User has already been verified. Please Login'})
         else {
           user.isVerified = true;
           user.save((err: any) => {
             if (err)
               return res.status(500).send({msg: err.message})
             else
-              return res.status(200).send('Your account has been successfully verified')
+              return res.status(200).send({message: 'Your account has been successfully verified'})
           })
         }
       })
@@ -85,12 +85,11 @@ module.exports.resendLink = function (req: Request, res: Response) {
   User.findOne({"profile.email": req.body.email}, (err: any, user: any) => {
     if (!user)
       return res.status(400).send({error: 'User with such Email does not exist. Make sure your Email is correct'})
-    else{
+    else {
       let token = new Token({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
-      token.save((err)=>{
+      token.save((err) => {
         if (err)
           return res.status(500).send({error: err.message})
-
 
 
         let transporter = nodemailer.createTransport({
@@ -112,7 +111,7 @@ module.exports.resendLink = function (req: Request, res: Response) {
         if (!sendMailResponse) {
           res.status(300).json({error: 'Send Mail error'})
         }
-        res.status(200).json('Check your email to validate your account')
+        res.status(200).json({message: 'Check your email to validate your account'})
 
       })
     }
