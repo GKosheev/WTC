@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import {User} from "../../../shared/interfaces/user.interface";
@@ -18,7 +18,10 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver, private http: HttpClient, private auth: AuthService) {}
+  constructor(private observer: BreakpointObserver,
+              private http: HttpClient,
+              private auth: AuthService,
+              private cd: ChangeDetectorRef) {}
 
   async ngOnInit() {
     this.auth.getUser().subscribe(user => {
@@ -40,6 +43,7 @@ export class NavbarComponent implements AfterViewInit, OnInit {
         this.sidenav.open();
       }
     });
+    this.cd.detectChanges()
   }
 
   logOut(): void {
