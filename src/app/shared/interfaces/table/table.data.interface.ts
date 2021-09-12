@@ -1,5 +1,5 @@
 export interface TableData {
-  id: string,
+  memberID: string,
   user: {
     fullName: string,
     phone: string,

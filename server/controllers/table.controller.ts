@@ -10,7 +10,7 @@ module.exports.users = async (req: Request, res: Response) => {
     users.forEach((user) => {
       if (user.isVerified) {
         userMap.push({
-          id: user._id,
+          memberID: user.profile.memberID,
           user: {
             'fullName': user.profile.firstName + ' ' + user.profile.lastName,
             'phone': user.profile.phone,
@@ -27,8 +27,8 @@ module.exports.users = async (req: Request, res: Response) => {
 
 module.exports.sendMessage = async function (req: Request, res: Response) {
   try {
-    let id = mongoose.Types.ObjectId(req.body.id)
-    let user = await User.collection.findOne({_id: id});
+    let memberID: string = req.body.id //id = memberID
+    let user = await User.collection.findOne({'profile.memberID': memberID});
     if (!user) {
       res.status(300).json("UserDocument.ts not found")
     }
@@ -51,7 +51,7 @@ module.exports.sendMessage = async function (req: Request, res: Response) {
     }
     let sendMailResponse = await transporter.sendMail(mailOptions)
     if (!sendMailResponse) {
-      res.status(300).json({error:'Send Mail error'})
+      res.status(300).json({error: 'Send Mail error'})
     }
     res.status(200).json({message: sendMailResponse.response})
   } catch (error) {
@@ -70,21 +70,21 @@ module.exports.sendMessage = async function (req: Request, res: Response) {
 
 
 module.exports.userId = async (req: Request, res: Response) => {
-  let id = mongoose.Types.ObjectId(req.params.id)
-  await User.collection.findOne({_id: id}, (err, user) => {
-      if (err){
-        res.status(400).json({error: err});
-      }
-      let userProfile = {
-        firstName: user?.profile.firstName,
-        lastName: user?.profile.lastName,
-        email: user?.profile.shareEmail ? user?.profile.email: '-',
-        phone: user?.profile.phone,
-        rating: user?.profile.rating,
-        twitter: user?.profile.twitter,
-        instagram: user?.profile.instagram,
-        facebook: user?.profile.facebook
-      }
-      res.status(200).json(userProfile)
+  let memberID: string = req.params.id //id = memberID
+  await User.collection.findOne({'profile.memberID': memberID}, (err, user) => {
+    if (err) {
+      res.status(400).json({error: err});
+    }
+    let userProfile = {
+      firstName: user?.profile.firstName,
+      lastName: user?.profile.lastName,
+      email: user?.profile.shareEmail ? user?.profile.email : '-',
+      phone: user?.profile.phone,
+      rating: user?.profile.rating,
+      twitter: user?.profile.twitter,
+      instagram: user?.profile.instagram,
+      facebook: user?.profile.facebook
+    }
+    res.status(200).json(userProfile)
   })
 }
