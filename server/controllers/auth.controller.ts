@@ -60,11 +60,11 @@ module.exports.login = function (req: Request, res: Response) {
 module.exports.confirmEmail = function (req: Request, res: Response) {
   Token.findOne({token: req.params.token}, (err: any, token: any) => {
     if (!token) {
-      return res.status(400).send({error: 'Your verification link may have expired. Please click on resend for verify your Email.'})
+      return res.status(400).send({error: 'Your verification link may have expired. Please click on resend for verify your Email.', resendLink: true})
     } else {
       User.findOne({_id: token._userId, "profile.email": req.params.email}, (err: any, user: any) => {
         if (!user)
-          return res.status(401).send({error: 'We were unable to find a user for this verification. Please SignUp!'})
+          return res.status(401).send({error: 'We were unable to find a user for this verification. Please SignUp!', signup: true})
         else if (user.isVerified)
           return res.status(200).send({message: 'User has already been verified. Please Login'})
         else {
@@ -82,9 +82,10 @@ module.exports.confirmEmail = function (req: Request, res: Response) {
 }
 
 module.exports.resendLink = function (req: Request, res: Response) {
+  console.log(JSON.stringify(req.body))
   User.findOne({"profile.email": req.body.email}, (err: any, user: any) => {
     if (!user)
-      return res.status(400).send({error: 'User with such Email does not exist. Make sure your Email is correct'})
+      return res.status(400).send({error: 'User with such Email does not exist. Please SignUp.', signup: true})
     else {
       let token = new Token({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
       token.save((err) => {
@@ -104,7 +105,7 @@ module.exports.resendLink = function (req: Request, res: Response) {
           from: config.email,
           to: user.profile.email,
           subject: 'Account Verification Link',
-          text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/' + '\auth\/' + '\confirmation\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
+          text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/+ '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
         }
 
         let sendMailResponse = transporter.sendMail(mailOptions)
