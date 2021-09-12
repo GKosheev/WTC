@@ -1,1 +1,22 @@
 <p>response:{{responseMessage}}</p>
+
+<div *ngIf="dataLoaded then loaded else notLoaded"></div>
+
+<ng-template #loaded>
+  <ng-template [ngIf]="login">
+    <button mat-raised-button routerLink="../../../login">Login</button>
+  </ng-template>
+
+
+  <ng-template [ngIf]="signup">
+    <button mat-raised-button routerLink="../../../register">Sign Up</button>
+  </ng-template>
+  <ng-template [ngIf]="resendLink">
+    <button mat-raised-button (click)="resend()"> Resend Link</button>
+  </ng-template>
+</ng-template>
+
+
+<ng-template #notLoaded>
+  <mat-spinner></mat-spinner>
+</ng-template>
