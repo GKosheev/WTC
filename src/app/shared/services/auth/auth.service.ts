@@ -112,4 +112,8 @@ export class AuthService {
     return this.http.get<ConfirmResponse>(`http://localhost:5000/api/auth/confirmation/${email}/${token}`)
   }
 
+  resendLink(email: string): Observable<ConfirmResponse>{
+    return this.http.post<ConfirmResponse>('http://localhost:5000/api/auth/resendLink', {email})
+  }
+
 }
