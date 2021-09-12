@@ -75,16 +75,20 @@ module.exports.userId = async (req: Request, res: Response) => {
     if (err) {
       res.status(400).json({error: err});
     }
-    let userProfile = {
-      firstName: user?.profile.firstName,
-      lastName: user?.profile.lastName,
-      email: user?.profile.shareEmail ? user?.profile.email : '-',
-      phone: user?.profile.phone,
-      rating: user?.profile.rating,
-      twitter: user?.profile.twitter,
-      instagram: user?.profile.instagram,
-      facebook: user?.profile.facebook
+    if (!user) {
+      res.status(400).json({message: 'User was not found'})
+    } else {
+      let userProfile = {
+        firstName: user?.profile.firstName,
+        lastName: user?.profile.lastName,
+        email: user?.profile.shareEmail ? user?.profile.email : '-',
+        phone: user?.profile.phone,
+        rating: user?.profile.rating,
+        twitter: user?.profile.twitter,
+        instagram: user?.profile.instagram,
+        facebook: user?.profile.facebook
+      }
+      res.status(200).json(userProfile)
     }
-    res.status(200).json(userProfile)
   })
 }

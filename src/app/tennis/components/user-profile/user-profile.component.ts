@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {map, switchMap} from "rxjs/operators";
 import {UserProfile} from "../../../shared/interfaces/table/user.profile.interface";
 import {TableService} from "../../../shared/services/player list/table.service";
@@ -36,7 +36,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private tableService: TableService,
               public dialog: MatDialog,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -44,7 +45,9 @@ export class UserProfileComponent implements OnInit {
       this.twitterValid = this.twitter(user.twitter)
       this.instagramValid = this.facebook(user.facebook)
       this.facebookValid = this.instagram(user.instagram)
-    })
+    },
+      error => {
+      this.router.navigateByUrl('**')})
   }
 
   twitter(link: string): boolean {
