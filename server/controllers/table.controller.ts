@@ -81,7 +81,7 @@ module.exports.userId = async (req: Request, res: Response) => {
       let userProfile = {
         firstName: user?.profile.firstName,
         lastName: user?.profile.lastName,
-        email: user?.profile.shareEmail ? user?.profile.email : '-',
+        email: user?.profile.shareMyEmail ? user?.profile.email : '-',
         phone: user?.profile.phone,
         rating: user?.profile.rating,
         twitter: user?.profile.twitter,
