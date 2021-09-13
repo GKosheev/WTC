@@ -16,6 +16,7 @@ import {ProfileEditComponent} from "./tennis/components/profile-edit/profile-edi
 import {UserProfileComponent} from "./tennis/components/user-profile/user-profile.component";
 import {ConfirmEmailComponent} from "./core/components/confirm-email/confirm-email.component";
 import {NotFoundComponent} from "./core/components/not-found/not-found.component";
+import {ForgotPasswordComponent} from "./core/components/forgot-password/forgot-password.component";
 
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
   },
   {
     path: 'confirm-email/:email/:token',
