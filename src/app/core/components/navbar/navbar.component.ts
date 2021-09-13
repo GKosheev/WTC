@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import {User} from "../../../shared/interfaces/user.interface";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../../shared/services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +22,8 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   constructor(private observer: BreakpointObserver,
               private http: HttpClient,
               private auth: AuthService,
-              private cd: ChangeDetectorRef) {}
+              private cd: ChangeDetectorRef,
+              private router: Router) {}
 
   async ngOnInit() {
     this.auth.getUser().subscribe(user => {
@@ -48,5 +50,6 @@ export class NavbarComponent implements AfterViewInit, OnInit {
 
   logOut(): void {
     this.auth.logOut()
+    this.router.navigateByUrl('/login')
   }
 }
