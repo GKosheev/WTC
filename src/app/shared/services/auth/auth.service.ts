@@ -26,7 +26,8 @@ export class AuthService {
 
   private user$ = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorage, private router: Router) {}
+  constructor(private http: HttpClient, private tokenStorage: TokenStorage, private router: Router) {
+  }
 
   login(login: UserLogin): Observable<User> {
     let email = login.email
@@ -112,8 +113,12 @@ export class AuthService {
     return this.http.get<ConfirmResponse>(`http://localhost:5000/api/auth/confirmation/${email}/${token}`)
   }
 
-  resendLink(email: string): Observable<ConfirmResponse>{
+  resendLink(email: string): Observable<ConfirmResponse> {
     return this.http.post<ConfirmResponse>('http://localhost:5000/api/auth/resendLink', {email})
+  }
+
+  resetPassword(email: string): Observable<ConfirmResponse> {
+    return this.http.post<ConfirmResponse>('http://localhost:5000/api/password/forgot-password', {email})
   }
 
 }
