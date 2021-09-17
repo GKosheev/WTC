@@ -49,10 +49,8 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword(): void {
-    this.email.reset()
     this.serverAction = true;
     this.auth.resetPassword(this.email.value).subscribe(data => {
-        this.email.setValue('1')
         // success
         if (data.message)
           this.openSnackBar(false, data.message)
@@ -63,7 +61,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.openSnackBar(true, error.error.error)
         this.serverAction = false;
       })
-
+    this.email.reset()
   }
 
 
