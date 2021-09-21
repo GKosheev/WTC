@@ -20,6 +20,7 @@ const config = {
  baseUrl: process.env.BASE_URL,
  email: process.env.EMAIL,
  password: process.env.EMAIL_PASSWORD,
+ sendgrid_verified_email: process.env.SENDGRID_VERIFIED_SENDER,
 };
 
 export default config
