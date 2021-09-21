@@ -30,6 +30,7 @@ import { MessageDialogComponent } from './tennis/components/message-dialog/messa
 import { ConfirmEmailComponent } from './core/components/confirm-email/confirm-email.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { ForgotPasswordComponent } from './core/components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './core/components/reset-password/reset-password.component';
 
 
 export function appInitializerFactory(authService: AuthService) {
@@ -58,7 +59,8 @@ export function appInitializerFactory(authService: AuthService) {
     MessageDialogComponent,
     ConfirmEmailComponent,
     NotFoundComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
     imports: [
         BrowserModule,
