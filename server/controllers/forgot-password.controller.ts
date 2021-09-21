@@ -2,10 +2,10 @@ import {Request, Response} from "express";
 import User from "../models/user.model";
 import Token from "../models/token.model";
 import * as crypto from 'crypto'
-import nodemailer from "nodemailer";
 import config from "../config/config";
 import Joi from 'joi'
 import bcrypt from "bcrypt";
+import sgMail from "../config/sendgrid";
 
 module.exports.forgotPassword = function (req: Request, res: Response) {
   const email = req.body.email
@@ -21,27 +21,18 @@ module.exports.forgotPassword = function (req: Request, res: Response) {
       if (err)
         return res.status(500).send({error: err.message})
 
-      let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: config.email,
-          pass: config.password
-        }
-      })
-
-      const mailOptions = {
-        from: config.email,
+      const msg = {
         to: user.profile.email,
-        subject: 'Account Verification Link',
-        text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/reset-password\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
+        from: String(config.sendgrid_verified_email), // Change to your verified sender
+        subject: 'Password Reset Link',
+        text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/reset-password\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n',
+        // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
       }
-
-      let sendMailResponse = transporter.sendMail(mailOptions)
-      if (!sendMailResponse) {
-        res.status(300).json({error: 'Send Mail error'})
-      }
-      res.status(200).json({message: 'Check your email to validate your account'})
-
+      sgMail.send(msg).then(() => {
+        res.status(200).json({message: 'Check your email to reset your password'})
+      }).catch((error) => {
+        res.status(300).json({error: 'Reset email error'})
+      })
     })
   })
 }

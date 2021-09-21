@@ -2,10 +2,9 @@
 import {Request, Response, NextFunction} from 'express'
 import Token from '../models/token.model'
 import * as crypto from 'crypto'
-import nodemailer from 'nodemailer'
 import config from '../config/config'
 import User from "../models/user.model";
-import mongoose from "mongoose";
+import sgMail from "../config/sendgrid";
 
 const insertUser = require('../config/utils').insertUser
 const generateToken = require('../config/utils').generateToken
@@ -14,38 +13,22 @@ const generateToken = require('../config/utils').generateToken
 module.exports.register = async function (req: Request, res: Response, next: NextFunction) {
   try {
     let user = await insertUser(req.body)
-    /*
-    user = user.toObject()
-    delete user.hashedPassword
-    req.user = user
-    */
-
     let token = new Token({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
     await token.save()
 
-    let transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: config.email,
-        pass: config.password
-      }
+    const msg = {
+      to: user.profile.email,
+      from: String(config.sendgrid_verified_email), // Change to your verified sender
+      subject: 'Account verification link',
+      text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
+      // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    }
+    sgMail.send(msg).then(() => {
+      res.status(200).json({message: 'Check your email to validate your account'})
+    }).catch((error) => {
+      res.status(300).json({error: 'Confirm email error'})
     })
 
-    const mailOptions = {
-      from: config.email,
-      to: user.profile.email,
-      subject: 'Email validation',
-      text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
-    }
-
-    let sendMailResponse = await transporter.sendMail(mailOptions)
-    if (!sendMailResponse) {
-      res.status(300).json({error: 'Send Mail error'})
-    }
-    res.status(200).json('Check your email to validate your account')
-
-
-    // next() not needed because we no longer login after signup
   } catch (error) {
     res.status(400).json({error: error})
   }
@@ -99,26 +82,18 @@ module.exports.resendLink = function (req: Request, res: Response) {
           return res.status(500).send({error: err.message})
 
 
-        let transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: config.email,
-            pass: config.password
-          }
-        })
-
-        const mailOptions = {
-          from: config.email,
+        const msg = {
           to: user.profile.email,
-          subject: 'Account Verification Link',
+          from: String(config.sendgrid_verified_email), // Change to your verified sender
+          subject: 'Account verification link (resend)',
           text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
+          // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
         }
-
-        let sendMailResponse = transporter.sendMail(mailOptions)
-        if (!sendMailResponse) {
-          res.status(300).json({error: 'Send Mail error'})
-        }
-        res.status(200).json({message: 'Check your email to validate your account'})
+        sgMail.send(msg).then(() => {
+          res.status(200).json({message: 'Check your email to validate your account'})
+        }).catch((error) => {
+          res.status(300).json({error: 'Confirm email error'})
+        })
 
       })
     }
