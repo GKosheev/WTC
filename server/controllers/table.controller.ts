@@ -1,8 +1,7 @@
 import User from '../models/user.model'
-import nodemailer from 'nodemailer'
 import {Request, Response} from 'express'
 import config from '../config/config'
-import mongoose from 'mongoose'
+import sgMail from "../config/sendgrid";
 
 module.exports.users = async (req: Request, res: Response) => {
   await User.find({}, (err, users) => {
@@ -36,24 +35,18 @@ module.exports.sendMessage = async function (req: Request, res: Response) {
     let lastName = user?.profile.lastName
     let email = user?.profile.email
 
-    let transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: config.email,
-        pass: config.password
-      }
-    })
-    const mailOptions = {
-      from: `"${firstName} ${lastName}" <${email}>`,
+    const msg = {
       to: email,
+      from: String(config.sendgrid_verified_email), // Change to your verified sender
       subject: req.body.subject,
       text: req.body.text
+      // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
     }
-    let sendMailResponse = await transporter.sendMail(mailOptions)
-    if (!sendMailResponse) {
-      res.status(300).json({error: 'Send Mail error'})
-    }
-    res.status(200).json({message: sendMailResponse.response})
+    await sgMail.send(msg).then(() => {
+      res.status(200).json({message: 'Check your email to validate your account'})
+    }).catch((error) => {
+      res.status(300).json({error: 'Confirm email error'})
+    })
   } catch (error) {
     res.status(400).json({error: error})
   }
