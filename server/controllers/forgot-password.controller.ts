@@ -33,7 +33,7 @@ module.exports.forgotPassword = function (req: Request, res: Response) {
         from: config.email,
         to: user.profile.email,
         subject: 'Account Verification Link',
-        text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/reset-password\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
+        text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/reset-password\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
       }
 
       let sendMailResponse = transporter.sendMail(mailOptions)
