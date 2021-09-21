@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "npm run build --prefix server && ng build --prod",
-    "postinstall": "npm run build --prefix server && ng build"
+    "heroku-prebuild": "npm install --prefix server && npm install",
+    "heroku-postbuild": "npm run build --prefix server && ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -34,7 +34,7 @@
     "@angular/compiler-cli": "~12.0.2",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
-    "jasmine-core": "~3.7.0",
+    "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
