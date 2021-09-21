@@ -39,8 +39,6 @@ export class AuthService {
         tap(({token, user}) => {
           this.setUser(user)
           this.tokenStorage.saveToken(token)
-          console.log("token.token: " + token.token)
-          console.log("token.expires: " + token.expires)
         }),
         pluck('user')
       )
@@ -102,7 +100,6 @@ export class AuthService {
 
   isTokenStillValid(): void {
     this.me().toPromise().then(token => {
-      console.log("isTokenStillValid: " + token)
       if (token === null) {
         this.logOut()
       }

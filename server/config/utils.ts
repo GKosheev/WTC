@@ -29,9 +29,7 @@ const userSchema = Joi.object({
 })
 
 async function insertUser(data: any) {
-  // console.log(JSON.stringify(data))
   let user = data.user;
-  console.log("USER: " + JSON.stringify(user))
   user = await userSchema.validate(user);
   user.value.roles = [user.value.profile.registrationType]
   user.value.hashedPassword = bcrypt.hashSync(user.value.password, 10)
@@ -49,11 +47,9 @@ async function insertUser(data: any) {
 async function generateId(): Promise<number> {
   let randomNumber = (Math.random() * (999999 - 100000 + 1) | 0) + 100000
   let user = await User.findOne({"profile.memberID": randomNumber})
-  //console.log("findOne: " + user)
   if (user) {
     return generateId()
   }
-  // console.log("return random number: " + randomNumber)
   return randomNumber;
 }
 

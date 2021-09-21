@@ -71,7 +71,6 @@ module.exports.confirmEmail = function (req: Request, res: Response) {
 }
 
 module.exports.resendLink = function (req: Request, res: Response) {
-  console.log(JSON.stringify(req.body))
   User.findOne({"profile.email": req.body.email}, (err: any, user: any) => {
     if (!user)
       return res.status(400).send({error: 'User with such Email does not exist. Please SignUp.', signup: true})
