@@ -9,6 +9,7 @@ import {TokenStorage} from './token.storage';
 import {UserLogin} from "../../interfaces/auth/user.login.interface";
 import {Token} from "../../interfaces/token.interface";
 import {Router} from "@angular/router";
+import {environment} from "../../../../environments/environment";
 
 interface AuthResponse {
   token: Token;
@@ -32,9 +33,8 @@ export class AuthService {
   login(login: UserLogin): Observable<User> {
     let email = login.email
     let password = login.password
-    ///api/auth/login
     return this.http
-      .post<AuthResponse>('http://localhost:5000/api/auth/login', {email, password})
+      .post<AuthResponse>(environment.login_api, {email, password})
       .pipe(
         tap(({token, user}) => {
           this.setUser(user)
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   register(user: UserRegister): Observable<User> {
-    return this.http.post<AuthResponse>('http://localhost:5000/api/auth/register', {user})
+    return this.http.post<AuthResponse>(environment.register_api, {user})
       .pipe(
         tap(({token, user}) => {
           this.setUser(user);
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   me(): Observable<User | null> {
-    return this.http.get<AuthResponse>('http://localhost:5000/api/auth/me').pipe(
+    return this.http.get<AuthResponse>(environment.me_api).pipe(
       tap(({user}) => this.setUser(user)),
       pluck('user'),
       catchError(() => of(null))
@@ -107,18 +107,18 @@ export class AuthService {
   }
 
   confirmEmail(email: string, token: string): Observable<ConfirmResponse> {
-    return this.http.get<ConfirmResponse>(`http://localhost:5000/api/auth/confirmation/${email}/${token}`)
+    return this.http.get<ConfirmResponse>(`${environment.confirm_email_api}/${email}/${token}`)
   }
 
   resendLink(email: string): Observable<ConfirmResponse> {
-    return this.http.post<ConfirmResponse>('http://localhost:5000/api/auth/resendLink', {email})
+    return this.http.post<ConfirmResponse>(environment.resend_link_api, {email})
   }
 
-  resetPassword(email: string): Observable<ConfirmResponse> {
-    return this.http.post<ConfirmResponse>('http://localhost:5000/api/password/forgot-password', {email})
+  forgotPassword(email: string): Observable<ConfirmResponse> {
+    return this.http.post<ConfirmResponse>(environment.forgot_password_api, {email})
   }
 
-  changePassword(email: string, token: string, newPassword: string): Observable<ConfirmResponse> {
-    return this.http.post<ConfirmResponse>(`http://localhost:5000/api/password/reset-password/${email}/${token}`, {password: newPassword})
+  resetPassword(email: string, token: string, newPassword: string): Observable<ConfirmResponse> {
+    return this.http.post<ConfirmResponse>(`${environment.reset_password_api}/${email}/${token}`, {password: newPassword})
   }
 }

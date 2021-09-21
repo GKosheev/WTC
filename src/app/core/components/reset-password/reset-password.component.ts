@@ -68,8 +68,7 @@ export class ResetPasswordComponent implements OnInit {
   changePassword(): void {
     this.serverAction = true;
     this.route.params.subscribe(params => {
-      console.log("email+ password: " + params['email'] + params['token'])
-      this.auth.changePassword(params['email'], params['token'], this.password.value).subscribe(response => {
+      this.auth.resetPassword(params['email'], params['token'], this.password.value).subscribe(response => {
         if (response.message)
           this.openSnackBar(false, response.message)
         this.serverAction = false;

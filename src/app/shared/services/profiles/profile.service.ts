@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {Profile} from "../../interfaces/profile/profile.interface";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
+import {environment} from "../../../../environments/environment";
 
 interface IEditProfileResponse {
   message?: string;
@@ -13,7 +14,6 @@ interface IEditProfileResponse {
   providedIn: 'root'
 })
 export class ProfileService {
-  private SAVE_CHANGES_URL = 'http://localhost:5000/api/profile/edit-profile';
   private userID: string = '';
   private profile$ = new BehaviorSubject<Profile | undefined>(undefined)
 
@@ -44,7 +44,7 @@ export class ProfileService {
   }
 
   saveChanges(profile: Profile | undefined, userID: string): Observable<IEditProfileResponse> {
-    return this.http.post<IEditProfileResponse>(this.SAVE_CHANGES_URL, {id: userID, profile: profile})
+    return this.http.post<IEditProfileResponse>(environment.save_changes_api, {id: userID, profile: profile})
   }
 
 }

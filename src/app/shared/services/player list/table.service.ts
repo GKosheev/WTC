@@ -5,6 +5,7 @@ import {TableData} from "../../interfaces/table/table.data.interface";
 import {map, tap} from "rxjs/operators";
 import {UserProfile} from "../../interfaces/table/user.profile.interface";
 import {MessageFormat} from "../../interfaces/table/message.format.interface";
+import {environment} from "../../../../environments/environment";
 
 export interface MessageResponse {
   message?: string,
@@ -15,9 +16,6 @@ export interface MessageResponse {
   providedIn: 'root'
 })
 export class TableService {
-  private GET_USERS_URL = 'http://localhost:5000/api/table/users';
-  private GET_USER_PROFILE_URL = 'http://localhost:5000/api/table/users/'
-  private POST_SEND_MESSAGE_URL = 'http://localhost:5000/api/table/send-message'
   private users$ = new BehaviorSubject<TableData[] | undefined>(undefined)
 
   constructor(private http: HttpClient) {
@@ -25,14 +23,7 @@ export class TableService {
 
 
   loadTableData(): Observable<TableData[]> {
-    return this.http.get<TableData[]>(this.GET_USERS_URL)
-    /* // if data will be needed more than in 1 component
-     .pipe(
-     tap(data => {
-       this.setTableData(data)
-     })
-   )
-     */
+    return this.http.get<TableData[]>(environment.get_users_api)
   }
 
   setTableData(data: TableData[]): void {
@@ -40,13 +31,13 @@ export class TableService {
   }
 
   loadUserData(id: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.GET_USER_PROFILE_URL + id).pipe(
+    return this.http.get<UserProfile>(environment.get_user_profile + '/' + id).pipe(
       map((userProfile: UserProfile) => userProfile)
     )
   }
 
   sendMessage(message: MessageFormat): Observable<MessageResponse> {
-    return this.http.post<MessageResponse>(this.POST_SEND_MESSAGE_URL, message)
+    return this.http.post<MessageResponse>(environment.send_message_api, message)
   }
 
 }

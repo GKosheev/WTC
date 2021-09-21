@@ -3,7 +3,23 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  /* auth service  */
+  login_api: 'http://localhost:5000/api/auth/login',
+  register_api: 'http://localhost:5000/api/auth/register',
+  me_api: 'http://localhost:5000/api/auth/me',
+  confirm_email_api: 'http://localhost:5000/api/auth/confirmation',
+  resend_link_api: 'http://localhost:5000/api/auth/resendLink',
+  forgot_password_api: 'http://localhost:5000/api/password/forgot-password',
+  reset_password_api: 'http://localhost:5000/api/password/reset-password',
+
+  /* table service  */
+  get_users_api: 'http://localhost:5000/api/table/users',
+  get_user_profile: 'http://localhost:5000/api/table/users',
+  send_message_api: 'http://localhost:5000/api/table/send-message',
+
+  /* profile service */
+  save_changes_api: 'http://localhost:5000/api/profile/edit-profile'
 };
 
 /*
