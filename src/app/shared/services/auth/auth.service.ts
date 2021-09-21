@@ -122,6 +122,6 @@ export class AuthService {
   }
 
   changePassword(email: string, token: string, newPassword: string): Observable<ConfirmResponse> {
-    return this.http.post<ConfirmResponse>(`http://localhost:5000/api/password/reset-password/${email}/${token}`, {newPassword: newPassword})
+    return this.http.post<ConfirmResponse>(`http://localhost:5000/api/password/reset-password/${email}/${token}`, {password: newPassword})
   }
 }
