@@ -50,15 +50,6 @@ module.exports.sendMessage = async function (req: Request, res: Response) {
   } catch (error) {
     res.status(400).json({error: error})
   }
-  /*
-  Response if Error
-  {
-  "code": "EAUTH",
-  "response": "535-5.7.8 Username and Password not accepted .....",
-  "responseCode": 535,
-  "command": "AUTH PLAIN"
-  }
-  */
 }
 
 
