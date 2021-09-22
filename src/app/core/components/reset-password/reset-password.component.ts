@@ -27,7 +27,12 @@ export class ResetPasswordComponent implements OnInit {
   errorFromServer = ""
   serverAction: boolean = false;
 
+  onKeyPress(): void {
+    setTimeout(() => this.checkPasswordPattern(), 250)
+  }
+
   ngOnInit(): void {
+
   }
 
   checkPasswordPattern(): void {
