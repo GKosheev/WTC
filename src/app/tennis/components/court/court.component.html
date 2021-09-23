@@ -1,5 +1,5 @@
 <div *ngIf="(court$ | async) as court">
-  <h1>{{court}}</h1>
+  <b><h1 style="font-size: 32px">{{court}}</h1></b>
 </div>
 
 <mat-form-field class="example-full-width" appearance="fill">
@@ -8,27 +8,23 @@
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
-
-<div class="panel panel-default" style="margin-top:10px;">
-    <div class="panel-body" style="position:relative">
-        <div class="table-responsive">
-            <table class="tables">
-                <thead>
-                    <tr>
-                        <th *ngFor="let item of columns; let i = index;">
-                            {{i}} {{item}}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let column of columns">
-                        <td *ngFor="let item of data;" [ngClass]="{book: booked}">
-                            {{column}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+<div class="content">
+    <table class="tables">
+      <thead>
+      <tr>
+        <th *ngFor="let item of columns; let i = index;">
+          {{i}} {{item}}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let column of columns">
+        <td *ngFor="let item of data;" [ngClass]="{book: booked}">
+          {{column}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
 </div>
+
+

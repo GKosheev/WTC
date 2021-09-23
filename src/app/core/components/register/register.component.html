@@ -34,22 +34,48 @@
           <mat-form-field class="example-full-width">
             <mat-label>Enter your password</mat-label>
             <input matInput [type]="hidePass ? 'password' : 'text'" placeholder="YourSecretPassword"
-                   formControlName="password">
+              formControlName="password" (keypress)="onKeyPress()" (blur)="onKeyPress()">
             <button mat-icon-button matSuffix (click)="hidePass = !hidePass" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hidePass">
+              [attr.aria-pressed]="hidePass">
               <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-error *ngIf="f.password.hasError('required')">Password is required</mat-error>
             <mat-error *ngIf="f.password.hasError('pattern')">Not a valid password pattern</mat-error>
           </mat-form-field>
 
+          <div class="invalid_container">
+            <mat-icon *ngIf="!passwordPattern.hasUppercaseLetter" color='warn' class="icon_valid">highlight_off
+            </mat-icon>
+            <mat-icon *ngIf="passwordPattern.hasUppercaseLetter" color='primary' class="icon_valid">check_circle_outline
+            </mat-icon>
+            <p class="valid_text">At least 1 uppercase later</p>
+          </div>
+          <div class="invalid_container">
+            <mat-icon *ngIf="!passwordPattern.hasDigit" color='warn' class="icon_valid">highlight_off</mat-icon>
+            <mat-icon *ngIf="passwordPattern.hasDigit" color='primary' class="icon_valid">check_circle_outline
+            </mat-icon>
+            <p class="valid_text">At least 1 digit</p>
+          </div>
+          <div class="invalid_container">
+            <mat-icon *ngIf="!passwordPattern.hasRequiredLength" color='warn' class="icon_valid">highlight_off
+            </mat-icon>
+            <mat-icon *ngIf="passwordPattern.hasRequiredLength" color='primary' class="icon_valid">check_circle_outline
+            </mat-icon>
+            <p class="valid_text">The minimum length at least 8 characters</p>
+          </div>
+          <div class="invalid_container">
+            <mat-icon *ngIf="!passwordPattern.hasSymbol" color='warn' class="icon_valid">highlight_off</mat-icon>
+            <mat-icon *ngIf="passwordPattern.hasSymbol" color='primary' class="icon_valid">check_circle_outline
+            </mat-icon>
+            <p class="valid_text">At least 1 symbol (#?!@$%^&*-)</p>
+          </div>
 
           <mat-form-field class="example-full-width">
             <mat-label>Confirm your password</mat-label>
             <input matInput [type]="hideConfPass ? 'password' : 'text'" placeholder="YourSecretPassword"
-                   formControlName="confirmedPassword">
+              formControlName="confirmedPassword">
             <button mat-icon-button matSuffix (click)="hideConfPass = !hideConfPass" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hideConfPass">
+              [attr.aria-pressed]="hideConfPass">
               <mat-icon>{{hideConfPass ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
 
@@ -106,7 +132,7 @@
             <mat-error *ngIf="f.phone.hasError('required')">Phone is required</mat-error>
           </mat-form-field>
 
-<!--
+          <!--
           <br><br><br>
           <div>{{registerForm.value | json}}</div>
           <div>{{"form valid: " + registerForm.valid}}</div>
@@ -121,16 +147,17 @@
 
 
     <mat-step [stepControl]="registerForm2" label="Confirm club rules">
-        <form class="example-form" [formGroup]="registerForm2">
-          <button class="policy" mat-button mat-raised-button (click)="openFirstAgreement()">Club policy</button>
-            <br>
-          <button class="policy" mat-button mat-raised-button (click)="openSecondAgreement()">Privacy policy</button>
-            <br>
-          <button class="policy" mat-button mat-raised-button (click)="openCovidAgreement()">COVID 19 Agreement</button>
-          <br>
-          <br>
-          <button mat-stroked-button type="submit" color="primary" class="btn-block" [disabled]="!registerForm.valid || !agreementIsValid()" (click)="onSubmit()">Register</button>
-        </form>
+      <form class="example-form" [formGroup]="registerForm2">
+        <button class="policy" mat-button mat-raised-button (click)="openFirstAgreement()">Club policy</button>
+        <br>
+        <button class="policy" mat-button mat-raised-button (click)="openSecondAgreement()">Privacy policy</button>
+        <br>
+        <button class="policy" mat-button mat-raised-button (click)="openCovidAgreement()">COVID 19 Agreement</button>
+        <br>
+        <br>
+        <button mat-stroked-button type="submit" color="primary" class="btn-block"
+          [disabled]="!registerForm.valid || !agreementIsValid()" (click)="onSubmit()">Register</button>
+      </form>
     </mat-step>
 
   </mat-stepper>

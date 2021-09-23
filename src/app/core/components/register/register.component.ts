@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {regExp} from "../../../shared/regExp/regExp";
-import {BreakpointObserver} from "@angular/cdk/layout";
-import {MatDialog} from '@angular/material/dialog';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {StepperOrientation} from '@angular/material/stepper';
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {UserRegister} from "../../../shared/interfaces/auth/user.register.interface";
-import {DialogFirstAgreementComponent} from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
-import {DialogSecondAgreementComponent} from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
-import {DialogCovidAgreementComponent} from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
-import {AuthService} from "../../../shared/services/auth/auth.service";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { regExp } from "../../../shared/regExp/regExp";
+import { BreakpointObserver } from "@angular/cdk/layout";
+import { MatDialog } from '@angular/material/dialog';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { StepperOrientation } from '@angular/material/stepper';
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { UserRegister } from "../../../shared/interfaces/auth/user.register.interface";
+import { DialogFirstAgreementComponent } from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
+import { DialogSecondAgreementComponent } from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
+import { DialogCovidAgreementComponent } from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
+import { AuthService } from "../../../shared/services/auth/auth.service";
+import { Router } from "@angular/router";
 
 function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
@@ -27,7 +27,7 @@ function MustMatch(controlName: string, matchingControlName: string) {
 
     // set error on matchingControl if validation fails
     if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({mustMatch: false});
+      matchingControl.setErrors({ mustMatch: false });
     } else {
       matchingControl.setErrors(null);
     }
@@ -41,11 +41,11 @@ function MustBeConfirmed() {
     const conf3 = formGroup.controls['covidPolicy']
 
     if (conf1.value !== 'Confirm') {
-      conf1.setErrors({MustBeConfirmed: false})
+      conf1.setErrors({ MustBeConfirmed: false })
     } else if (conf2.value !== 'Confirm') {
-      conf2.setErrors({MustBeConfirmed: false})
+      conf2.setErrors({ MustBeConfirmed: false })
     } else if (conf3.value !== 'Confirm') {
-      conf3.setErrors({MustBeConfirmed: false})
+      conf3.setErrors({ MustBeConfirmed: false })
     } else {
       conf1.setErrors(null)
       conf2.setErrors(null)
@@ -61,7 +61,7 @@ function MustBeConfirmed() {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false, showError: true}
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false, showError: true }
   }]
 })
 export class RegisterComponent implements OnInit {
@@ -69,6 +69,23 @@ export class RegisterComponent implements OnInit {
   registerForm2: FormGroup | any;
 
   finalForm: FormGroup | any;
+  passwordPattern = { hasUppercaseLetter: false, hasDigit: false, hasRequiredLength: false, hasSymbol: false }
+
+
+  onKeyPress(): void {
+    setTimeout(() => this.checkPasswordPattern(), 250)
+  }
+
+  checkPasswordPattern(): void {
+    let enteredPassword: string = this.registerForm.get('password').value
+
+    this.passwordPattern = {
+      hasUppercaseLetter: /(?=.*[A-Z])/.test(enteredPassword),
+      hasDigit: /\d/.test(enteredPassword),
+      hasRequiredLength: enteredPassword.length >= 8,
+      hasSymbol: /[#?!@$%^&*-]+/.test(enteredPassword)
+    }
+  }
 
   hidePass = true;
   hideConfPass = true;
@@ -86,7 +103,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private observer: BreakpointObserver, public dialog: MatDialog, private auth: AuthService, private router: Router) {
     this.stepperOrientation = observer.observe('(min-width: 959px')
-      .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'))
+      .pipe(map(({ matches }) => matches ? 'horizontal' : 'vertical'))
   }
 
   ngOnInit() {
@@ -180,7 +197,7 @@ export class RegisterComponent implements OnInit {
       return;
     } else {
 
-     // let userRegister: UserRegister = this.registerForm.value
+      // let userRegister: UserRegister = this.registerForm.value
       let userRegister: UserRegister = {
         profile: {
           firstName: this.registerForm.get('firstName').value,

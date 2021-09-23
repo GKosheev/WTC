@@ -1,5 +1,14 @@
-<button type="button" class="col-md-8 offset-md-2 btn btn-primary" [routerLink]="indoor">Indoor</button>
-<button type="button" class="col-md-8 offset-md-2 btn btn-primary" [routerLink]="outdoor">Outdoor</button>
-<button type="button" class="col-md-8 offset-md-2 btn btn-primary" [routerLink]="wall">Wall</button>
-<router-outlet></router-outlet>
+<div class="content">
+  <mat-form-field class="dropdown" appearance="fill">
+    <mat-label>Select an option</mat-label>
+    <mat-select >
+      <mat-option>None</mat-option>
+      <mat-option value="option1" [routerLink]="indoor">Indoor</mat-option>
+      <mat-option value="option2" [routerLink]="outdoor">Outdoor</mat-option>
+      <mat-option value="option3" [routerLink]="wall">Wall</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <hr class="hr-shelf">
+  <router-outlet></router-outlet>
+</div>
 
