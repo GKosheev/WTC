@@ -31,7 +31,8 @@ import { ConfirmEmailComponent } from './core/components/confirm-email/confirm-e
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { ForgotPasswordComponent } from './core/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './core/components/reset-password/reset-password.component';
-
+import { CourtsComponent } from './tennis/components/courts/courts.component';
+import { CourtComponent } from './tennis/components/court/court.component';
 
 export function appInitializerFactory(authService: AuthService) {
   return () => authService.checkTheUserOnFirstLoad();
@@ -60,7 +61,9 @@ export function appInitializerFactory(authService: AuthService) {
     ConfirmEmailComponent,
     NotFoundComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CourtsComponent,
+    CourtComponent
   ],
     imports: [
         BrowserModule,
@@ -71,7 +74,6 @@ export function appInitializerFactory(authService: AuthService) {
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule
-
     ],
   providers: [
     AuthService,

@@ -1,0 +1,26 @@
+.tables {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden;
+    margin: left 20px !important;
+    background: #ffffff;
+}
+
+.tables th,
+.tables td {
+    border: 1px solid #888;
+    padding: 10px;
+    height: 200px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.tables td:hover {
+    background: #fffabe;
+}
+
+.book {
+    background: #cecece !important;
+}

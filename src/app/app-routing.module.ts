@@ -18,6 +18,8 @@ import {ConfirmEmailComponent} from "./core/components/confirm-email/confirm-ema
 import {NotFoundComponent} from "./core/components/not-found/not-found.component";
 import {ForgotPasswordComponent} from "./core/components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./core/components/reset-password/reset-password.component";
+import {CourtsComponent} from "./tennis/components/courts/courts.component";
+import {CourtComponent} from "./tennis/components/court/court.component";
 
 
 const routes: Routes = [
@@ -85,7 +87,18 @@ const routes: Routes = [
     canActivate: [PlayerAuthGuard]
   },
   {
-    path: 'court-booking',
+    path: 'courts',
+    component: CourtsComponent,
+    canActivate: [PlayerAuthGuard, MembershipAuthGuard],
+    children: [
+      {
+        path: ':court/:date',
+        component: CourtComponent
+      }
+    ]
+  },
+  {
+    path: 'book/:court/:date/:id/:time',
     component: CourtBookingComponent,
     canActivate: [PlayerAuthGuard, MembershipAuthGuard]
   },
