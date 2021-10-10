@@ -5,7 +5,7 @@ export type CourtsTimeDocument = mongoose.Document &{
   time: String[]
 }
 
-export type CourtsConfigDocument = mongoose.Document &{
+export type CourtsConfig = mongoose.Document &{
   courtType: String,
   numberOfCourts: number,
   time: CourtsTimeDocument[],

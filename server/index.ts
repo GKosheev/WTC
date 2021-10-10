@@ -1,6 +1,6 @@
 import app from './config/express'
+import config from "./config/config";
 
-const port = process.env.PORT || 5000;
-
+const port = config.port || 5000;
 
 app.listen(port);

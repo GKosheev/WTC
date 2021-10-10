@@ -5,6 +5,6 @@ import passport from 'passport'
 const controller = require('../controllers/profile.controller')
 const router = app.Router()
 
-router.post('/edit-profile', passport.authenticate('jwt', {session: false}), asyncHandler(controller.editProfile))
+router.post('/edit-profile', passport.authenticate('jwt', {session: false}), asyncHandler(controller.updateProfile))
 
 module.exports = router

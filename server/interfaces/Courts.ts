@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-export type CourtsDocument = mongoose.Document &{
+export type Courts = mongoose.Document &{
   courtType: String,
   courtId: Number,
   date: String,

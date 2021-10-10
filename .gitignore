@@ -48,7 +48,7 @@ Thumbs.db
 
 
 # dotenv
-server/.env
+.env
 
 # .rest file
 test.rest

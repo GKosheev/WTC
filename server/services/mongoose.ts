@@ -1,4 +1,4 @@
-import config from './config'
+import config from '../config/config'
 import {connect} from 'mongoose'
 
 async function startDB(): Promise<void> {

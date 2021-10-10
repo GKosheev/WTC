@@ -1,100 +1,118 @@
-// functions from config/utils
-import {Request, Response, NextFunction} from 'express'
-import Token from '../models/token.model'
+import {Request, Response} from 'express'
+import TokenModel from '../models/token.model'
+import UserModel from "../models/user.model";
 import * as crypto from 'crypto'
-import config from '../config/config'
-import User from "../models/user.model";
-import sgMail from "../config/sendgrid";
-
-const insertUser = require('../config/utils').insertUser
-const generateToken = require('../config/utils').generateToken
+import {confirmEmailMessage, forgotPasswordMessage, resendEmailVerifyLinkMessage} from "../utils/auth/auth.email";
+import bcrypt from "bcrypt";
+import {generateToken, insertUser} from "../utils/auth/auth.utils";
+import {joiUserRegister, joiEmailValidation, joiResetPassword} from "../utils/auth/auth.validation";
 
 
-module.exports.register = async function (req: Request, res: Response, next: NextFunction) {
-  try {
-    let user = await insertUser(req.body)
-    let token = new Token({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
-    await token.save()
+/*
 
-    const msg = {
-      to: user.profile.email,
-      from: String(config.sendgrid_verified_email), // Change to your verified sender
-      subject: 'Account verification link',
-      text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
-      // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
-    sgMail.send(msg).then(() => {
-      res.status(200).json({message: 'Check your email to validate your account'})
-    }).catch((error) => {
-      res.status(300).json({error: 'Confirm email error'})
-    })
+Main Auth APIs
 
-  } catch (error) {
-    res.status(400).json({error: error})
-  }
+*/
+module.exports.register = async function (req: Request, res: Response) {
+  const user_ = req.body.user
+  const userRegisterValidation = await joiUserRegister.validate(user_);
+  if (userRegisterValidation.error)
+    return res.status(400).json({msg: userRegisterValidation.error.message})
+  const user = await insertUser(req.body.user)
+  if (!user)
+    res.status(400).json({msg: 'Register error'})
+  const token = await new TokenModel({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
+  await token.save()
+  await confirmEmailMessage(user.profile.firstName, user.profile.email, String(token.token))
+  res.status(200).json({msg: 'Check your email to validate your account'})
 }
 
-module.exports.login = function (req: Request, res: Response) {
-  let user = req.user
-  let token = generateToken(user)
+module.exports.login = async function (req: Request, res: Response) {
+  const user: any = req.user
+  const token = await generateToken(user)
   res.json({user, token})
 }
 
-module.exports.confirmEmail = function (req: Request, res: Response) {
-  Token.findOne({token: req.params.token}, (err: any, token: any) => {
-    if (!token) {
-      return res.status(400).send({
-        error: 'Your verification link may have expired. Please click on resend for verify your Email.',
-        resendLink: true
-      })
-    } else {
-      User.findOne({_id: token._userId, "profile.email": req.params.email}, (err: any, user: any) => {
-        if (!user)
-          return res.status(401).send({
-            error: 'We were unable to find a user for this verification. Please SignUp!',
-            signup: true
-          })
-        else if (user.isVerified)
-          return res.status(200).send({message: 'User has already been verified. Please Login'})
-        else {
-          user.isVerified = true;
-          user.save((err: any) => {
-            if (err)
-              return res.status(500).send({msg: err.message})
-            else
-              return res.status(200).send({message: 'Your account has been successfully verified'})
-          })
-        }
-      })
-    }
-  })
+
+/*
+
+Email Confirmation && Resend Email Confirmation Link
+
+*/
+module.exports.confirmEmail = async function (req: Request, res: Response) {
+  const token = await TokenModel.findOne({token: req.params.token})
+  if (!token)
+    return res.status(400).send({
+      msg: 'Your verification link may have expired. Please enter your email again',
+      forgotPassword: true
+    })
+  const user = await UserModel.findOne({_id: token._userId})
+  await token.delete() // delete token after we find user with it
+  if (!user)
+    return res.status(401).send({
+      msg: 'We were unable to find a user for this verification. Please SignUp!',
+      signup: true
+    })
+  if (user.isVerified)
+    return res.status(200).send({msg: 'User has already been verified. Please Login'})
+  user.isVerified = true;
+  await user.save()
+
+  return res.status(200).send({msg: 'Your account has been successfully verified'})
 }
 
-module.exports.resendLink = function (req: Request, res: Response) {
-  User.findOne({"profile.email": req.body.email}, (err: any, user: any) => {
-    if (!user)
-      return res.status(400).send({error: 'User with such Email does not exist. Please SignUp.', signup: true})
-    else {
-      let token = new Token({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
-      token.save((err) => {
-        if (err)
-          return res.status(500).send({error: err.message})
+module.exports.resendEmailLink = async function (req: Request, res: Response) {
+  const user = await UserModel.findOne({"profile.email": req.body.email})
+  if (!user)
+    return res.status(400).send({msg: 'User with such Email does not exist. Please SignUp.', signup: true})
+  if (user.isVerified)
+    return res.status(200).send({msg: 'User has already been verified. Please Login', login: true})
+  const token = await new TokenModel({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
+  await token.save()
+  await resendEmailVerifyLinkMessage(user.profile.firstName, user.profile.email, String(token.token))
+  return res.status(200).json({msg: 'Check your email to validate your account'})
+}
 
 
-        const msg = {
-          to: user.profile.email,
-          from: String(config.sendgrid_verified_email), // Change to your verified sender
-          subject: 'Account verification link (resend)',
-          text: 'Hello ' + user.profile.firstName + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + 'localhost:4200'/*req.headers.host*/ + '\/#' + '\/confirm-email\/' + user.profile.email + '\/' + token.token + '\n\nThank You!\n'
-          // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-        }
-        sgMail.send(msg).then(() => {
-          res.status(200).json({message: 'Check your email to validate your account'})
-        }).catch((error) => {
-          res.status(300).json({error: 'Confirm email error'})
-        })
+/*
 
-      })
-    }
+Forgot Password && Reset Password
+
+*/
+module.exports.forgotPassword = async function (req: Request, res: Response) {
+  const email = req.body.email
+  const emailValidation = await joiEmailValidation.validate({email: email})
+  if (emailValidation.error)
+    return res.status(400).json({msg: 'Validation error'})
+  const user = await UserModel.findOne({"profile.email": email})
+  if (!user)
+    return res.status(400).send({msg: 'User does not exist. Please signup', signup: true})
+  const token = await new TokenModel({_userId: user._id, token: crypto.randomBytes(20).toString('hex')})
+  await token.save()
+  await forgotPasswordMessage(user.profile.firstName, user.profile.email, String(token.token))
+  return res.status(200).json({msg: 'Check your email to reset your password'})
+}
+
+module.exports.resetPassword = async function (req: Request, res: Response) {
+  let token_: string = req.params.token
+  let password: string = req.body.password
+  const validationResult = await joiResetPassword.validate({
+    token: token_,
+    password: password
   })
+  if (validationResult.error)
+    return res.status(400).json({msg: 'Validation error'})
+
+  const token = await TokenModel.findOne({token: token_})
+  if (!token)
+    return res.status(400).send({msg: 'Token has been expired, please enter your email again', forgotPassword: true})
+
+  const user = await UserModel.findOne({_id: token._userId})
+  await token.delete() // delete token after we find user with it
+  if (!user)
+    return res.status(400).send({msg: 'User with such Email does not exist. Please SignUp.'})
+
+  user.hashedPassword = bcrypt.hashSync(password, 10)
+  await user.save()
+  return res.status(200).json({msg: "Password has been changed"})
 }

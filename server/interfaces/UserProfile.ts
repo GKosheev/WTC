@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-export type UserProfileDocument = mongoose.Document &{
+export interface UserProfile {
   firstName: string,
   lastName: string,
   email: string,

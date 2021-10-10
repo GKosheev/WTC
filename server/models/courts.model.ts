@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
-import {CourtsDocument} from "../interfaces/CourtsDocument";
+import {Courts} from "../interfaces/Courts";
 
-let courtsSchema = new mongoose.Schema<CourtsDocument>({
+let courtsSchema = new mongoose.Schema<Courts>({
   courtType: {type: String, required: true},
   courtId: {type: Number, required: true},
   date: {type: String, required: true},
@@ -10,5 +10,5 @@ let courtsSchema = new mongoose.Schema<CourtsDocument>({
   paid: {type: Boolean, required: true},
   bookedType: {type: String, required: true}
 })
-const Courts = mongoose.model<CourtsDocument>('Courts', courtsSchema)
-export default Courts
+const CourtsModel = mongoose.model<Courts>('Courts', courtsSchema)
+export default CourtsModel
