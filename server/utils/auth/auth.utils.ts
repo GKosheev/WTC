@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import UserModel from "../../models/user.model";
-import {User} from "../../interfaces/User";
+import {User} from "../../documents/User";
 import jsonwebtoken from "jsonwebtoken";
 import config from "../../config/config";
 

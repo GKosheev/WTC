@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose'
-import {User} from "../interfaces/User";
-import {UserProfile} from "../interfaces/UserProfile";
+import {User} from "../documents/User";
+import {UserProfile} from "../documents/UserProfile";
 
 const userProfile = new mongoose.Schema<UserProfile>({
   firstName: {type: String, required: true},

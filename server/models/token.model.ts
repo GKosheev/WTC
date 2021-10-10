@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose'
-import {Token} from "../interfaces/Token";
+import {Token} from "../documents/Token";
 import moment from 'moment-timezone';
 
 

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose'
-import {Courts} from "../interfaces/Courts";
+import {Courts} from "../documents/Courts";
 
 let courtsSchema = new mongoose.Schema<Courts>({
   courtType: {type: String, required: true},
