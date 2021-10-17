@@ -4,16 +4,22 @@ import UserModel from "../models/user.model";
 import * as crypto from 'crypto'
 import TokenModel from "../models/token.model";
 import {confirmEmailMessage} from "../utils/auth/auth.email";
+import {joiLoginValidation} from "../utils/auth/auth.validation";
 
 
 export async function loginMiddleware(req: Request, res: Response, next: NextFunction) {
   const email = req.body.email
   const password = req.body.password
+
+  const userLoginValidation = await joiLoginValidation.validate({email: email, password: password});
+  if (userLoginValidation.error)
+    return res.status(400).json({msg: userLoginValidation.error.message})
+
   const user = await UserModel.findOne({'profile.email': email})
   if (!user)
-    return res.status(400).json({msg: "User with such email doesn't exist"})
+    return res.status(400).json({msg: "User with such email doesn't exist", wrongEmail: true})
   if (!bcrypt.compareSync(password, String(user.hashedPassword)))
-    return res.status(400).json({msg: "Wrong password"})
+    return res.status(400).json({msg: "Wrong password", wrongPassword: true})
 
   if (!user.isVerified) {
     let token = await new TokenModel({_userId: user._id, token: crypto.randomBytes(16).toString('hex')})
