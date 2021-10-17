@@ -18,6 +18,10 @@ module.exports.register = async function (req: Request, res: Response) {
   const userRegisterValidation = await joiUserRegister.validate(user_);
   if (userRegisterValidation.error)
     return res.status(400).json({msg: userRegisterValidation.error.message})
+
+  if (await UserModel.find({"profile.email": user_.profile.email}).countDocuments())
+    return res.status(400).json({msg: 'User with such email is already exists', userExists: true})
+
   const user = await insertUser(req.body.user)
   if (!user)
     res.status(400).json({msg: 'Register error'})

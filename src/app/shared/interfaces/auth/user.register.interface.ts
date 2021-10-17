@@ -10,7 +10,7 @@ export interface UserRegister {
     receiveClubEmails: boolean,
   },
   password: string,
-  confirmedPassword: string,
+  repeatPassword: string,
   securityQuestion: string,
   securityAnswer: string,
   clubPolicy: string,
