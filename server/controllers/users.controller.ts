@@ -41,7 +41,7 @@ module.exports.messageToUser = async function (req: Request, res: Response) {
 
 
 module.exports.getById = async function (req: Request, res: Response) {
-  const memberID: string = req.params.id //id = memberID
+  const memberID: string = req.params.userId //id = memberID
 
   const user = await UserModel.collection.findOne({'profile.memberID': memberID})
   if (!user)
