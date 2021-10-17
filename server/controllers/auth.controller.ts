@@ -48,7 +48,7 @@ module.exports.confirmEmail = async function (req: Request, res: Response) {
   if (!token)
     return res.status(400).send({
       msg: 'Your verification link may have expired. Please enter your email again',
-      forgotPassword: true
+      resendEmailLink: true
     })
   const user = await UserModel.findOne({_id: token._userId})
   await token.delete() // delete token after we find user with it
