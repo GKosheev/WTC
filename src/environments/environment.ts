@@ -8,15 +8,17 @@ export const environment = {
   login_api: 'http://localhost:5000/api/auth/login',
   register_api: 'http://localhost:5000/api/auth/register',
   me_api: 'http://localhost:5000/api/auth/me',
-  confirm_email_api: 'http://localhost:5000/api/auth/confirmation',
-  resend_link_api: 'http://localhost:5000/api/auth/resendLink',
-  forgot_password_api: 'http://localhost:5000/api/password/forgot-password',
-  reset_password_api: 'http://localhost:5000/api/password/reset-password',
 
-  /* table service  */
-  get_users_api: 'http://localhost:5000/api/table/users',
-  get_user_profile: 'http://localhost:5000/api/table/users',
-  send_message_api: 'http://localhost:5000/api/table/send-message',
+  confirm_email_api: 'http://localhost:5000/api/auth/confirm-email', // /:token
+  resend_link_api: 'http://localhost:5000/api/auth/resend-email-link',
+
+  forgot_password_api: 'http://localhost:5000/api/auth/forgot-password',
+  reset_password_api: 'http://localhost:5000/api/auth/reset-password', // /:token
+
+  /* users service  */
+  get_users_api: 'http://localhost:5000/api/users',
+  get_user_profile_api: 'http://localhost:5000/api/users', // /:userId
+  send_message_api: 'http://localhost:5000/api/users/send-message', // /:userId
 
   /* profile service */
   save_changes_api: 'http://localhost:5000/api/profile/edit-profile'
