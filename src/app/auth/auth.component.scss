@@ -1,3 +1,51 @@
+.block-first{
+	position: absolute;
+	height: 100vh;
+	width: 50%;
+}
+.back_block_first{
+  background: url("https://traveltimes.ru/wp-content/uploads/2021/05/86a21cadc98d303d85687.jpg") no-repeat center;
+  background-size: cover;
+}
+.back_block_second{
+	background: url("/assets/djokovic_8x9-gigapixel-scale-4_00x.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.block-second{
+  display: flex;
+  justify-content: center;
+	float: right;
+	height: 100vh;
+	width: 50%;
+
+}
+
+.content{
+  width: 500px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  overflow: scroll;
+}
+
+
+@media (max-width: 1100px) {
+  .block-second{  background: url("/assets/djokovic_8x9-gigapixel-scale-4_00x.jpg") no-repeat center;
+    width: 100%;
+    background-size: cover;
+  }
+  .content{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .block-first{
+    display: none;
+  }
+}
+
+/*
 .auth-wrapper {
   margin: 0;
   padding: 0;
@@ -7,7 +55,7 @@
 }
 
 .container{
- // display: flex;
+  display: flex;
   justify-content: center;
 }
 .block-first{
@@ -33,15 +81,19 @@
   float: right;
   height: 100vh;
   width: 50%;
+  overflow: hidden;
 
 }
 .content{
   width: 500px;
   align-items: center;
+  margin-left: 25%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .block-first, .block-second {
  // display: inline-block;
-}
+}*/
 
 

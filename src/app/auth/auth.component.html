@@ -1,13 +1,9 @@
-<div class="auth-wrapper">
-
-  <div class="container">
-    <div class="block-first">
-    <img src="assets/djokovic_8x9-gigapixel-scale-4_00x.jpg">
-    </div>
-    <div class="block-second">
-      <div class="content">
+<div class="container">
+  <div class="block-first" [ngClass]="{'back_block_first':variable,'back_block_second':!variable }">
+  </div>
+  <div class="block-second">
+    <div class="content">
       <router-outlet></router-outlet>
-      </div>
     </div>
   </div>
 </div>

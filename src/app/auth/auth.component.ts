@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
 
   constructor() { }
-
+  variable: boolean = true;
   ngOnInit(): void {
   }
 
