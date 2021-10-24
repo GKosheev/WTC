@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../../../core/services/auth/auth.service";
+import {AuthService} from "../../../core/services/auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-confirm-email',

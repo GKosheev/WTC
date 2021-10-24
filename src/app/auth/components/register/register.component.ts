@@ -1,20 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {regExp} from "../../../../shared/regExp/regExp";
+import {regExp} from "../../../shared/regExp/regExp";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {MatDialog} from '@angular/material/dialog';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {UserRegister} from "../../../../shared/interfaces/auth/user.register.interface";
+import {UserRegister} from "../../../shared/interfaces/auth/user.register.interface";
 import {DialogFirstAgreementComponent} from "../register dialog components/dialog-first-agreement/dialog-first-agreement.component";
 import {DialogSecondAgreementComponent} from "../register dialog components/dialog-second-agreement/dialog-second-agreement.component";
 import {DialogCovidAgreementComponent} from "../register dialog components/dialog-covid-agreement/dialog-covid-agreement.component";
-import {AuthService} from "../../../../core/services/auth/auth.service";
+import {AuthService} from "../../../core/services/auth/auth.service";
 import {Router} from "@angular/router";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
-
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];

@@ -1,17 +1,17 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {BreakpointObserver} from '@angular/cdk/layout';
-import {MatSidenav} from '@angular/material/sidenav';
-import {User} from "../../../shared/interfaces/user.interface";
+import {User} from "../shared/interfaces/user.interface";
+import {MatSidenav} from "@angular/material/sidenav";
+import {BreakpointObserver} from "@angular/cdk/layout";
 import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../../../core/services/auth/auth.service";
+import {AuthService} from "../core/services/auth/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'private',
+  templateUrl: './private.component.html',
+  styleUrls: ['./private.component.scss']
 })
-export class NavbarComponent implements AfterViewInit, OnInit {
+export class PrivateComponent implements AfterViewInit, OnInit {
   user: User | null = null
   firstName: string | undefined = undefined
   lastName: string | undefined = undefined

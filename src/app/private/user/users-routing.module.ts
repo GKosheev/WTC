@@ -11,7 +11,7 @@ import {CourtsComponent} from "./components/courts/courts.component";
 import {CourtComponent} from "./components/court/court.component";
 import {CourtBookingComponent} from "./components/court-booking/court-booking.component";
 import {RoleGuard} from "../../core/guards/roles/role.guard";
-import {AuthGuard} from "../../core/guards/private/private.guard";
+import {AuthGuard} from "../../core/guards/auth/auth.guard";
 
 const routes: Routes = [
   {

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
-import {regExp} from "../../../../shared/regExp/regExp";
-import {AuthService} from "../../../../core/services/auth/auth.service";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
+import {regExp} from "../../../shared/regExp/regExp";
+import {AuthService} from "../../../core/services/auth/auth.service";
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 import {Router} from "@angular/router";
 
 @Component({

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../../../core/services/auth/auth.service";
+import {AuthService} from "../../../core/services/auth/auth.service";
 import {FormControl, Validators} from "@angular/forms";
-import {regExp} from "../../../../shared/regExp/regExp";
+import {regExp} from "../../../shared/regExp/regExp";
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 import {Router} from "@angular/router";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-forgot-password',

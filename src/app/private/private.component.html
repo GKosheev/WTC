@@ -10,11 +10,11 @@
 
   Waterloo Tennis Club
   <div fxShow="true" fxHide.lt-md="true" class="nav-buttons" *ngIf="user">
-    <button mat-raised-button color="primary" class="nav-object" routerLink="">
+    <button mat-raised-button color="primary" class="nav-object" routerLink="home">
       <mat-icon>home</mat-icon>
       Home
     </button>
-    <button mat-raised-button color="primary" class="nav-object" routerLink="private/user/profile">
+    <button mat-raised-button color="primary" class="nav-object" routerLink="user/profile">
       <mat-icon>person</mat-icon>
       Profile
     </button>
@@ -29,13 +29,14 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
+    <!--
     <ng-template #anonymousUser>
-      <img class="avatar mat-elevation-z8" src="../../../../assets/anonymous.jpg" alt="Your beautiful photo"/>
+      <img class="avatar mat-elevation-z8" src="../../../assets/anonymous.jpg" alt="Your beautiful photo"/>
       <h4 class="name">Anonymous User</h4>
       <p class="designation">Anonymous</p>
       <mat-divider></mat-divider>
 
-      <button mat-button class="menu-button" routerLink="">
+      <button mat-button class="menu-button" routerLink="home">
         <mat-icon>home</mat-icon>
         <span>Home</span>
       </button>
@@ -51,19 +52,20 @@
         <span>Register</span>
       </button>
     </ng-template>
+    -->
 
-    <div *ngIf="this.user else anonymousUser">
-      <img class="avatar mat-elevation-z8" src="../../../../assets/anonymous.jpg" alt="Your beautiful photo"/>
+    <div *ngIf="this.user">
+      <img class="avatar mat-elevation-z8" src="../../assets/anonymous.jpg" alt="Your beautiful photo"/>
       <h4 class="name">{{this.firstName + ' ' + this.lastName}}</h4>
       <p class="designation">{{user.roles.indexOf('member')> -1 ? 'Member' : 'nonMember'}}</p>
 
       <div fxShow="false" fxShow.lt-md="true">
         <mat-divider></mat-divider>
-        <button mat-button class="menu-button" routerLink="">
+        <button mat-button class="menu-button" routerLink="home">
           <mat-icon>home</mat-icon>
           <span>Home</span>
         </button>
-        <button mat-button class="menu-button" routerLink="private/user/profile">
+        <button mat-button class="menu-button" routerLink="user/profile">
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
@@ -72,30 +74,30 @@
 
       <mat-divider></mat-divider>
       <div *ngIf="user.roles.indexOf('member')> -1">
-        <button mat-button class="menu-button" routerLink="private/user/store">
+        <button mat-button class="menu-button" routerLink="user/store">
           <mat-icon>shopping_cart</mat-icon>
           <span>Store</span>
         </button>
 
-        <button mat-button class="menu-button" routerLink="private/user/players">
+        <button mat-button class="menu-button" routerLink="user/players">
           <mat-icon>people</mat-icon>
           <span>Players</span>
         </button>
 
 
-        <button mat-button class="menu-button" routerLink="private/user/singles-tennis-ladder">
+        <button mat-button class="menu-button" routerLink="user/singles-tennis-ladder">
           <mat-icon>info</mat-icon>
           <span>Tennis Ladder</span>
         </button>
 
-        <button mat-button class="menu-button" routerLink="private/user/courts">
+        <button mat-button class="menu-button" routerLink="user/courts">
           <mat-icon>book_online</mat-icon>
           <span>Court booking</span>
         </button>
         <mat-divider></mat-divider>
       </div>
 
-      <button mat-button class="menu-button" routerLink="private/user/payments">
+      <button mat-button class="menu-button" routerLink="user/payments">
         <mat-icon>payment</mat-icon>
         <span>Payments</span>
       </button>
@@ -112,7 +114,7 @@
 
     </div>
     <mat-divider></mat-divider>
-    <img src="../../../../assets/WTC.jpg" class="logo" alt="WTC logo">
+    <img src="../../assets/WTC.jpg" class="logo" alt="WTC logo">
   </mat-sidenav>
 
 

@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
-import {regExp} from "../../../../shared/regExp/regExp";
+import {regExp} from "../../../shared/regExp/regExp";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AuthService} from "../../../../core/services/auth/auth.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
+import {AuthService} from "../../../core/services/auth/auth.service";
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-reset-password',

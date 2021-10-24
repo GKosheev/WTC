@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, Validators} from "@angular/forms";
-import {UserLogin} from "../../../../shared/interfaces/auth/user.login.interface";
-import {AuthService} from "../../../../core/services/auth/auth.service";
-import {regExp} from "../../../../shared/regExp/regExp";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
+import {UserLogin} from "../../../shared/interfaces/auth/user.login.interface";
+import {AuthService} from "../../../core/services/auth/auth.service";
+import {regExp} from "../../../shared/regExp/regExp";
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-login',
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       password: this.password.value
     }
     this.auth.login(logUser).subscribe(() => {
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl('private')
     }, error => {
       if (error.error.msg)
         this.snackbar.openSnackBar(error.error.msg, true)

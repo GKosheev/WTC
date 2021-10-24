@@ -18,17 +18,14 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
   }
 
   canLoad(): Observable<boolean> | boolean {
-   // console.log('can load (auth guard)')
     return this.isAuthorized()
   }
 
   canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-   // console.log('can activate (auth guard)')
     return this.isAuthorized()
   }
 
   canActivateChild(): Observable<boolean> | boolean{
-   // console.log('can activate child (auth guard)')
     return this.isAuthorized()
   }
 
