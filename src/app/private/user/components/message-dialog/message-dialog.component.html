@@ -13,12 +13,9 @@
 
 
   <div *ngIf="sendButtonClicked" class="progress-bar">
-    <div *ngIf="!messageSent; else sent">
+    <div *ngIf="!messageSent">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <ng-template #sent>
-    <!-- in case we want to display some information before going back to user profile -->
-    </ng-template>
     <br>
   </div>
   <button mat-raised-button (click)="closeDialog()" [disabled]="sendButtonClicked">Close</button>

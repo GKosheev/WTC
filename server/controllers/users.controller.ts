@@ -2,6 +2,7 @@ import UserModel from '../models/user.model'
 import {Request, Response} from 'express'
 import {sendMessageToUser} from "../utils/users/users.email";
 import {User} from "../documents/User";
+import {joiMessageToUserValidation} from "../utils/users/users.validation";
 
 module.exports.allUsers = async function (req: Request, res: Response) {
   const users = await UserModel.find({})
@@ -26,6 +27,17 @@ module.exports.allUsers = async function (req: Request, res: Response) {
 }
 
 module.exports.messageToUser = async function (req: Request, res: Response) {
+
+  /*  const userRegisterValidation = await joiUserRegister.validate(user_);
+    if (userRegisterValidation.error)
+      return res.status(400).json({msg: userRegisterValidation.error.message})*/
+  const messageToUserValidation = await joiMessageToUserValidation.validate({
+    subject: req.body.subject,
+    text: req.body.text
+  })
+  if (messageToUserValidation.error)
+    return res.status(400).json({msg: messageToUserValidation.error.message})
+
   const memberID: string = req.params.userId
   const user = await UserModel.collection.findOne({'profile.memberID': memberID});
   if (!user)
