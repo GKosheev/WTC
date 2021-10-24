@@ -1,12 +1,19 @@
 .login-wrapper {
-  height: 100%;
+  // width: 434px;
+  // height: 600px;
+}
+
+.register-wrapper {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #CDCECF;
 }
 
 .login-wrapper .example-form {
   overflow: auto;
-  height: calc(100vh - 210px);
-  min-width: 100%;
-  max-width: 450px;
+ // height: calc(100vh - 250px);
+  // height: 600px;
+  // max-width: 450px;
 }
 
 .login-wrapper .example-full-width,
@@ -33,25 +40,26 @@
 .login-wrapper .mat-stroked-button {
   border: 1px solid currentColor;
   line-height: 54px;
-//  background: #FFF7FA;
+  //  background: #FFF7FA;
 }
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
 }
 
-.mat-form-field{
- margin-top: 12px;
+.mat-form-field {
+  margin-top: 12px;
 }
-.mat-radio-button{
+
+.mat-radio-button {
   margin-left: 10px;
 }
 
 @media (max-width: 502px) {
-  .login-wrapper .mat-card{
-    padding: 40px 40px 40px ;
+  .login-wrapper .mat-card {
+    padding: 40px 40px 40px;
   }
-  .mat-radio-button{
+  .mat-radio-button {
     float: left;
     width: 100%;
   }
@@ -65,8 +73,25 @@
 }
 
 .invalid_container {
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.icon_invalid {
+
+  color: #888888;
+}
+
+.valid_text {
+  opacity: 70%;
+  margin-left: 5px;
+  margin-top: 2px;
+  font-size: 75%;
+}
+
+.gender {
+  margin-top: 5px;
 }
 

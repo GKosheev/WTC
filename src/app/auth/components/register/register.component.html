@@ -1,7 +1,7 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
 
-  <mat-stepper [orientation]="(stepperOrientation | async)!">
+  <mat-stepper [orientation]="(stepperOrientation | async)!" class="register-wrapper">
     <mat-step [stepControl]="registerForm" label="Fill your general information" errorMessage="Fill the form">
 
       <form [formGroup]="registerForm" class="example-form">
@@ -42,22 +42,22 @@
             <mat-error *ngIf="f.password.hasError('required')">Password is required</mat-error>
             <mat-error *ngIf="f.password.hasError('pattern')">Not a valid password pattern</mat-error>
           </mat-form-field>
-
+          <br>
           <div class="invalid_container">
-            <mat-icon *ngIf="!passwordPattern.hasUppercaseLetter" color='warn' class="icon_valid">highlight_off
+            <mat-icon *ngIf="!passwordPattern.hasUppercaseLetter" class="icon_invalid">highlight_off
             </mat-icon>
             <mat-icon *ngIf="passwordPattern.hasUppercaseLetter" color='primary' class="icon_valid">check_circle_outline
             </mat-icon>
             <p class="valid_text">At least 1 uppercase later</p>
           </div>
           <div class="invalid_container">
-            <mat-icon *ngIf="!passwordPattern.hasDigit" color='warn' class="icon_valid">highlight_off</mat-icon>
+            <mat-icon *ngIf="!passwordPattern.hasDigit" class="icon_invalid">highlight_off</mat-icon>
             <mat-icon *ngIf="passwordPattern.hasDigit" color='primary' class="icon_valid">check_circle_outline
             </mat-icon>
             <p class="valid_text">At least 1 digit</p>
           </div>
           <div class="invalid_container">
-            <mat-icon *ngIf="!passwordPattern.hasRequiredLength" color='warn' class="icon_valid">highlight_off
+            <mat-icon *ngIf="!passwordPattern.hasRequiredLength" class="icon_invalid">highlight_off
             </mat-icon>
             <mat-icon *ngIf="passwordPattern.hasRequiredLength" color='primary' class="icon_valid">check_circle_outline
             </mat-icon>
@@ -79,14 +79,14 @@
             </mat-error>
           </mat-form-field>
 
-
+          <div class="gender">
           <label>Gender: </label>
           <mat-radio-group formControlName="gender" color="primary">
             <mat-radio-button value="male">Male</mat-radio-button>
             <mat-radio-button value="female">Female</mat-radio-button>
             <mat-radio-button value="unspecified">Unspecified</mat-radio-button>
           </mat-radio-group>
-
+          </div>
 
           <mat-form-field class="example-full-width" color="primary" appearance="fill">
             <mat-label>Date of Birth</mat-label>
@@ -134,7 +134,7 @@
           <div>agreementIsValid: {{agreementIsValid()}}</div>
 -->
         </mat-card-content>
-        <button mat-button mat-raised-button matStepperNext>Next</button>
+        <button mat-raised-button matStepperNext>Next</button>
 
       </form>
     </mat-step>
