@@ -9,7 +9,7 @@
   </button>
 
   Waterloo Tennis Club
-  <div fxShow="true" fxHide.lt-md="true" class="nav-buttons" *ngIf="user">
+<!--  <div fxShow="true" fxHide.lt-md="true" class="nav-buttons" *ngIf="user">
     <button mat-raised-button color="primary" class="nav-object" routerLink="home">
       <mat-icon>home</mat-icon>
       Home
@@ -22,7 +22,7 @@
       <mat-icon>logout</mat-icon>
       Logout
     </button>
-  </div>
+  </div>-->
 
 </mat-toolbar>
 
@@ -55,11 +55,11 @@
     -->
 
     <div *ngIf="this.user">
-      <img class="avatar mat-elevation-z8" src="../../assets/anonymous.jpg" alt="Your beautiful photo"/>
+      <img class="avatar mat-elevation-z8" src="../../assets/img/anonymous.jpg" alt="Your beautiful photo"/>
       <h4 class="name">{{this.firstName + ' ' + this.lastName}}</h4>
       <p class="designation">{{user.roles.indexOf('member')> -1 ? 'Member' : 'nonMember'}}</p>
 
-      <div fxShow="false" fxShow.lt-md="true">
+     <!-- <div fxShow="false" fxShow.lt-md="true">-->
         <mat-divider></mat-divider>
         <button mat-button class="menu-button" routerLink="home">
           <mat-icon>home</mat-icon>
@@ -69,7 +69,7 @@
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
-      </div>
+<!--      </div>-->
 
 
       <mat-divider></mat-divider>
@@ -104,17 +104,17 @@
 
 
 
-      <div fxShow="false" fxShow.lt-md="true">
+<!--      <div fxShow="false" fxShow.lt-md="true">-->
         <mat-divider></mat-divider>
         <button mat-button class="menu-button" (click)="logOut()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>
-      </div>
+<!--      </div>-->
 
     </div>
     <mat-divider></mat-divider>
-    <img src="../../assets/WTC.jpg" class="logo" alt="WTC logo">
+    <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
   </mat-sidenav>
 
 
