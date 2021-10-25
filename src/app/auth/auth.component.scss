@@ -8,7 +8,7 @@
   background-size: cover;
 }
 .back_block_second{
-	background: url("/assets/djokovic_8x9-gigapixel-scale-4_00x.jpg") no-repeat center;
+	background: url("/assets/djokovic_b&w.jpg") no-repeat center;
   background-size: cover;
 }
 
@@ -18,7 +18,7 @@
 	float: right;
 	height: 100vh;
 	width: 50%;
-
+  background-color: #ECEEF1;
 }
 
 .content{
@@ -30,7 +30,7 @@
 
 
 @media (max-width: 1100px) {
-  .block-second{  background: url("/assets/djokovic_8x9-gigapixel-scale-4_00x.jpg") no-repeat center;
+  .block-second{  background: url("/assets/djokovic_b&w.jpg") no-repeat center;
     width: 100%;
     background-size: cover;
   }
