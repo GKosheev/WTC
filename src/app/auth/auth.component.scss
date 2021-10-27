@@ -1,14 +1,17 @@
-.block-first{
+/*
+.Element_slider{
 	position: absolute;
 	height: 100vh;
 	width: 50%;
 }
+
 .back_block_first{
   background: url("https://traveltimes.ru/wp-content/uploads/2021/05/86a21cadc98d303d85687.jpg") no-repeat center;
   background-size: cover;
 }
+*/
 .back_block_second{
-	background: url("/assets/djokovic_b&w.jpg") no-repeat center;
+	background: url("/assets/djokovic_8x9-gigapixel-scale-4_00x.jpg") no-repeat center;
   background-size: cover;
 }
 
@@ -18,7 +21,7 @@
 	float: right;
 	height: 100vh;
 	width: 50%;
-  background-color: #ECEEF1;
+
 }
 
 .content{
@@ -28,9 +31,8 @@
   overflow: scroll;
 }
 
-
 @media (max-width: 1100px) {
-  .block-second{  background: url("/assets/djokovic_b&w.jpg") no-repeat center;
+  .block-second{  background: url("/assets/img/img_for_slider/first.webp") no-repeat center;
     width: 100%;
     background-size: cover;
   }
@@ -44,6 +46,81 @@
     display: none;
   }
 }
+
+.container 
+{
+width:100%;
+height:100%;
+}
+#slideshow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width:100%;
+  height:100%;
+  display: inline-block;
+}
+.Element_slider,.Element_slider_1,.Element_slider_2,.Element_slider_3 {
+	position: absolute;
+	height: 100vh;
+	width: 50%;
+}
+span{
+  border: 1px solid #000;
+  border-radius: 3px;
+  box-shadow: 0 0 5px 0 hsla(0,0%,30%, .3);
+  font-size:4em;
+  background-color:#fff
+}
+.Element_slider_1 {
+  animation: xfade 30s infinite;
+  background: url('/assets/img/img_for_slider/first.webp') center no-repeat ;
+  background-size: cover;
+}
+.Element_slider_2 {
+  animation: xfade1 30s infinite;
+  background: url('/assets/img/img_for_slider/second.webp') center no-repeat ;
+  background-size: cover;
+}
+.Element_slider_3 {
+  animation: xfade2 30s infinite;
+  background: url('/assets/img/img_for_slider/third.webp') center no-repeat ;
+  background-size: cover;
+}
+
+@keyframes xfade{
+  0%  { top: 0px; } /* При запуске слайдера, первое изображение уже видимо */
+   5%  { top: 0px; } /* Стартовая позиция */  //27
+   30% { top: 0px; opacity:1; z-index:0; } /* С 4% до 16 % (3 секунды) изображение видимо */
+   31% { top: 325px; opacity: 0; z-index: 0; } /* с 16% до 20% (1 секунды)выход изображения*/
+   32% { top: -325px; opacity: 0; z-index: -1; } /* Возвращение на исходную позицию за пределами маски */
+   92% { top: -325px; opacity: 0; }
+   99% { top: 0px; opacity: 1; } /* С 96% до 100% (1 секунда) – вход */
+   100%{ top: 0px; opacity: 1; }
+}
+@keyframes xfade1{
+  0%  { top: -325px; opacity: 0; } /* Исходная позиция за пределами маски */
+  23% { top: -325px; opacity: 0; }/* Начало движения с 16% */
+  31% { top: 0px; opacity: 1; }
+  32% { top: 0px; opacity: 1; }  /* С 20% до 24% (в течении 1 секунды) — вход*/ //30
+  60% { top: 0px; opacity: 1; z-index: 0; }   /* С 24% до 36 % (3 секунды) изображение видимо */
+  61% { top: 325px; opacity: 0; z-index: 0; } /* С 36% до 40% (1 секунда)— выход */
+  62% { top: -325px; opacity: 0; z-index: -1; }   /* Возврат на исходную позицию */
+  100%{ top: -325px; opacity: 0; z-index: -1; }
+}
+@keyframes xfade2{
+  0%  { top: -325px; opacity: 0; }
+  53% { top: -325px; opacity: 0; }
+  61% { top: 0px; opacity: 1; }
+  62% { top: 0px; opacity: 1; }//29
+  91% { top: 0px; opacity: 1; z-index: 0; }
+  99% { top: 325px; opacity: 0; z-index: 0; }
+  100%{ top: -325px; opacity: 0; z-index: -1; }
+}
+
+
+
 
 /*
 .auth-wrapper {
