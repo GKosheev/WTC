@@ -27,10 +27,6 @@ module.exports.allUsers = async function (req: Request, res: Response) {
 }
 
 module.exports.messageToUser = async function (req: Request, res: Response) {
-
-  /*  const userRegisterValidation = await joiUserRegister.validate(user_);
-    if (userRegisterValidation.error)
-      return res.status(400).json({msg: userRegisterValidation.error.message})*/
   const messageToUserValidation = await joiMessageToUserValidation.validate({
     subject: req.body.subject,
     text: req.body.text

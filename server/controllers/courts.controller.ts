@@ -1,24 +1,27 @@
 import {Request, Response, NextFunction} from 'express'
 import moment from 'moment-timezone';
+import CourtBookingModel from "../models/court_booking.model";
 
+interface CourtStatus{
+  _id: String,
+  courtId: Number,
+  startTime: String,
+  endTime: String
+}
 
-module.exports.getCourt = async function (req: Request, res: Response) {
-  const courtType = req.body.courtType
-  const courtId = req.body.courtId
-  const date = req.body.date
-  const time = req.body.time
+export async function getCourts(req: Request, res: Response) {
+  const courtType = req.params.courtType
+  const date = req.params.date
+  const courts_ = await CourtBookingModel.find({courtType: courtType, date: date})
 
-  if (moment(date).isBefore(moment.now()) || moment(date).isAfter(moment(moment().add(8, 'days'))))
-    res.status(400).json({msg: 'wrong date'}) // if user wants to check booked courts before current date
-                                                          // or after more than  8 days
-  if (courtType === 'indoor') {
-
-  } else if (courtType === 'outdoor') {
-
-  } else if (courtType === 'wall') {
-
-  } else
-    return res.status(400).json({msg: 'wrong court type'})
-
-
+  let courts: CourtStatus[] = []
+  await courts_.forEach((court) => {
+    courts.push({
+      _id: court._id,
+      courtId: court.courtId,
+      startTime: court.startTime,
+      endTime: court.endTime
+    })
+  })
+  return res.status(200).send(courts)
 }

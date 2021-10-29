@@ -71,8 +71,6 @@ const routes: Routes = [
           roles: ['member', 'nonMember']
         }
       },
-
-      /*
       {
         path: 'courts',
         component: CourtsComponent,
@@ -82,7 +80,10 @@ const routes: Routes = [
         children: [
           {
             path: ':court/:date',
-            component: CourtComponent
+            component: CourtComponent,
+            data: {
+              roles: ['member']
+            }
           }
         ]
       },
@@ -93,8 +94,6 @@ const routes: Routes = [
           roles: ['member']
         }
       },
-      */
-
     ]
   },
 
