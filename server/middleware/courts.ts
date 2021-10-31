@@ -21,26 +21,38 @@ export async function subscriptionMiddleware(req: Request, res: Response, next: 
 
 
 export async function getCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-  await courtDateValidation(req.params.date)
-  await courtTypeValidation(req.params.courtType)
+  const dateError = await courtDateValidation(req.params.date)
+  if (dateError)
+    return res.status(400).json({msg: dateError})
+
+  const courtTypeError = await courtTypeValidation(req.params.courtType)
+  if (courtTypeError)
+    return res.status(400).json({msg: courtTypeError})
 
   return next()
 }
 
 
 export async function postCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-  await courtParamsValidation()
+  const paramsError = await courtParamsValidation(req.params.courtType, req.params.courtId, req.params.date, req.params.time)
+  if (paramsError)
+    return res.status(400).json({msg: paramsError})
+
   return next()
 }
 
 
 export async function putCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-  await courtParamsValidation()
+  const paramsError = await courtParamsValidation(req.params.courtType, req.params.courtId, req.params.date, req.params.time)
+  if (paramsError)
+    return res.status(400).json({msg: paramsError})
   return next()
 }
 
 
 export async function deleteCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-  await courtParamsValidation()
+  const paramsError = await courtParamsValidation(req.params.courtType, req.params.courtId, req.params.date, req.params.time)
+  if (paramsError)
+    return res.status(400).json({msg: paramsError})
   return next()
 }
