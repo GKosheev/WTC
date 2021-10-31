@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from 'express'
 import moment from 'moment-timezone';
 import CourtBookingModel from "../models/court_booking.model";
 
-interface CourtStatus{
+interface CourtStatus {
   _id: String,
   courtId: Number,
   startTime: String,
@@ -25,3 +25,22 @@ export async function getCourts(req: Request, res: Response) {
   })
   return res.status(200).send(courts)
 }
+
+
+export async function postCourt(req: Request, res: Response) {
+
+  res.status(200).json({msg: 'ok'})
+}
+
+
+export async function deleteCourt(req: Request, res: Response) {
+
+  res.status(200).json({msg: 'ok'})
+}
+
+
+export async function putCourt(req: Request, res: Response) {
+
+  res.status(200).json({msg: 'ok'})
+}
+

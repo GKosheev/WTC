@@ -19,6 +19,11 @@ const config = {
   mongoURI: mod === 'dev' ? process.env.DEV_MONGO_URI : process.env.PROD_MONGO_URI,
   home_static_path: static_path,
   send_file_path: send_file_path,
+  time_format: {
+     momentDateISOFormat: 'YYYY-MM-DD',
+     momentDateCustomFormat: 'MM-DD-YYYY',
+     momentTimeFormat:'hh:mm a',
+  }
 };
 
 

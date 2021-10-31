@@ -2,8 +2,7 @@ import {Request, NextFunction, Response} from "express";
 import moment from 'moment'
 import CourtsConfigModel from "../models/courts_config.model";
 import {User} from "../documents/User";
-
-
+import {courtTypeValidation, courtDateValidation, courtParamsValidation} from "../utils/courts/validation";
 
 
 export async function subscriptionMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -21,54 +20,27 @@ export async function subscriptionMiddleware(req: Request, res: Response, next: 
 }
 
 
-//middleware for date validation
-export async function dateMiddleware(req: Request, res: Response, next: NextFunction) {
-
-}
-
 export async function getCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-  const courtType = req.params.courtType
-  const court = await CourtsConfigModel.findOne({courtType: courtType})
-
-  //Check if court with such name exists
-  if (!court)
-    return res.status(400).json({msg: 'Court does not exist'})
-
+  await courtDateValidation(req.params.date)
+  await courtTypeValidation(req.params.courtType)
 
   return next()
 }
 
 
 export async function postCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-  const courtType = req.params.courtType
-  const courtId = req.params.courtId
-  const date = req.params.date
-
-
-  /*  const courtType = req.body.courtType
-    const courtId = req.body.courtId
-    // const date = req.body.date
-
-    const court = await CourtsTimeConfigModel.findOne({courtType: courtType, courtId: {$elemMatch: courtId}})
-
-    if (!courtTypes.includes(courtType))
-      return res.status(400).json({msg: 'Wrong court type'})
-
-    if (!courtIds.includes(courtId))
-      return res.status(400).json({msg: 'Wrong court id'})*/
-
-
+  await courtParamsValidation()
   return next()
 }
 
 
 export async function putCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-
+  await courtParamsValidation()
   return next()
 }
 
 
 export async function deleteCourtsMiddleware(req: Request, res: Response, next: NextFunction) {
-
+  await courtParamsValidation()
   return next()
 }
