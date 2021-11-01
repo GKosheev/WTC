@@ -7,7 +7,7 @@ import {
   courtDateValidation,
   courtParamsValidation
 } from "../utils/courts/params validation/validation";
-import {postCourtsBodyValidation} from "../utils/courts/body validation/validation";
+import {postCourtsBodyValidation, postCourtsDurationValidation} from "../utils/courts/body validation/validation";
 import CourtBookingModel from "../models/court_booking.model";
 
 
@@ -57,6 +57,10 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   if (bodyError)
     return res.status(400).json({msg: bodyError})
 
+  const bodyDurationError = await postCourtsDurationValidation(req.params.courtType, req.params.courId, req.params.date, req.params.time, req.body.duration)
+  if (bodyDurationError)
+    return res.status(400).json({msg: bodyDurationError})
+
 
   /*
   - players/members (who is gonna play on court)
@@ -65,6 +69,7 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   - splitThePayments between players
   - createdBy: user.id_
   */
+  res.locals.players = players
   return next()
 }
 

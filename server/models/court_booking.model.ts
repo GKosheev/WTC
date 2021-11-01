@@ -3,7 +3,7 @@ import {CourtBooking} from "../documents/CourtBooking";
 
 let courtBookingSchema = new mongoose.Schema<CourtBooking>({
   members: [{type: mongoose.Schema.Types.ObjectId, required: true, ref: 'UserBooking'}],
-  guests: [{type: mongoose.Schema.Types.ObjectId || String, ref: 'UserBooking'}],
+  guests: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserBooking'}],
   courtType: {type: String, required: true},
   courtId: {type: Number, required: true},
   date: {type: String, required: true},

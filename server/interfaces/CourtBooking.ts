@@ -1,7 +1,7 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-export type CourtBooking = mongoose.Document & {
-  _id: String,
+export interface CourtBooking {
+  /*_id: String,*/
   members: String[],
   guests: String[],
   courtType: String,
@@ -9,9 +9,7 @@ export type CourtBooking = mongoose.Document & {
   date: String,
   startTime: String,
   endTime: String,
-  paid: Boolean,
-  createdAt: Date,
+/* paid: Boolean,
+ createdAt: Date,*/
   createdBy: String
 }
-
-
