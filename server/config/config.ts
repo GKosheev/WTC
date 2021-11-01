@@ -23,6 +23,11 @@ const config = {
      momentDateISOFormat: 'YYYY-MM-DD',
      momentDateCustomFormat: 'MM-DD-YYYY',
      momentTimeFormat:'hh:mm a',
+  },
+  roles: {
+    admin: 'admin',
+    member: 'member',
+    nonMember: 'nonMember'
   }
 };
 

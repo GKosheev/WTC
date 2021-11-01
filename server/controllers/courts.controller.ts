@@ -1,5 +1,4 @@
-import {Request, Response, NextFunction} from 'express'
-import moment from 'moment-timezone';
+import {Request, Response} from 'express'
 import CourtBookingModel from "../models/court_booking.model";
 
 interface CourtStatus {

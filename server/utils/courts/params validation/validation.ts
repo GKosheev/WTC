@@ -1,6 +1,6 @@
 import moment from 'moment'
-import CourtsConfigModel from "../../models/courts_config.model";
-import config from '../../config/config'
+import CourtsConfigModel from "../../../models/courts_config.model";
+import config from '../../../config/config'
 import {courtIdVal, courtParamsTypeVal, courtTimeVal, courtTypeVal} from "./validation.functions";
 import {joiCourtTypeValidation} from "./joi.validation";
 

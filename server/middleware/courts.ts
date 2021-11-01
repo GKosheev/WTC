@@ -2,7 +2,13 @@ import {Request, NextFunction, Response} from "express";
 import moment from 'moment'
 import CourtsConfigModel from "../models/courts_config.model";
 import {User} from "../documents/User";
-import {courtTypeValidation, courtDateValidation, courtParamsValidation} from "../utils/courts/validation";
+import {
+  courtTypeValidation,
+  courtDateValidation,
+  courtParamsValidation
+} from "../utils/courts/params validation/validation";
+import {postCourtsBodyValidation} from "../utils/courts/body validation/validation";
+import CourtBookingModel from "../models/court_booking.model";
 
 
 export async function subscriptionMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -38,6 +44,27 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   if (paramsError)
     return res.status(400).json({msg: paramsError})
 
+  const courtBooked = await CourtBookingModel.findOne({
+    courtType: req.params.courtType,
+    courtId: req.params.courtId,
+    date: req.params.date,
+    time: req.params.time
+  })
+  if (courtBooked)
+    return res.status(400).json({msg: 'Current time is already booked'})
+
+  const [players, bodyError] = await postCourtsBodyValidation(req.body.members, req.body.guests, req.body.duration, req.body.splitPayments)
+  if (bodyError)
+    return res.status(400).json({msg: bodyError})
+
+
+  /*
+  - players/members (who is gonna play on court)
+  - guests (nonMember users or just users who does not registered)
+  - duration (number hours, 1, 1.5 or 2 hours. 2 hours max)
+  - splitThePayments between players
+  - createdBy: user.id_
+  */
   return next()
 }
 
