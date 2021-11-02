@@ -2,10 +2,10 @@ import mongoose from "mongoose"
 
 export type CourtsConfigDocument = mongoose.Document &{
   courtId: number,
-  time: String[]
+  time: string[]
 }
 
 export type CourtsConfig = mongoose.Document &{
-  courtType: String,
+  courtType: string,
   courts: CourtsConfigDocument[]
 }

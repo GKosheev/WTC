@@ -22,7 +22,8 @@ const config = {
   time_format: {
      momentDateISOFormat: 'YYYY-MM-DD',
      momentDateCustomFormat: 'MM-DD-YYYY',
-     momentTimeFormat:'hh:mm a',
+     momentTimeCustomFormat:'hh:mm a',
+     momentTimeISOFormat: 'HH:mm'
   },
   roles: {
     admin: 'admin',

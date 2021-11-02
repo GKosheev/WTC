@@ -1,17 +1,17 @@
 import mongoose from "mongoose"
 
 export type CourtBooking = mongoose.Document & {
-  _id: String,
-  members: String[],
-  guests: String[],
-  courtType: String,
-  courtId: Number,
-  date: String,
-  startTime: String,
-  endTime: String,
-  paid: Boolean,
+  _id: string,
+  members: string[],
+  guests: string[],
+  courtType: string,
+  courtId: number,
+  date: string,
+  startTime: string,
+  endTime: string,
+  paid: boolean,
   createdAt: Date,
-  createdBy: String
+  createdBy: string
 }
 
 

@@ -19,7 +19,7 @@ export async function courtIdVal(court: CourtsConfig | null, courtId: number) {
 
 export async function courtTimeVal(court: CourtsConfig | null, courtId: number, time: string) {
   //checks if entered time has the same format as defined
-  if (!moment(time, config.time_format.momentTimeFormat, true).isValid())
+  if (!moment(time, config.time_format.momentTimeCustomFormat, true).isValid())
     return 'Wrong time format'
 
   let found_court = court!.courts.find(court => court.courtId === courtId)

@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 
 export interface CourtBooking {
   /*_id: String,*/
-  members: String[],
-  guests: String[],
-  courtType: String,
-  courtId: Number,
-  date: String,
-  startTime: String,
-  endTime: String,
+  members: string[],
+  guests: string[],
+  courtType: string,
+  courtId: number,
+  date: string,
+  startTime: string,
+  endTime: string,
 /* paid: Boolean,
  createdAt: Date,*/
-  createdBy: String
+  createdBy: string
 }

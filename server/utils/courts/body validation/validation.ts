@@ -1,13 +1,18 @@
-import {durationTypeValidation, guestsValidation, membersValidation, durationValidation} from "./validation.functions";
-import {User} from "../../../documents/User";
+import {
+  guestsValidation,
+  membersValidation,
+  DurationValidation
+} from "./validation.functions";
 
-export async function postCourtsBodyValidation(membersID: string[], guestsID: string[], duration: number, splitPayments: any) {
+
+export async function postCourtsBodyValidation(membersID: string[], guestsID: string[], duration: number, splitPayments: any, courtType: string, courtId: string, date: string, time: string) {
   if (membersID.length + guestsID.length > 4)
     return [null, 'No more than 4 people allowed']
   if (!(typeof splitPayments === 'boolean'))
     return [null, 'Wrong type of Split Payments variable']
 
-  const durationError = await durationTypeValidation(duration)
+
+  const durationError = await DurationValidation(courtType, courtId, date, time, duration)
   if (durationError)
     return [null, durationError]
 
@@ -27,9 +32,3 @@ export async function postCourtsBodyValidation(membersID: string[], guestsID: st
   return [{members: members, guests: guests}, null]
 }
 
-
-export async function postCourtsDurationValidation(courtType: string, courtId: string, date: string, time: string, duration: number) {
-  const durationValidationError = await durationValidation(courtType, courtId, date, time, duration)
-  if (durationValidationError)
-    return durationValidationError
-}

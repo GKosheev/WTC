@@ -1,10 +1,10 @@
 import mongoose from "mongoose"
 
 export type UserBooking = mongoose.Document & {
-  _id: String,
+  _id: string,
   _userId: mongoose.Schema.Types.ObjectId,
-  price: Number,
-  paid: Boolean
+  price: number,
+  paid: boolean
   payTime: Date,
   createdAt: Date
 }

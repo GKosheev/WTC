@@ -34,7 +34,7 @@ export async function postCourt(req: Request, res: Response) {
   const players = res.locals.players
   const creator = <User>req.user
   // console.log("MEMBERS: " + JSON.stringify(players.members))
-  console.log("GUESTS: " + JSON.stringify(players.members))
+  // console.log("GUESTS: " + JSON.stringify(players.members))
 
   let court: CourtBooking = {
     members: players.members,
@@ -43,7 +43,7 @@ export async function postCourt(req: Request, res: Response) {
     courtId: Number(req.params.courtId),
     date: req.params.date,
     startTime: req.params.time,
-    endTime: moment(req.params.time, config.time_format.momentTimeFormat).add(req.body.duration, 'hour').format(config.time_format.momentTimeFormat),
+    endTime: moment(req.params.time, config.time_format.momentTimeCustomFormat).add(req.body.duration, 'hour').format(config.time_format.momentTimeCustomFormat),
     createdBy: creator._id
   }
   const newCourtBook = await new CourtBookingModel(court)
