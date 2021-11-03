@@ -1,8 +1,6 @@
 import {CourtsConfig} from "../../../documents/CourtsConfig";
 import moment from "moment";
 import config from "../../../config/config";
-import {joiParamsValidation} from "./joi.validation";
-
 
 export async function courtTypeVal(court: CourtsConfig | null) {
   if (!court)
@@ -25,19 +23,4 @@ export async function courtTimeVal(court: CourtsConfig | null, courtId: number, 
   let found_court = court!.courts.find(court => court.courtId === courtId)
   if (!found_court!.time.includes(time))
     return 'Entered time does not exist'
-}
-
-export async function courtParamsTypeVal(courtType: string, courtId: string, date: string, time: string) {
-  const courtValidation = await joiParamsValidation.validate({
-    courtType: courtType,
-    courtId: courtId,
-    date: date,
-    time: time
-  })
-
-  if (courtValidation.error)
-    return 'Validation error'
-
-  if (isNaN(Number(courtId)))
-    return 'Wrong court id format'
 }
