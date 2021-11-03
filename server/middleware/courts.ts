@@ -47,21 +47,6 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   if (!params)
     return res.status(400).json({msg: 'Unexpected error: null params'})
   const [courtType, courtId, date, time] = params
-  const paramsError = await courtParamsValidation(courtType, courtId, date, time)
-  if (paramsError)
-    return res.status(400).json({msg: paramsError})
-  /*End Of Params Validation*/
-
-
-  const courtBooked = await CourtBookingModel.findOne({
-    courtType: courtType,
-    courtId: courtId,
-    date: date,
-    startTime: time
-  })
-  if (courtBooked)
-    return res.status(400).json({msg: 'Current time is already booked'})
-
 
   /*Body Type Validation*/
   const [body, bodyTypeError] = await validateAndReturnBody(req.body.members, req.body.guests, req.body.splitPayments, req.body.duration)
@@ -70,6 +55,23 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   if (!body)
     return res.status(400).json({msg: 'Unexpected error: null body'})
   const [members, guests, splitPayments, duration] = body
+
+
+
+  const paramsError = await courtParamsValidation(courtType, courtId, date, time)
+  if (paramsError)
+    return res.status(400).json({msg: paramsError})
+  /*End Of Params Validation*/
+
+  const courtBooked = await CourtBookingModel.countDocuments({
+    courtType: courtType,
+    courtId: courtId,
+    date: date,
+    startTime: time
+  })
+  if (courtBooked)
+    return res.status(400).json({msg: 'Current time is already booked'})
+
 
   /*Body Validation*/
   const [players, bodyError] = await postCourtsBodyValidation(members, guests, duration)
