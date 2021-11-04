@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule} from "@angular/router";
-import {PublicComponent} from "./components/public.component";
+import {PublicComponent} from "./public.component";
+import {PublicRoutingModule} from "./public-routing.module";
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import {PublicComponent} from "./components/public.component";
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild([])
+    PublicRoutingModule
   ]
 })
 export class PublicModule {
