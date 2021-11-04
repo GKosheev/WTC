@@ -33,8 +33,6 @@ export async function getCourts(req: Request, res: Response) {
 export async function postCourt(req: Request, res: Response) {
   const players = res.locals.players
   const creator = <User>req.user
-  // console.log("MEMBERS: " + JSON.stringify(players.members))
-  // console.log("GUESTS: " + JSON.stringify(players.members))
 
   let court: CourtBooking = {
     members: players.members,
@@ -46,9 +44,10 @@ export async function postCourt(req: Request, res: Response) {
     endTime: moment(req.params.time, config.time_format.momentTimeCustomFormat).add(req.body.duration, 'hour').format(config.time_format.momentTimeCustomFormat),
     createdBy: creator._id
   }
+
   const newCourtBook = await new CourtBookingModel(court)
   await newCourtBook.save()
-  res.status(200).json({msg: 'ok'})
+  return res.status(200).json({msg: `Court has been booked`})
 }
 
 

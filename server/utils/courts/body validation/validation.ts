@@ -29,7 +29,6 @@ export async function postCourtsBodyValidation(membersID: string[], guestsID: st
   if (guestsError)
     return [null, guestsError]
 
-
   return [{members: members, guests: guests}, null]
 }
 

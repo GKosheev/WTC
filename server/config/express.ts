@@ -5,10 +5,9 @@ import mongoose from '../services/mongoose'
 import * as dotenv from 'dotenv'
 import config from "./config";
 import path from "path";
+import allRoutes from '../routes'
 
 const app = express()
-const allRoutes = require('../routes')
-
 dotenv.config()
 
 

@@ -7,4 +7,4 @@ const router = app.Router()
 
 router.post('/edit-profile', passport.authenticate('jwt', {session: false}), asyncHandler(controller.updateProfile))
 
-module.exports = router
+export default router
