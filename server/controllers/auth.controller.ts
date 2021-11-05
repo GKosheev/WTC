@@ -2,10 +2,10 @@ import {Request, Response} from 'express'
 import TokenModel from '../models/token.model'
 import UserModel from "../models/user.model";
 import * as crypto from 'crypto'
-import {confirmEmailMessage, forgotPasswordMessage, resendEmailVerifyLinkMessage} from "../utils/auth/auth.email";
+import {confirmEmailMessage, forgotPasswordMessage, resendEmailVerifyLinkMessage} from "../utils/auth/email-messages";
 import bcrypt from "bcrypt";
-import {generateToken, insertUser} from "../utils/auth/auth.utils";
-import {joiUserRegister, joiEmailValidation, joiResetPassword} from "../utils/auth/auth.validation";
+import {generateToken, insertUser} from "../utils/auth/general";
+import {joiUserRegister, joiEmailValidation, joiResetPassword} from "../utils/auth/joi";
 
 
 /*

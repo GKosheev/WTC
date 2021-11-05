@@ -1,8 +1,8 @@
 import moment from 'moment'
 import CourtsConfigModel from "../../../models/courts_config.model";
 import config from '../../../config/config'
-import {courtIdVal, courtTimeVal, courtTypeVal} from "./validation-functions";
-import {joiParamsValidation} from "./joi-validation";
+import {courtIdVal, courtTimeVal, courtTypeVal} from "./functions";
+import {joiParamsValidation} from "./joi";
 
 
 export async function courtDateValidation(date: string) { // (date: string, role: string) role for permission to check courts

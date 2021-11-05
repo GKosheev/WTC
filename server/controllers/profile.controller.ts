@@ -1,7 +1,7 @@
 import UserModel from '../models/user.model'
 import {Request, Response} from 'express'
 import {User} from "../documents/User";
-import {joiUpdateProfile} from "../utils/profile/profile.validation";
+import {joiUpdateProfile} from "../utils/profile/joi";
 
 
 interface UserPersonalProfile {

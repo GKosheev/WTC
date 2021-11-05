@@ -2,7 +2,7 @@ import {UserProfile} from "./UserProfile";
 import mongoose from "mongoose";
 
 export type User = mongoose.Document & {
-  _id: string,
+  _id: mongoose.Schema.Types.ObjectId,
   profile: UserProfile,
   securityQuestion: string,
   securityAnswer: string,

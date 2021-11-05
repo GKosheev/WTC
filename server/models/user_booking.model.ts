@@ -5,7 +5,10 @@ let userBookingSchema = new mongoose.Schema<UserBooking>({
   _userId: {type: mongoose.Schema.Types.ObjectId, required: true},
   price: {type: Number, required: true},
   paid: {type: Boolean, required: true, default: false},
-  payTime: {type: String},
+  date: {type: String, required: true},
+  startTime: {type: String, required: true},
+  endTime: {type: String, required: true},
+  payTime: {type: Date},
   createdAt: {type: Date, required: true, default: Date.now()}
 })
 const UserBookingModel = mongoose.model<UserBooking>('Users Booking', userBookingSchema)

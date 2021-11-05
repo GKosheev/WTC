@@ -1,8 +1,8 @@
 import UserModel from '../models/user.model'
 import {Request, Response} from 'express'
-import {sendMessageToUser} from "../utils/users/users.email";
+import {sendMessageToUser} from "../utils/users/email-messages";
 import {User} from "../documents/User";
-import {joiMessageToUserValidation} from "../utils/users/users.validation";
+import {joiMessageToUserValidation} from "../utils/users/joi";
 
 module.exports.allUsers = async function (req: Request, res: Response) {
   const users = await UserModel.find({})

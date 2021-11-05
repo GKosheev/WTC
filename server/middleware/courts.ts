@@ -5,10 +5,10 @@ import {
   courtDateValidation,
   courtParamsValidation,
   validateAndReturnParams
-} from "../utils/courts/params validation/validation";
-import {postCourtsBodyValidation, validateAndReturnBody} from "../utils/courts/body validation/validation";
+} from "../utils/courts/params/validation";
+import {postCourtsBodyValidation, validateAndReturnBody} from "../utils/courts/post/body/validation";
 import CourtBookingModel from "../models/court_booking.model";
-import {bookingCourtValidation} from "../utils/courts/booking court validation/validation";
+import {bookingCourtValidation} from "../utils/courts/post/court booking/validation/validation";
 
 
 export async function subscriptionMiddleware(req: Request, res: Response, next: NextFunction) {

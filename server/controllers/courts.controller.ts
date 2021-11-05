@@ -4,6 +4,10 @@ import moment from "moment";
 import config from "../config/config";
 import {User} from "../documents/User";
 import {CourtBooking} from '../interfaces/CourtBooking'
+import {UserBooking} from "../documents/UserBooking";
+import UserBookingModel from "../models/user_booking.model";
+import mongoose from "mongoose";
+import {returnPaymentIds} from "../utils/courts/post/court booking/functions";
 
 interface CourtStatus {
   _id: String,
@@ -31,17 +35,20 @@ export async function getCourts(req: Request, res: Response) {
 
 
 export async function postCourt(req: Request, res: Response) {
-  const players = res.locals.players
+  const endTime = moment(req.params.time, config.time_format.momentTimeCustomFormat).add(req.body.duration, 'hour').format(config.time_format.momentTimeCustomFormat)
+  const users: { members: User[], guests: User[] } = res.locals.players
   const creator = <User>req.user
 
+  const [membersBooking, guestsBooking] = await returnPaymentIds(users.members, users.guests, req.params.date, req.params.time, endTime)
+
   let court: CourtBooking = {
-    members: players.members,
-    guests: players.guests ? players.guests : [],
+    members: membersBooking,
+    guests: guestsBooking ? guestsBooking : [],
     courtType: req.params.courtType,
     courtId: Number(req.params.courtId),
     date: req.params.date,
     startTime: req.params.time,
-    endTime: moment(req.params.time, config.time_format.momentTimeCustomFormat).add(req.body.duration, 'hour').format(config.time_format.momentTimeCustomFormat),
+    endTime: endTime,
     createdBy: creator._id
   }
 

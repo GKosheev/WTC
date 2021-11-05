@@ -2,8 +2,8 @@ import mongoose from "mongoose"
 
 export type CourtBooking = mongoose.Document & {
   _id: string,
-  members: string[],
-  guests: string[],
+  members: mongoose.Schema.Types.ObjectId[],
+  guests: mongoose.Schema.Types.ObjectId[],
   courtType: string,
   courtId: number,
   date: string,
@@ -11,7 +11,7 @@ export type CourtBooking = mongoose.Document & {
   endTime: string,
   paid: boolean,
   createdAt: Date,
-  createdBy: string
+  createdBy: mongoose.Schema.Types.ObjectId
 }
 
 

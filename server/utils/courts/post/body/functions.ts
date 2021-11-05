@@ -1,6 +1,6 @@
-import {User} from "../../../documents/User";
-import UserModel from "../../../models/user.model";
-import config from "../../../config/config";
+import {User} from "../../../../documents/User";
+import UserModel from "../../../../models/user.model";
+import config from "../../../../config/config";
 
 export async function membersValidateAndFindByID(membersID: string[]): Promise<[User[], null] | [null, string] | [null,null]> {
   if (!(membersID.length > 0))
