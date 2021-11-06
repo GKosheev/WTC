@@ -1,12 +1,9 @@
 import {Request, Response} from 'express'
-import CourtBookingModel from "../models/court_booking.model";
+import CourtBookingModel from "../models/court-booking.model";
 import moment from "moment";
 import config from "../config/config";
 import {User} from "../documents/User";
 import {CourtBooking} from '../interfaces/CourtBooking'
-import {UserBooking} from "../documents/UserBooking";
-import UserBookingModel from "../models/user_booking.model";
-import mongoose from "mongoose";
 import {returnPaymentIds} from "../utils/courts/post/court booking/functions";
 
 interface CourtStatus {

@@ -19,6 +19,7 @@ const config = {
   mongoURI: mod === 'dev' ? process.env.DEV_MONGO_URI : process.env.PROD_MONGO_URI,
   home_static_path: static_path,
   send_file_path: send_file_path,
+  stripe_private_key: process.env.STRIPE_PRIVATE_KEY,
   time_format: {
      momentDateISOFormat: 'YYYY-MM-DD',
      momentDateCustomFormat: 'MM-DD-YYYY',

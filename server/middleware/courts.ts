@@ -7,7 +7,7 @@ import {
   validateAndReturnParams
 } from "../utils/courts/params/validation";
 import {postCourtsBodyValidation, validateAndReturnBody} from "../utils/courts/post/body/validation";
-import CourtBookingModel from "../models/court_booking.model";
+import CourtBookingModel from "../models/court-booking.model";
 import {bookingCourtValidation} from "../utils/courts/post/court booking/validation/validation";
 
 
