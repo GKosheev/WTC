@@ -1,0 +1,23 @@
+@import "/src/assets/styles/colors.scss";
+
+.passive_but{
+	color: #1a73e8;
+	text-decoration: none;
+	padding: 10px;
+ }
+ .passive_but:hover  {
+	background-color:#DCEAFB;
+	border-radius: 30px;
+ }
+
+ .confirm_but{
+	 color: $light_green;
+	 float: left;
+ }
+ .confirm_but:focus{
+	background-color: rgba(191, 255, 182, 0.514);
+ }
+ .cancel_but{
+	 float: right;
+ }
+ 

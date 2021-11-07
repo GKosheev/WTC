@@ -2,14 +2,14 @@
   <h2 mat-dialog-title>MY DIALOG</h2>
   <hr>
   <mat-dialog-content>
-Some boring CLUB policy that you need to confirm
+    Some boring CLUB policy that you need to confirm
     <br>
     <br>
     <strong>{{data}}</strong>
   </mat-dialog-content>
   <hr>
   <mat-dialog-actions>
-    <button md-raised-button (click)="onCloseConfirm()">CONFIRM</button>&nbsp;
-    <button md-raised-button (click)="onCloseCancel()">CANCEL</button>
+    <button md-raised-button (click)="onCloseConfirm()" mat-button class="confirm_but">CONFIRM</button>
+    <button md-raised-button (click)="onCloseCancel()" mat-button class="cancel_but" color="warn">DENIED</button>
   </mat-dialog-actions>
 </div>

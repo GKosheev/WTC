@@ -1,10 +1,25 @@
+     @import "/src/assets/styles/buttons.scss";
+
 .login-wrapper {
   height: 100%;
 }
-
 .positronx {
   text-decoration: none;
   color: #ffffff;
+}
+.btn-block{
+  margin-bottom: 30px;
+}
+.nav_auth_bar{
+  width: 100%;
+  background: #333;
+}
+
+.forgot_pass{
+  float: left;
+}
+.Create_Acc{
+  float: right;
 }
 
 .box {
@@ -71,7 +86,7 @@
 }
 
 .login-wrapper .mat-card {
-  padding: 40px 70px 50px;
+  padding: 40px 70px 15px;
 }
 
 .login-wrapper .mat-stroked-button {
@@ -88,4 +103,8 @@
   .login-wrapper .mat-card{
     padding: 40px 40px 40px ;
   }
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 2px rgb(0 0 0 / 12%);
 }

@@ -1,8 +1,15 @@
+@import "/src/assets/styles/buttons.scss";
+
 .login-wrapper {
   // width: 434px;
   // height: 600px;
 }
-
+.login_but{
+  float: left;
+}
+.Next_but{
+  float: right;
+}
 .register-wrapper {
   border-style: solid;
   border-width: 1px;
@@ -80,7 +87,6 @@
 }
 
 .icon_invalid {
-
   color: #888888;
 }
 
@@ -94,4 +100,12 @@
 .gender {
   margin-top: 5px;
 }
+
+.Agreement{
+  display: flex;
+}
+.ok{
+  margin: 16px 10px 10px 10px;
+}
+
 

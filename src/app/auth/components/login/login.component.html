@@ -15,16 +15,22 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Enter your password</mat-label>
-          <input matInput [type]="hidePassword ? 'password' : 'text'"  placeholder="YourSecretPassword" [formControl]="password" required>
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-           <mat-icon>{{hidePassword? 'visibility_off': 'visibility'}}</mat-icon>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="YourSecretPassword"
+            [formControl]="password" required>
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword? 'visibility_off': 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="this.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </mat-card-content>
-      <button mat-stroked-button color="primary" class="btn-block" (click)="login()" [disabled]="email.invalid || password.invalid">Log in</button>
-      <a routerLink="../forgot-password">Forgot Password</a>
+      <button mat-stroked-button color="primary" class="btn-block" (click)="login()"
+        [disabled]="email.invalid || password.invalid">Log in</button>
     </form>
+    <div class="nav_auth_bar">
+      <a class="forgot_pass passive_but" routerLink="../forgot-password">Forgot Password</a>
+      <a class="Create_Acc passive_but" routerLink="../register">Сreate an Аccount</a>
+    </div>
   </mat-card>
 
 </div>
