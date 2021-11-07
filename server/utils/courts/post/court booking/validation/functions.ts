@@ -1,7 +1,7 @@
 import moment from "moment";
-import config from "../../../config/config";
-import CourtBookingModel from "../../../models/court_booking.model";
-import {durationTypeValidation} from "../body validation/validation-functions";
+import config from "../../../../../config/config";
+import CourtBookingModel from "../../../../../models/courts/court-booking.model";
+import {durationTypeValidation} from "../../body/functions";
 
 function momentAddHoursToCustomTime(hours: number, time: string) {
   return moment(time, config.time_format.momentTimeCustomFormat).add(hours, 'hour').format(config.time_format.momentTimeCustomFormat)

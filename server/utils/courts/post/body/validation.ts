@@ -2,9 +2,9 @@ import {
   guestsValidateAndFindByID,
   membersValidateAndFindByID,
   durationTypeValidation
-} from "./validation-functions";
-import {User} from "../../../documents/User";
-import {joiBodyValidation} from "./joi-validation";
+} from "./functions";
+import {User} from "../../../../documents/user/User";
+import {joiBodyValidation} from "./joi";
 
 
 export async function postCourtsBodyValidation(membersID: string[], guestsID: string[], duration: number) {
@@ -28,7 +28,6 @@ export async function postCourtsBodyValidation(membersID: string[], guestsID: st
   [guests, guestsError] = await guestsValidateAndFindByID(guestsID)
   if (guestsError)
     return [null, guestsError]
-
 
   return [{members: members, guests: guests}, null]
 }

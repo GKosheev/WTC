@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import {CourtBooking} from "../documents/CourtBooking";
+import {CourtBooking} from "../../documents/courts/CourtBooking";
 
 let courtBookingSchema = new mongoose.Schema<CourtBooking>({
   members: [{type: mongoose.Schema.Types.ObjectId, required: true, ref: 'UserBooking'}],

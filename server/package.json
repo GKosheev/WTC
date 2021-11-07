@@ -30,6 +30,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "stripe": "^8.186.1",
     "wtc": "file:..",
     "zone.js": "^0.11.4"
   },

@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import UserModel from "../models/user.model";
 import * as crypto from 'crypto'
 import TokenModel from "../models/token.model";
-import {confirmEmailMessage} from "../utils/auth/auth.email";
-import {joiLoginValidation} from "../utils/auth/auth.validation";
+import {confirmEmailMessage} from "../utils/auth/email-messages";
+import {joiLoginValidation} from "../utils/auth/joi";
 
 
 export async function loginMiddleware(req: Request, res: Response, next: NextFunction) {

@@ -1,14 +1,14 @@
 import {Request, NextFunction, Response} from "express";
-import {User} from "../documents/User";
+import {User} from "../documents/user/User";
 import {
   courtTypeValidation,
   courtDateValidation,
-  courtParamsValidation, validateAndReturnParams
-} from "../utils/courts/params validation/validation";
-import {postCourtsBodyValidation, validateAndReturnBody} from "../utils/courts/body validation/validation";
-import CourtBookingModel from "../models/court_booking.model";
-import {joiParamsValidation} from "../utils/courts/params validation/joi-validation";
-import {bookingCourtValidation} from "../utils/courts/booking court validation/validation";
+  courtParamsValidation,
+  validateAndReturnParams
+} from "../utils/courts/params/validation";
+import {postCourtsBodyValidation, validateAndReturnBody} from "../utils/courts/post/body/validation";
+import CourtBookingModel from "../models/courts/court-booking.model";
+import {bookingCourtValidation} from "../utils/courts/post/court booking/validation/validation";
 
 
 export async function subscriptionMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -57,7 +57,6 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   const [members, guests, splitPayments, duration] = body
 
 
-
   const paramsError = await courtParamsValidation(courtType, courtId, date, time)
   if (paramsError)
     return res.status(400).json({msg: paramsError})
@@ -82,7 +81,6 @@ export async function postCourtsMiddleware(req: Request, res: Response, next: Ne
   const bookingValidationError = await bookingCourtValidation(courtType, courtId, date, time, duration)
   if (bookingValidationError)
     return res.status(400).json({msg: bookingValidationError})
-
 
   res.locals.players = players
   return next()

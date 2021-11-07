@@ -2,10 +2,10 @@ import {Request, Response} from 'express'
 import TokenModel from '../models/token.model'
 import UserModel from "../models/user.model";
 import * as crypto from 'crypto'
-import {confirmEmailMessage, forgotPasswordMessage, resendEmailVerifyLinkMessage} from "../utils/auth/auth.email";
+import {confirmEmailMessage, forgotPasswordMessage, resendEmailVerifyLinkMessage} from "../utils/auth/email-messages";
 import bcrypt from "bcrypt";
-import {generateToken, insertUser} from "../utils/auth/auth.utils";
-import {joiUserRegister, joiEmailValidation, joiResetPassword} from "../utils/auth/auth.validation";
+import {generateToken, insertUser} from "../utils/auth/general";
+import {joiUserRegister, joiEmailValidation, joiResetPassword} from "../utils/auth/joi";
 
 
 /*
@@ -13,7 +13,7 @@ import {joiUserRegister, joiEmailValidation, joiResetPassword} from "../utils/au
 Main Auth APIs
 
 */
-module.exports.register = async function (req: Request, res: Response) {
+export async function register(req: Request, res: Response) {
   const user_ = req.body.user
   const userRegisterValidation = await joiUserRegister.validate(user_);
   if (userRegisterValidation.error)
@@ -31,7 +31,7 @@ module.exports.register = async function (req: Request, res: Response) {
   res.status(200).json({msg: 'Check your email to validate your account'})
 }
 
-module.exports.login = async function (req: Request, res: Response) {
+export async function login(req: Request, res: Response) {
   const user: any = req.user
   const token = await generateToken(user)
   res.json({user, token})
@@ -43,7 +43,7 @@ module.exports.login = async function (req: Request, res: Response) {
 Email Confirmation && Resend Email Confirmation Link
 
 */
-module.exports.confirmEmail = async function (req: Request, res: Response) {
+export async function confirmEmail(req: Request, res: Response) {
   const token = await TokenModel.findOne({token: req.params.token})
   if (!token)
     return res.status(400).send({
@@ -65,7 +65,7 @@ module.exports.confirmEmail = async function (req: Request, res: Response) {
   return res.status(200).send({msg: 'Your account has been successfully verified'})
 }
 
-module.exports.resendEmailLink = async function (req: Request, res: Response) {
+export async function resendEmailLink(req: Request, res: Response) {
   const user = await UserModel.findOne({"profile.email": req.body.email})
   if (!user)
     return res.status(400).send({msg: 'User with such Email does not exist. Please SignUp.', signup: true})
@@ -83,7 +83,7 @@ module.exports.resendEmailLink = async function (req: Request, res: Response) {
 Forgot Password && Reset Password
 
 */
-module.exports.forgotPassword = async function (req: Request, res: Response) {
+export async function forgotPassword(req: Request, res: Response) {
   const email = req.body.email
   const emailValidation = await joiEmailValidation.validate({email: email})
   if (emailValidation.error)
@@ -97,7 +97,7 @@ module.exports.forgotPassword = async function (req: Request, res: Response) {
   return res.status(200).json({msg: 'Check your email to reset your password'})
 }
 
-module.exports.resetPassword = async function (req: Request, res: Response) {
+export async function resetPassword(req: Request, res: Response) {
   let token_: string = req.params.token
   let password: string = req.body.password
   const validationResult = await joiResetPassword.validate({

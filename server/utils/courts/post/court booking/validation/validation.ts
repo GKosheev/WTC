@@ -1,4 +1,4 @@
-import {durationValidation} from "./validation-functions";
+import {durationValidation} from "./functions";
 
 
 export async function bookingCourtValidation(courtType: string, courtId: number, date: string, time: string, duration: number) {
