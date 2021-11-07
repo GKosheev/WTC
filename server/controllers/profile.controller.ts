@@ -1,6 +1,6 @@
 import UserModel from '../models/user.model'
 import {Request, Response} from 'express'
-import {User} from "../documents/User";
+import {User} from "../documents/user/User";
 import {joiUpdateProfile} from "../utils/profile/joi";
 
 

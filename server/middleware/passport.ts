@@ -3,7 +3,7 @@ import {ExtractJwt} from 'passport-jwt'
 import config from '../config/config'
 import * as passportStrategy from 'passport-jwt'
 import UserModel from '../models/user.model'
-import {User} from "../documents/User";
+import {User} from "../documents/user/User";
 import {NativeError} from "mongoose";
 
 

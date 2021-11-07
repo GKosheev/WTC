@@ -1,6 +1,6 @@
-import {User} from "../../../../documents/User";
+import {User} from "../../../../documents/user/User";
 import mongoose from "mongoose";
-import UserBookingModel from "../../../../models/user-booking.model";
+import CourtPaymentsModel from "../../../../models/courts/court-payments.model";
 
 const membersPrice = 10 * 100 //cents
 const guestsPrice = 40 * 100 // cents
@@ -12,7 +12,7 @@ async function calculateThePrice(members: number, guests: number): Promise<[numb
 async function createPayments(users: User[], price: number, date: string, startTime: string, endTime: string) {
   const usersPayment: mongoose.Schema.Types.ObjectId[] = []
   for (const user of users) {
-    const userPayment = await new UserBookingModel({
+    const userPayment = await new CourtPaymentsModel({
       _userId: user.profile.memberID,
       price: price,
       date: date,

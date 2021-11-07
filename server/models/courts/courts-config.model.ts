@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import {CourtsConfigDocument, CourtsConfig} from "../documents/CourtsConfig";
+import {CourtsConfigDocument, CourtsConfig} from "../../documents/courts/CourtsConfig";
 
 const courtsSchema = new mongoose.Schema<CourtsConfigDocument>({
   courtId: {type: Number, required: true},

@@ -3,7 +3,7 @@ import {
   membersValidateAndFindByID,
   durationTypeValidation
 } from "./functions";
-import {User} from "../../../../documents/User";
+import {User} from "../../../../documents/user/User";
 import {joiBodyValidation} from "./joi";
 
 

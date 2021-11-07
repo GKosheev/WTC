@@ -20,6 +20,7 @@ const config = {
   home_static_path: static_path,
   send_file_path: send_file_path,
   stripe_private_key: process.env.STRIPE_PRIVATE_KEY,
+  stripe_end_point_secret: process.env.STRIPE_END_POINT_SECRET,
   time_format: {
      momentDateISOFormat: 'YYYY-MM-DD',
      momentDateCustomFormat: 'MM-DD-YYYY',

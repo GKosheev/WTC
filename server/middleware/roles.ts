@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {User} from "../documents/User";
+import {User} from "../documents/user/User";
 
 function authRole(roles: string[]) {
   return (req: Request, res: Response, next: NextFunction) => {

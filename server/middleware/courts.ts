@@ -1,5 +1,5 @@
 import {Request, NextFunction, Response} from "express";
-import {User} from "../documents/User";
+import {User} from "../documents/user/User";
 import {
   courtTypeValidation,
   courtDateValidation,
@@ -7,7 +7,7 @@ import {
   validateAndReturnParams
 } from "../utils/courts/params/validation";
 import {postCourtsBodyValidation, validateAndReturnBody} from "../utils/courts/post/body/validation";
-import CourtBookingModel from "../models/court-booking.model";
+import CourtBookingModel from "../models/courts/court-booking.model";
 import {bookingCourtValidation} from "../utils/courts/post/court booking/validation/validation";
 
 

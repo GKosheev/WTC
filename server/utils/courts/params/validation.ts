@@ -1,5 +1,5 @@
 import moment from 'moment'
-import CourtsConfigModel from "../../../models/courts-config.model";
+import CourtsConfigModel from "../../../models/courts/courts-config.model";
 import config from '../../../config/config'
 import {courtIdVal, courtTimeVal, courtTypeVal} from "./functions";
 import {joiParamsValidation} from "./joi";

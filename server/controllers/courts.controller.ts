@@ -1,8 +1,8 @@
 import {Request, Response} from 'express'
-import CourtBookingModel from "../models/court-booking.model";
+import CourtBookingModel from "../models/courts/court-booking.model";
 import moment from "moment";
 import config from "../config/config";
-import {User} from "../documents/User";
+import {User} from "../documents/user/User";
 import {CourtBooking} from '../interfaces/CourtBooking'
 import {returnPaymentIds} from "../utils/courts/post/court booking/functions";
 

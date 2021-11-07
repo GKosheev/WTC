@@ -1,4 +1,4 @@
-import {CourtsConfig} from "../../../documents/CourtsConfig";
+import {CourtsConfig} from "../../../documents/courts/CourtsConfig";
 import moment from "moment";
 import config from "../../../config/config";
 

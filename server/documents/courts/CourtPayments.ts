@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-export type UserBooking = mongoose.Document & {
+export type CourtPayments = mongoose.Document & {
   _id: string,
   _userId: string,
   price: number,

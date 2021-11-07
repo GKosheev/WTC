@@ -1,4 +1,4 @@
-import {User} from "../../../../documents/User";
+import {User} from "../../../../documents/user/User";
 import UserModel from "../../../../models/user.model";
 import config from "../../../../config/config";
 
