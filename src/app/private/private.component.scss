@@ -1,5 +1,7 @@
+@import "/src/assets/styles/colors.scss";
+
 mat-toolbar {
-  background: #004a9f;
+  background:$dark_green;
   color: white;
 }
 
@@ -7,7 +9,7 @@ mat-sidenav {
   margin: 16px;
   width: 200px;
   border-right: none;
-  background: #002b5c;
+  background: $dark_green;
   color: white;
   border-radius: 10px;
   padding: 16px;
@@ -49,6 +51,7 @@ mat-sidenav-container {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  background-color: black;
 }
 
 .name {
@@ -80,7 +83,7 @@ mat-divider {
   width:150px;
 }
 
-.anonymous{
-  margin-bottom: 35px;
+.WTC{
+  display: inline-block;
+  margin: auto 10px;
 }
-

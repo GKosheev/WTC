@@ -1,0 +1,72 @@
+<div class="content mat-elevation-z24">
+	<div class="page_title">
+		<div class="back_but">
+			<a routerLink="../payments">Return to cart</a>
+		</div>
+		<h1>Making an order</h1>
+	</div>
+	<div class="row">
+		<div class="payments_list">
+			<div class="payments_list_body">
+				<div class="payments">
+					<div class="payments_body">
+						<div class="title_bar">
+							<span style="font-weight: 700;">Payment method</span>
+							<section>
+								<div class="">
+									<span></span>
+								</div>
+								<div class="samov">
+									<span></span>
+								</div>
+							</section>
+						</div>
+
+						<div class="card_info">
+							<div class="card_img">
+								<img loading="lazy" src="https://i.yapx.ru/K9u7K.jpg" alt="" class="card_img_body">
+								<div class="div">
+									<div class="add_space">
+										<div class="space">
+											<div style="display: flex;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card_description">
+								<div class="card_title">
+									<span><strong>Visa card ** 6152</strong></span>
+									<div class="description">200g</div>
+
+									<div class="card_but" (click)="openSecondAgreement()">
+										<span>
+											Сhange
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="card_price">
+								<div class="price">
+									<span style="font-size: 15px; color: rgb(0, 26, 52); font-weight: bold;"></span>
+								</div>
+								<div class="card_discount">
+									<div class="card_original_price">
+										<span style="font-size: 13px; color: rgb(128, 141, 154); text-decoration: line-through;">
+										</span>
+									</div>
+									<div class="discount">
+										<span style="color: rgb(249, 17, 85);">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<app-payment-card></app-payment-card>
+	</div>
+</div>

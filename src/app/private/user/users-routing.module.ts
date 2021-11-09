@@ -1,17 +1,20 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {PlayerListComponent} from "./components/player-list/player-list.component";
-import {UserProfileComponent} from "./components/user-profile/user-profile.component";
-import {ProfileComponent} from "./components/profile/profile.component";
-import {ProfileEditComponent} from "./components/profile-edit/profile-edit.component";
-import {StoreComponent} from "./components/store/store.component";
-import {TennisLadderComponent} from "./components/tennis-ladder/tennis-ladder.component";
-import {PaymentsComponent} from "./components/payments/payments.component";
-import {CourtsComponent} from "./components/courts/courts.component";
-import {CourtComponent} from "./components/court/court.component";
-import {CourtBookingComponent} from "./components/court-booking/court-booking.component";
-import {RoleGuard} from "../../core/guards/roles/role.guard";
-import {AuthGuard} from "../../core/guards/auth/auth.guard";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { PlayerListComponent } from "./components/player-list/player-list.component";
+import { UserProfileComponent } from "./components/user-profile/user-profile.component";
+import { ProfileComponent } from "./components/profile/profile.component";
+import { ProfileEditComponent } from "./components/profile-edit/profile-edit.component";
+import { StoreComponent } from "./components/store/store.component";
+import { TennisLadderComponent } from "./components/tennis-ladder/tennis-ladder.component";
+import { PaymentsComponent } from "./components/payments/payments.component";
+import { CourtsComponent } from "./components/courts/courts.component";
+import { CourtComponent } from "./components/court/court.component";
+import { CourtBookingComponent } from "./components/court-booking/court-booking.component";
+import { RoleGuard } from "../../core/guards/roles/role.guard";
+import { AuthGuard } from "../../core/guards/auth/auth.guard";
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { PaymentCardComponent } from './components/payment-card/payment-card.component';
+import { ProductPaymentPageComponent } from './components/product-payment-page/product-payment-page.component';
 
 const routes: Routes = [
   {
@@ -67,6 +70,27 @@ const routes: Routes = [
       {
         path: 'payments',
         component: PaymentsComponent,
+        data: {
+          roles: ['member', 'nonMember']
+        }
+      },
+      {
+        path: 'product-card',
+        component: ProductCardComponent,
+        data: {
+          roles: ['member', 'nonMember']
+        }
+      },
+      {
+        path: 'payment-card',
+        component: PaymentCardComponent,
+        data: {
+          roles: ['member', 'nonMember']
+        }
+      },
+      {
+        path: 'product-payment-page',
+        component: ProductPaymentPageComponent,
         data: {
           roles: ['member', 'nonMember']
         }

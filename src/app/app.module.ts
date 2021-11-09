@@ -1,19 +1,17 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppRoutingModule} from './app-routing.module';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 
-import {AppComponent} from './app.component';
-import {NotFoundComponent} from './public/components/not-found/not-found.component';
+import { AppComponent } from './app.component';
+import { NotFoundComponent } from './public/components/not-found/not-found.component';
 
-import {AuthService} from "./core/services/auth/auth.service";
+import { AuthService } from "./core/services/auth/auth.service";
 
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AuthInterceptor} from "./core/interceptors/header.interceptor";
-
-
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { AuthInterceptor } from "./core/interceptors/header.interceptor";
 
 
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 export function appInitializerFactory(authService: AuthService) {
   return () => authService.checkTheUserOnFirstLoad();
@@ -22,8 +20,7 @@ export function appInitializerFactory(authService: AuthService) {
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
-
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
