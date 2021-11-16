@@ -9,7 +9,7 @@
   </button>
 
   Waterloo Tennis Club
-  <!--  <div fxShow="true" fxHide.lt-md="true" class="nav-buttons" *ngIf="user">
+<!--  <div fxShow="true" fxHide.lt-md="true" class="nav-buttons" *ngIf="user">
     <button mat-raised-button color="primary" class="nav-object" routerLink="home">
       <mat-icon>home</mat-icon>
       Home
@@ -55,22 +55,21 @@
     -->
 
     <div *ngIf="this.user">
-      <img class="avatar mat-elevation-z8" src="../../assets/img/anonymous.jpg" [ngStyle]="{'color':'white'}"
-        alt="Your beautiful photo" />
+      <img class="avatar mat-elevation-z8" src="../../assets/img/anonymous.jpg" alt="Your beautiful photo"/>
       <h4 class="name">{{this.firstName + ' ' + this.lastName}}</h4>
       <p class="designation">{{user.roles.indexOf('member')> -1 ? 'Member' : 'nonMember'}}</p>
 
-      <!-- <div fxShow="false" fxShow.lt-md="true">-->
-      <mat-divider></mat-divider>
-      <button mat-button class="menu-button" routerLink="home">
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </button>
-      <button mat-button class="menu-button" routerLink="user/profile">
-        <mat-icon>person</mat-icon>
-        <span>Profile</span>
-      </button>
-      <!--      </div>-->
+     <!-- <div fxShow="false" fxShow.lt-md="true">-->
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button" routerLink="home">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="user/profile">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+<!--      </div>-->
 
 
       <mat-divider></mat-divider>
@@ -105,21 +104,18 @@
 
 
 
-      <!--      <div fxShow="false" fxShow.lt-md="true">-->
-      <mat-divider></mat-divider>
-      <button mat-button class="menu-button" (click)="logOut()">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
-      </button>
-      <!--      </div>-->
+<!--      <div fxShow="false" fxShow.lt-md="true">-->
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button" (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+<!--      </div>-->
 
     </div>
     <mat-divider></mat-divider>
-    <div class="WTC">
-      <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
-    </div>
+    <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
   </mat-sidenav>
-
 
 
   <mat-sidenav-content>
