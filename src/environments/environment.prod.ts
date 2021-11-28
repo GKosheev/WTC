@@ -17,5 +17,13 @@ export const environment = {
   send_message_api: '/api/users/send-message', // /:userId
 
   /* profile service */
-  save_changes_api: '/api/profile/edit-profile'
+  save_changes_api: '/api/profile/edit-profile',
+
+  /* payments services */
+  get_all_payments_api: '/api/payments/all',
+  create_checkout_session_api: '/api/payments/create-checkout-session',
+
+  /* subscription service */
+  get_all_subscriptions_api: 'api/subscription/all',
+  subscription_to_payments_api: 'api/subscription/subscribe'
 };

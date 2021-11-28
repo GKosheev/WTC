@@ -21,7 +21,7 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
     this.dataLoaded = false;
   }
 
-  memberID: string = ''
+  clubCardId: string = ''
   dataLoaded: boolean;
   displayedColumns: string[] = ['fullName', 'phone', 'email', 'rating', 'message'];
   dataSource = new MatTableDataSource<TableData>();
@@ -34,7 +34,7 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
       this.dataSource.data = data
       this.authService.getUser().subscribe(user => {
         if (user)
-          this.memberID = user?.profile.memberID
+          this.clubCardId = user?.clubCardId
 
         this.dataLoaded = true;
       })
@@ -57,7 +57,7 @@ export class PlayerListComponent implements AfterViewInit, OnInit {
   }
 
   redirectToSendEmail(id: string) {
-    if (this.memberID !== id)
+    if (this.clubCardId !== id)
       this.router.navigate(['private/user/players/' + id])
     else
       this.router.navigate(['private/user/profile'])

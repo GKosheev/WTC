@@ -5,6 +5,7 @@ import {BreakpointObserver} from "@angular/cdk/layout";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../core/services/auth/auth.service";
 import {Router} from "@angular/router";
+import {PaymentsService} from "./user/services/payments/payments.service";
 
 @Component({
   selector: 'private',
@@ -23,7 +24,8 @@ export class PrivateComponent implements AfterViewInit, OnInit {
               private http: HttpClient,
               private auth: AuthService,
               private cd: ChangeDetectorRef,
-              private router: Router) {
+              private router: Router,
+              private paymentsService: PaymentsService) {
   }
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class PrivateComponent implements AfterViewInit, OnInit {
       this.firstName = user?.profile.firstName
       this.lastName = user?.profile.lastName
     })
+    this.paymentsService.updatePayments()
   }
 
   ngAfterViewInit(): void {
@@ -45,6 +48,15 @@ export class PrivateComponent implements AfterViewInit, OnInit {
       }
     });
     this.cd.detectChanges()
+  }
+
+  countPayments(): number {
+    let amountOfPayments: number = 0
+    this.paymentsService.getPayments().subscribe(payments => {
+      if (payments)
+        amountOfPayments = payments.length
+    })
+    return amountOfPayments
   }
 
   logOut(): void {

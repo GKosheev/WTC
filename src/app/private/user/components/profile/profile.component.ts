@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from "@angular/forms";
 import {Profile} from "../../../../shared/interfaces/profile/profile.interface";
 import {ProfileService} from "../../services/profiles/profile.service";
 
@@ -10,12 +9,9 @@ import {ProfileService} from "../../services/profiles/profile.service";
 })
 export class ProfileComponent implements OnInit {
   profile: Profile | undefined
-  message = new FormControl('Your email will be added to the list of users');
-
   constructor(private profileService: ProfileService) {
     this.profileService.getUserProfile().subscribe(user => {
       this.profile = user
-
     })
   }
 

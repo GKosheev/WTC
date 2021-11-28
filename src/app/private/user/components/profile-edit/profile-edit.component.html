@@ -8,8 +8,8 @@
               <img src="../../../../../assets/img/anonymous.jpg" alt="Admin" class="rounded-circle" width="110" height="110">
               <div class="mt-3">
                 <h4>{{this.firstName + ' ' + this.lastName}}</h4>
-                <p class="text-secondary mb-1">{{profile.registrationType}}</p>
-                <p class="text-muted font-size-sm">Rating: {{profile.rating}}</p>
+                <p class="text-secondary mb-1">{{fullProfile.role}}</p>
+                <p class="text-muted font-size-sm">Rating: {{fullProfile.rating}}</p>
               </div>
             </div>
             <ul class="list-group list-group-flush">
@@ -53,7 +53,7 @@
                 <h6 class="mb-0">First Name</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" [(ngModel)]="profile.firstName">
+                <input type="text" class="form-control" [(ngModel)]="editProfile.firstName">
               </div>
             </div>
             <div class="row mb-3">
@@ -61,7 +61,7 @@
                 <h6 class="mb-0">Last Name</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" [(ngModel)]="profile.lastName">
+                <input type="text" class="form-control" [(ngModel)]="editProfile.lastName">
               </div>
             </div>
 
@@ -70,7 +70,7 @@
                 <h6 class="mb-0">Twitter</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" [(ngModel)]="profile.twitter">
+                <input type="text" class="form-control" [(ngModel)]="editProfile.twitter">
               </div>
             </div>
 
@@ -79,7 +79,7 @@
                 <h6 class="mb-0">Instagram</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" [(ngModel)]="profile.instagram">
+                <input type="text" class="form-control" [(ngModel)]="editProfile.instagram">
               </div>
             </div>
 
@@ -88,7 +88,7 @@
                 <h6 class="mb-0">Facebook</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" [(ngModel)]="profile.facebook">
+                <input type="text" class="form-control" [(ngModel)]="editProfile.facebook">
               </div>
             </div>
 
@@ -98,7 +98,7 @@
                 <h6 class="mb-0">Receive Club Emails</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <mat-checkbox [(ngModel)]="profile.receiveClubEmails" color="primary"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="editProfile.receiveClubEmails" color="primary"></mat-checkbox>
               </div>
             </div>
             <div class="row mb-3">
@@ -106,9 +106,19 @@
                 <h6 class="mb-0">Share My Email</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <mat-checkbox [(ngModel)]="profile.shareMyEmail" color="primary"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="editProfile.shareMyEmail" color="primary"></mat-checkbox>
               </div>
             </div>
+
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Share My Phone</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <mat-checkbox [(ngModel)]="editProfile.shareMyPhone" color="primary"></mat-checkbox>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-sm-3"></div>
               <div class="col-sm-9 text-secondary">

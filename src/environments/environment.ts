@@ -21,7 +21,16 @@ export const environment = {
   send_message_api: 'http://localhost:5000/api/users/send-message', // /:userId
 
   /* profile service */
-  save_changes_api: 'http://localhost:5000/api/profile/edit-profile'
+  save_changes_api: 'http://localhost:5000/api/profile/edit-profile',
+
+
+  /* payments service */
+  get_all_payments_api: 'http://localhost:5000/api/payments/all',
+  create_checkout_session_api: 'http://localhost:5000/api/payments/create-checkout-session',
+
+  /* subscription service */
+  get_all_subscriptions_api: 'http://localhost:5000/api/subscription/all',
+  subscription_to_payments_api: 'http://localhost:5000/api/subscription/subscribe'
 };
 
 /*

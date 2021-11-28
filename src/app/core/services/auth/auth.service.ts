@@ -32,10 +32,6 @@ export class AuthService {
 
 
   setUser(user: User | null): void {
-    if (user) {
-      user.isAdmin = user.roles.includes('admin')
-    }
-
     this.user$.next(user);
   }
 

@@ -8,23 +8,31 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {PaymentsService} from "./user/services/payments/payments.service";
+import {CoreModule} from "../core/core.module";
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
   declarations: [
     PrivateComponent
   ],
-  imports: [
-    CommonModule,
-    PrivateRoutingModule,
+    imports: [
+        CommonModule,
+        PrivateRoutingModule,
 
-    /* Modules for navbar */
-    FlexLayoutModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatButtonModule,
+        /* Modules for navbar */
+        FlexLayoutModule,
+        MatDividerModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatButtonModule,
+        CoreModule,
+        MatBadgeModule
+    ],
+  providers: [
+    PaymentsService,
   ]
 })
 export class PrivateModule {

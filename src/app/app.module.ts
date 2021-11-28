@@ -12,6 +12,7 @@ import {AuthInterceptor} from "./core/interceptors/header.interceptor";
 
 
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CoreModule} from "./core/core.module";
 
 
 
@@ -30,6 +31,7 @@ export function appInitializerFactory(authService: AuthService) {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CoreModule
   ],
   providers: [
     AuthService,
@@ -44,7 +46,6 @@ export function appInitializerFactory(authService: AuthService) {
       multi: true,
       deps: [AuthService]
     }
-
   ],
   bootstrap: [AppComponent]
 })

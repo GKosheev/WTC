@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from "../../shared/shared.module";
-import {UsersRoutingModule} from "./users-routing.module";
+import {UserRoutingModule} from "./user-routing.module";
 
 import {PlayerListComponent} from "./components/player-list/player-list.component";
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
@@ -19,6 +19,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MessageDialogComponent} from "./components/message-dialog/message-dialog.component";
+import {SubscriptionComponent} from './components/subscription/subscription.component';
 
 @NgModule({
   declarations: [
@@ -32,11 +33,12 @@ import {MessageDialogComponent} from "./components/message-dialog/message-dialog
     CourtsComponent,
     CourtComponent,
     CourtBookingComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    SubscriptionComponent
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule,
+    UserRoutingModule,
     SharedModule,
 
     /* players list */
@@ -45,10 +47,10 @@ import {MessageDialogComponent} from "./components/message-dialog/message-dialog
     MatSortModule,
     MatPaginatorModule,
     /* players list */
-
-
     MatTooltipModule,
   ],
+  providers: [
+  ]
 })
-export class UsersModule {
+export class UserModule {
 }

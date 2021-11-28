@@ -1,1 +1,16 @@
-<p>payments works!</p>
+
+<button (click)="buyAllItems(payments)" [disabled]="!payments || !payments.length || this.serverItemPurchaseLoad">Pay For All</button>
+<div *ngIf="serverLoad; then loading; else readyToShow"></div>
+<ng-template #loading>Loading...</ng-template>
+<ng-template #readyToShow>
+<div *ngIf="payments; then payList else noPayments"></div>
+<ng-template #payList>
+  <div *ngFor="let sub of payments">
+    <h4 *ngIf="sub.type==='sub'">{{sub.name + '  ' + sub.type}} <button (click)="buyItem(sub)" [disabled]="this.serverItemPurchaseLoad">Pay</button></h4>
+  </div>
+</ng-template>
+
+<ng-template #noPayments>
+  <h4>No payments were found</h4>
+</ng-template>
+</ng-template>

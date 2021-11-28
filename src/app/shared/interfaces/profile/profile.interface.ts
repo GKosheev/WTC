@@ -1,16 +1,18 @@
 export interface Profile {
-  firstName: string;
-  lastName: string;
-  email: string;
-  registrationType: string;
-  phone: string;
-  gender: string;
-  dateOfBirth: Date;
-  receiveClubEmails: boolean;
-  memberID: string;
-  twitter: string;
-  instagram: string;
-  facebook: string;
-  shareMyEmail: boolean;
-  rating: number;
+  role: string,
+  clubCardId: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  subType: string,
+  gender: string,
+  phone: string,
+  dateOfBirth: Date,
+  rating: string,
+  receiveClubEmails: boolean,
+  shareMyEmail: boolean,
+  shareMyPhone: boolean,
+  twitter: string,
+  instagram: string,
+  facebook: string,
 }

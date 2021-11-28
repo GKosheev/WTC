@@ -12,12 +12,41 @@ import {CourtComponent} from "./components/court/court.component";
 import {CourtBookingComponent} from "./components/court-booking/court-booking.component";
 import {RoleGuard} from "../../core/guards/roles/role.guard";
 import {AuthGuard} from "../../core/guards/auth/auth.guard";
+import {SubscriptionComponent} from "./components/subscription/subscription.component";
 
 const routes: Routes = [
   {
     path: '',
     canActivateChild: [RoleGuard, AuthGuard],
     children: [
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: {
+          roles: ['public']
+        }
+      },
+      {
+        path: 'profile-edit',
+        component: ProfileEditComponent,
+        data: {
+          roles: ['public']
+        }
+      },
+      {
+        path: 'payments',
+        component: PaymentsComponent,
+        data: {
+          roles: ['public']
+        }
+      },
+      {
+        path: 'subscription',
+        component: SubscriptionComponent,
+        data: {
+          roles: ['public']
+        }
+      },
       {
         path: 'players',
         data: {
@@ -46,29 +75,6 @@ const routes: Routes = [
         component: StoreComponent,
         data: {
           roles: ['member']
-        }
-      },
-
-
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        data: {
-          roles: ['member', 'nonMember']
-        }
-      },
-      {
-        path: 'profile-edit',
-        component: ProfileEditComponent,
-        data: {
-          roles: ['member', 'nonMember']
-        }
-      },
-      {
-        path: 'payments',
-        component: PaymentsComponent,
-        data: {
-          roles: ['member', 'nonMember']
         }
       },
       {
@@ -103,5 +109,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UsersRoutingModule {
+export class UserRoutingModule {
 }

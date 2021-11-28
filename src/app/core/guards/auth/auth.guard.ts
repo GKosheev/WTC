@@ -9,12 +9,13 @@ import {
 import {Observable} from 'rxjs';
 import {AuthService} from "../../services/auth/auth.service";
 import {map} from "rxjs/operators";
+import {SnackbarService} from "../../../shared/services/snackbar/snackbar.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
-  constructor(private router: Router, private auth: AuthService) {
+  constructor(private router: Router, private auth: AuthService, private snackbar: SnackbarService) {
   }
 
   canLoad(): Observable<boolean> | boolean {
@@ -32,11 +33,12 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild {
   private isAuthorized(): Observable<boolean> {
     return this.auth.getUser().pipe(
       map(user => {
-        if (user !== null) {
+        if (user !== null) { // TODO token validation using Moment.js
           this.auth.isTokenStillValid()
           return true
         }
         this.router.navigate(['auth/login'])
+        this.snackbar.openSnackBar('Token expired, please login', true, 3)
         return false
       })
     )

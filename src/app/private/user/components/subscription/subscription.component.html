@@ -1,0 +1,16 @@
+<div *ngIf="!serverLoadSubs; then readyToShow; else stillLoading"></div>
+
+<ng-template #stillLoading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+<ng-template #readyToShow>
+  <div *ngFor="let sub of this.subs">
+    <h1>{{sub.subType}}</h1>
+    <h3>{{sub.subStart + ' - ' + sub.subEnd}}</h3>
+    <div *ngFor="let subInfo of sub.subscriptions">
+      <h4>{{subInfo.name + '  ' + subInfo.price}}</h4>
+      <button mat-raised-button (click)="addToPayments(sub.subType, subInfo.name)" [disabled]="serverLoadAddSubPayment">Add to Payments</button>
+      <br><br><br><br>
+    </div>
+  </div>
+</ng-template>
