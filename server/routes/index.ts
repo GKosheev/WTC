@@ -1,5 +1,4 @@
 import express from "express";
-import courts from "./courts/courts.route";
 import profile from './profile.route'
 import users from './users.route'
 import auth from './auth.route'
