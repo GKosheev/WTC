@@ -1,14 +1,14 @@
 import app from 'express'
 import asyncHandler from "express-async-handler";
-import authRole from "../middleware/roles";
+import authRole from "../middlewares/roles";
 import config from "../config/config";
+import {allUsers, messageToUser, getUserById} from '../controllers/users.controller'
+import verifyToken from "../middlewares/verifyToken";
 
-const controller = require("../controllers/users.controller")
 const router = app.Router()
-const passport = require('passport')
 
-router.get('/:userId', passport.authenticate('jwt', {session: false}), authRole([config.roles.admin, config.roles.member]), asyncHandler(controller.getById))
-router.get('', passport.authenticate('jwt', {session: false}), authRole([config.roles.admin, config.roles.member]), asyncHandler(controller.allUsers))
-router.post('/send-message/:userId', passport.authenticate('jwt', {session: false}), authRole([config.roles.admin, config.roles.member]), asyncHandler(controller.messageToUser)
+router.get('/:clubCardId', asyncHandler(verifyToken), authRole([config.roles.admin, config.roles.member]), asyncHandler(getUserById))
+router.get('', asyncHandler(verifyToken), authRole([config.roles.admin, config.roles.member]), asyncHandler(allUsers))
+router.post('/send-message/:clubCardId', asyncHandler(verifyToken), authRole([config.roles.admin, config.roles.member]), asyncHandler(messageToUser)
 )
 export default router

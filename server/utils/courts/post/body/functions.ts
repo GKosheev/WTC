@@ -1,14 +1,14 @@
-import {User} from "../../../../documents/user/User";
-import UserModel from "../../../../models/user.model";
+import {OldUser} from "../../../../documents/old documents/user/OldUser";
+import OldUserModel from "../../../../models/old models/oldUserModel";
 import config from "../../../../config/config";
 
-export async function membersValidateAndFindByID(membersID: string[]): Promise<[User[], null] | [null, string] | [null,null]> {
+export async function membersValidateAndFindByID(membersID: string[]): Promise<[OldUser[], null] | [null, string] | [null,null]> {
   if (!(membersID.length > 0))
     return [null, null]
 
-  let members: User[] = []
+  let members: OldUser[] = []
   for await (let memberID of membersID) {
-    const user = await UserModel.findOne({'profile.memberID': memberID})
+    const user = await OldUserModel.findOne({'profile.memberID': memberID})
     if (!user)
       return [null, `Member with id '${memberID}' does not exist`]
 
@@ -19,13 +19,13 @@ export async function membersValidateAndFindByID(membersID: string[]): Promise<[
   return [members, null] //all found members
 }
 
-export async function guestsValidateAndFindByID(guestsID: string[]): Promise<[User[], null] | [null, string] | [null,null]>{
+export async function guestsValidateAndFindByID(guestsID: string[]): Promise<[OldUser[], null] | [null, string] | [null,null]>{
   if (!(guestsID.length > 0))
     return [null, null];
 
-  let guests: User[] = []
+  let guests: OldUser[] = []
   for await (let guestID of guestsID) {
-    const user = await UserModel.findOne({'profile.memberID': guestID})
+    const user = await OldUserModel.findOne({'profile.memberID': guestID})
     if (!user)
       return [null, `Guest with id '${guestID}' doesn't exist`]
 

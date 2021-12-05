@@ -1,22 +1,22 @@
 import app from 'express'
 import asyncHandler from 'express-async-handler'
-import passport from 'passport'
-import {loginMiddleware} from "../middleware/login";
+import {registerMiddleware, loginMiddleware} from "../middlewares/auth";
 import {
-  register,
-  login,
-  forgotPassword,
-  resetPassword,
-  resendEmailLink,
-  confirmEmail
+    register,
+    login,
+    forgotPassword,
+    resetPassword,
+    resendEmailLink,
+    confirmEmail
 } from '../controllers/auth.controller'
+import verifyToken from "../middlewares/verifyToken";
 
 const router = app.Router()
 
 /* Main Auth APIs */
-router.post('/register', asyncHandler(register))
+router.post('/register', asyncHandler(registerMiddleware), asyncHandler(register))
 router.post('/login', asyncHandler(loginMiddleware), asyncHandler(login))
-router.get('/me', passport.authenticate('jwt', {session: false}), asyncHandler(login))
+router.get('/me', asyncHandler(verifyToken), asyncHandler(login))
 
 /* Email Confirmation && Resend Email Confirmation Link */
 router.post('/confirm-email/:token', asyncHandler(confirmEmail))

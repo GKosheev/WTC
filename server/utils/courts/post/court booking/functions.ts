@@ -1,6 +1,6 @@
-import {User} from "../../../../documents/user/User";
+import {OldUser} from "../../../../documents/old documents/user/OldUser";
 import mongoose from "mongoose";
-import CourtPaymentsModel from "../../../../models/courts/court-payments.model";
+import CourtPaymentsModel from "../../../../models/old models/courts/court-payments.model";
 
 const membersPrice = 10 * 100 //cents
 const guestsPrice = 40 * 100 // cents
@@ -9,7 +9,7 @@ async function calculateThePrice(members: number, guests: number): Promise<[numb
   return [membersPrice / (members + guests), guestsPrice / (members + guests)]
 }
 
-async function createPayments(users: User[], price: number, date: string, startTime: string, endTime: string) {
+async function createPayments(users: OldUser[], price: number, date: string, startTime: string, endTime: string) {
   const usersPayment: mongoose.Schema.Types.ObjectId[] = []
   for (const user of users) {
     const userPayment = await new CourtPaymentsModel({
@@ -25,7 +25,7 @@ async function createPayments(users: User[], price: number, date: string, startT
   return usersPayment
 }
 
-export async function returnPaymentIds(members: User[], guests: User[], date: string, startTime: string, endTime: string) {
+export async function returnPaymentIds(members: OldUser[], guests: OldUser[], date: string, startTime: string, endTime: string) {
   const [membersPrice, guestsPrice] = await calculateThePrice(members.length, guests.length)
 
   const membersPaymentsIds = await createPayments(members, membersPrice, date, startTime, endTime) // returning array of PaymentsIds

@@ -1,5 +1,4 @@
-import express from 'express'
-import passport from '../middleware/passport'
+import express, {NextFunction, Request, Response} from 'express'
 import cors from 'cors'
 import mongoose from '../services/mongoose'
 import * as dotenv from 'dotenv'
@@ -11,14 +10,20 @@ const app = express()
 dotenv.config()
 
 
-app.use(express.json())
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.originalUrl.startsWith('/api/payments/webhook')) {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+/*
+app.use(express.json())*/
 app.use(express.urlencoded({extended: true}))
 app.use(cors());
 mongoose().then(() => {
   console.log('MongoDB started')
 })
-
-app.use(passport.initialize())
 
 app.use(express.static(config.home_static_path))
 

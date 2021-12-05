@@ -3,7 +3,7 @@ import {
   membersValidateAndFindByID,
   durationTypeValidation
 } from "./functions";
-import {User} from "../../../../documents/user/User";
+import {OldUser} from "../../../../documents/old documents/user/OldUser";
 import {joiBodyValidation} from "./joi";
 
 
@@ -17,7 +17,7 @@ export async function postCourtsBodyValidation(membersID: string[], guestsID: st
   if (durationError)
     return [null, durationError]
 
-  let [members, guests]: [User[] | null, User[] | null] = [null, null]
+  let [members, guests]: [OldUser[] | null, OldUser[] | null] = [null, null]
   let [membersError, guestsError]: [string | null, string | null] = [null, null];
 
 

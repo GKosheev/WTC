@@ -1,6 +1,6 @@
 import moment from "moment";
 import config from "../../../../../config/config";
-import CourtBookingModel from "../../../../../models/courts/court-booking.model";
+import CourtBookingModel from "../../../../../models/old models/courts/court-booking.model";
 import {durationTypeValidation} from "../../body/functions";
 
 function momentAddHoursToCustomTime(hours: number, time: string) {
