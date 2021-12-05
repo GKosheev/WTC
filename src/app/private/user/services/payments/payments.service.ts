@@ -7,6 +7,7 @@ import {CheckoutSession} from "../../interfaces/payments/CheckoutSession";
 import {ItemPayment} from "../../interfaces/payments/ItemPayment";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
 import {ShortPayment} from "../../interfaces/payments/ShortPayment";
+import {DeletePaymentInfo} from "../../interfaces/payments/DeletePaymentInfo";
 
 interface CheckoutSessionResponse {
   url: string
@@ -16,7 +17,7 @@ interface CheckoutSessionResponse {
   providedIn: 'root'
 })
 export class PaymentsService {
-  private allPayments$ = new BehaviorSubject<ShortPayment[] | undefined>(undefined)
+  private allPayments$ = new BehaviorSubject<ShortPayment[] | null>(null)
   private paymentType = {
     store: 'store',
     subscription: 'sub',
@@ -26,38 +27,43 @@ export class PaymentsService {
   constructor(private http: HttpClient, private _snackBarService: SnackbarService) {
   }
 
-  loadPayments(): Observable<ShortPayment[] | undefined> {
-    return this.http.get<ShortPayment[] | undefined>(environment.get_all_payments_api).pipe(tap(payments => this.setPayments(payments)))
+  loadPayments(): Observable<ShortPayment[] | null> {
+    return this.http.get<ShortPayment[] | null>(environment.get_all_payments_api).pipe(tap(payments => {
+      this.setPayments(payments)
+      return;
+    }))
   }
 
-  getPayments(): Observable<ShortPayment[] | undefined> {
+  getPayments(): Observable<ShortPayment[] | null> {
     return this.allPayments$.asObservable()
   }
 
-  updatePayments(): void {
-    this.loadPayments().subscribe(payments => this.setPayments(payments))
-  }
+/*  private updatePayments(): void {
+    this.loadPayments().subscribe()
+  }*/
 
-  setPayments(payments: ShortPayment[] | undefined): void {
+  setPayments(payments: ShortPayment[] | null): void {
     this.allPayments$.next(payments)
   }
 
-  payForOneItem(clubCardId: string, item: ItemPayment) {
+  payForOneItem(item: ItemPayment) {
     const checkoutSession: CheckoutSession | undefined = this.itemCheckoutSession(item)
-    checkoutSession!.clubCardId = clubCardId
     console.log(JSON.stringify(checkoutSession))
     return this.http.post<CheckoutSessionResponse>(environment.create_checkout_session_api, checkoutSession)
   }
 
-  payForAllItems(clubCardId: string, items: ItemPayment[]) {
+  payForAllItems(items: ItemPayment[]) {
     const checkoutSession: CheckoutSession | undefined = this.itemsCheckoutSession(items)
-    checkoutSession.clubCardId = clubCardId
     return this.http.post<CheckoutSessionResponse>(environment.create_checkout_session_api, checkoutSession)
   }
 
+  deletePayments(payments: DeletePaymentInfo[]) {
+    return this.http.post<{ msg?: string }>(environment.delete_payments_api, {payments: payments})/*.pipe(tap(() => this.updatePayments()))*/
+  }
+
+
   private itemCheckoutSession(item: ItemPayment) {
     const checkoutSession: CheckoutSession = {
-      clubCardId: '',
       courtIds: [],
       storeIds: [],
       subIds: []
@@ -81,7 +87,6 @@ export class PaymentsService {
 
   private itemsCheckoutSession(items: ItemPayment[]) {
     const checkoutSession: CheckoutSession = {
-      clubCardId: '',
       courtIds: [],
       storeIds: [],
       subIds: []

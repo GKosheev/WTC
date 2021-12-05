@@ -7,7 +7,7 @@ export interface Profile {
   subType: string,
   gender: string,
   phone: string,
-  dateOfBirth: Date,
+  dateOfBirth: Date | string,
   rating: string,
   receiveClubEmails: boolean,
   shareMyEmail: boolean,

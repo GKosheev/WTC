@@ -22,6 +22,7 @@ export const environment = {
   /* payments services */
   get_all_payments_api: '/api/payments/all',
   create_checkout_session_api: '/api/payments/create-checkout-session',
+  delete_payments_api: '/api/payments/delete',
 
   /* subscription service */
   get_all_subscriptions_api: 'api/subscription/all',

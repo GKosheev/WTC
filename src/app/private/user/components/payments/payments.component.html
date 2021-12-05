@@ -1,16 +1,31 @@
-
-<button (click)="buyAllItems(payments)" [disabled]="!payments || !payments.length || this.serverItemPurchaseLoad">Pay For All</button>
-<div *ngIf="serverLoad; then loading; else readyToShow"></div>
-<ng-template #loading>Loading...</ng-template>
-<ng-template #readyToShow>
-<div *ngIf="payments; then payList else noPayments"></div>
-<ng-template #payList>
-  <div *ngFor="let sub of payments">
-    <h4 *ngIf="sub.type==='sub'">{{sub.name + '  ' + sub.type}} <button (click)="buyItem(sub)" [disabled]="this.serverItemPurchaseLoad">Pay</button></h4>
-  </div>
-</ng-template>
-
+<div *ngIf="(paymentsFromService | async) as allPays; else noPayments">
+  <button (click)="buyAllItems(allPays)" [disabled]="paymentServerAction">Pay For All</button>
+  <button (click)="deleteAllSelectedPayments(allPays)" [disabled]="paymentServerAction">Delete All Payments</button>
+  <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()">Select All</mat-checkbox>
+  <button (click)="payForAllSelected()" [disabled]="!isAnythingSelected() || paymentServerAction">Pay For All Selected</button>
+  <div *ngIf="allPays; then payList else noPayments"></div>
+  <ng-template #payList>
+    <div *ngFor="let sub of allPayments">
+      <h4 *ngIf="sub.shortPayment.type==='sub'">{{sub.shortPayment.name + '  ' + sub.shortPayment.type}}
+        <button (click)="buyItem(sub.shortPayment)" [disabled]="this.paymentServerAction">Pay</button>
+        <button (click)="deleteOneItem(sub.shortPayment)" [disabled]="this.paymentServerAction">Delete</button>
+        <mat-checkbox color="primary" [(ngModel)]="sub.isSelected" (change)="countAllPrice()" [disabled]="paymentServerAction"></mat-checkbox>
+      </h4>
+    </div>
+  </ng-template>
+</div>
 <ng-template #noPayments>
+  <!--  <button [disabled]="true">Pay For All</button>-->
   <h4>No payments were found</h4>
 </ng-template>
-</ng-template>
+
+
+<!--<h4 *ngFor="let payment of allPayments"> {{payment.shortPayment.name + ' ' + payment.isSelected}}</h4>-->
+<h4>
+  Total price: {{this.totalPrice}}
+  <div *ngFor="let payment of allPayments">
+    <div *ngIf="payment.isSelected">
+      {{payment.shortPayment.quantity + 'x ' + payment.shortPayment.name + ' ' + payment.shortPayment.type}}
+    </div>
+  </div>
+</h4>

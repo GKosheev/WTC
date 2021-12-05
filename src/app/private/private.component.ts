@@ -6,16 +6,27 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../core/services/auth/auth.service";
 import {Router} from "@angular/router";
 import {PaymentsService} from "./user/services/payments/payments.service";
+import {Observable, of, Subscription} from "rxjs";
+import {ShortPayment} from "./user/interfaces/payments/ShortPayment";
 
 @Component({
   selector: 'private',
   templateUrl: './private.component.html',
-  styleUrls: ['./private.component.scss']
+  styleUrls: ['./private.component.scss'],
 })
 export class PrivateComponent implements AfterViewInit, OnInit {
   user: User | null = null
   firstName: string | undefined = undefined
   lastName: string | undefined = undefined
+  loadPayments$: Observable<ShortPayment[] | null> = of(null)
+  allPayments$: Observable<ShortPayment[] | null> = of(null)
+
+  /*
+private userId$: Observable<string> = this.activatedRoute.params.pipe(
+  map((params: Params) => params['userId'])
+)
+*/
+
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -28,13 +39,15 @@ export class PrivateComponent implements AfterViewInit, OnInit {
               private paymentsService: PaymentsService) {
   }
 
-  ngOnInit() {
-    this.auth.getUser().subscribe(user => {
+  async ngOnInit() {
+    await this.auth.getUser().subscribe(user => {
       this.user = user
       this.firstName = user?.profile.firstName
       this.lastName = user?.profile.lastName
     })
-    this.paymentsService.updatePayments()
+    this.loadPayments$ = this.paymentsService.loadPayments()
+    this.allPayments$ = this.paymentsService.getPayments()
+
   }
 
   ngAfterViewInit(): void {
@@ -50,17 +63,18 @@ export class PrivateComponent implements AfterViewInit, OnInit {
     this.cd.detectChanges()
   }
 
-  countPayments(): number {
-    let amountOfPayments: number = 0
-    this.paymentsService.getPayments().subscribe(payments => {
-      if (payments)
-        amountOfPayments = payments.length
-    })
-    return amountOfPayments
-  }
 
   logOut(): void {
     this.auth.logOut()
     this.router.navigateByUrl('auth/login')
+  }
+
+  isMember(): boolean {
+    if (this.user)
+      return this.user.roles.indexOf('member') > -1
+    else {
+      this.logOut()
+      return false;
+    }
   }
 }

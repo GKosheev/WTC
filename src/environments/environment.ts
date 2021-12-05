@@ -27,6 +27,7 @@ export const environment = {
   /* payments service */
   get_all_payments_api: 'http://localhost:5000/api/payments/all',
   create_checkout_session_api: 'http://localhost:5000/api/payments/create-checkout-session',
+  delete_payments_api: 'http://localhost:5000/api/payments/delete',
 
   /* subscription service */
   get_all_subscriptions_api: 'http://localhost:5000/api/subscription/all',

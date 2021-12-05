@@ -4,10 +4,6 @@ import {SubType} from "../../interfaces/subscription/SubType";
 import {environment} from "../../../../../environments/environment";
 import {Observable} from "rxjs";
 
-interface SubResponse {
-  msg?: string
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +18,10 @@ export class SubscriptionService {
     return this.http.get<SubType[] | null>(environment.get_all_subscriptions_api)
   }
 
-  addSubToPayments(subType: string, subName: string): Observable<SubResponse> {
-    return this.http.post<SubResponse>(environment.subscription_to_payments_api, {subType: subType, subName: subName})
+  addSubToPayments(subType: string, subName: string) {
+    return this.http.post<{ msg?: string }>(environment.subscription_to_payments_api, {
+      subType: subType,
+      subName: subName
+    })
   }
 }

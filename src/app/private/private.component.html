@@ -74,42 +74,57 @@
 
 
       <mat-divider></mat-divider>
-      <div *ngIf="user.roles.indexOf('member')> -1">
-        <button mat-button class="menu-button" routerLink="user/store">
-          <mat-icon>shopping_cart</mat-icon>
-          <span>Store</span>
-        </button>
 
-        <button mat-button class="menu-button" routerLink="user/courts">
-          <mat-icon>date_range</mat-icon>
-          <span>Court booking</span>
-        </button>
-        <button mat-button class="menu-button" routerLink="user/subscription">
-          <mat-icon>book_online</mat-icon>
-          <span>Subscription</span>
-        </button>
-        <mat-divider></mat-divider>
+      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/store">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Store</span>
+      </button>
 
-        <button mat-button class="menu-button" routerLink="user/players">
-          <mat-icon>people</mat-icon>
-          <span>Players</span>
-        </button>
+      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/courts">
+        <mat-icon>date_range</mat-icon>
+        <span>Court booking</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="user/subscription">
+        <mat-icon>book_online</mat-icon>
+        <span>Subscription</span>
+      </button>
+      <mat-divider></mat-divider>
 
-
-        <button mat-button class="menu-button" routerLink="user/singles-tennis-ladder">
-          <mat-icon>info</mat-icon>
-          <span>Tennis Ladder</span>
-        </button>
-
-        <mat-divider></mat-divider>
-      </div>
-
-      <button mat-button class="menu-button" routerLink="user/payments">
-        <mat-icon [matBadge]="countPayments()" matBadgeColor="warn" [matBadgeHidden]="!countPayments()">payment</mat-icon>
-        <span>Payments</span>
+      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/players">
+        <mat-icon>people</mat-icon>
+        <span>Players</span>
       </button>
 
 
+      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/singles-tennis-ladder">
+        <mat-icon>info</mat-icon>
+        <span>Tennis Ladder</span>
+      </button>
+
+      <mat-divider *ngIf="isMember()"></mat-divider>
+      <div *ngIf="(loadPayments$ | async)"></div>
+      <div *ngIf="(allPayments$ | async) as allPays; else noPayments">
+        <div *ngIf="allPayments$; else noPayments">
+          <button mat-button class="menu-button" routerLink="user/payments">
+
+            <mat-icon
+              [matBadge]="allPays.length"
+              matBadgeColor="warn"
+              matBadgeSize="small"
+              [matBadgeHidden]="!allPayments$ || !allPays.length"
+            >payment
+            </mat-icon>
+            <span>Payments</span>
+          </button>
+        </div>
+      </div>
+    </div>
+      <ng-template #noPayments>
+        <button mat-button class="menu-button" routerLink="user/payments">
+          <mat-icon>payment</mat-icon>
+          <span>Payments</span>
+        </button>
+      </ng-template>
       <!--      <div fxShow="false" fxShow.lt-md="true">-->
       <mat-divider></mat-divider>
       <button mat-button class="menu-button" (click)="logOut()">
@@ -117,10 +132,9 @@
         <span>Logout</span>
       </button>
       <!--      </div>-->
-
-    </div>
-    <mat-divider></mat-divider>
-    <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
+      <!-- </div>-->
+      <mat-divider></mat-divider>
+      <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
   </mat-sidenav>
 
 

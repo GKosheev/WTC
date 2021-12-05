@@ -1,82 +1,156 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {PaymentsService} from "../../services/payments/payments.service";
 import {ShortPayment} from "../../interfaces/payments/ShortPayment";
 import {AuthService} from "../../../../core/services/auth/auth.service";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
+import {Observable, of, Subscription} from "rxjs";
+import {DeletePaymentInfo} from "../../interfaces/payments/DeletePaymentInfo";
+import {FormBuilder} from "@angular/forms";
+
+
+interface ShortPaymentCB {
+  shortPayment: ShortPayment,
+  isSelected: boolean
+}
 
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
-  styleUrls: ['./payments.component.scss']
+  styleUrls: ['./payments.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaymentsComponent implements OnInit {
-  payments: ShortPayment[] = []
-  serverLoad = false;
-  serverItemPurchaseLoad = false;
+export class PaymentsComponent implements OnInit, OnDestroy {
+  paymentServerAction = false;
 
-  constructor(private paymentsService: PaymentsService, private auth: AuthService, private _snackbarService: SnackbarService) {
-    this.serverLoad = true
-    this.paymentsService.loadPayments().subscribe(payments => {
-      this.serverLoad = false;
-      if (payments)
-        this.payments = payments
-    }, error => {
-      this.serverLoad = false
-      if (error.error.msg)
-        this._snackbarService.openSnackBar(error.error.msg, true)
+  allPayments: ShortPaymentCB[] = []
+  cachedPayments: ShortPaymentCB[] = []
+
+  paymentsFromService: Observable<ShortPayment[] | null>
+  totalPrice: number = 0;
+
+  loadPaymentsSub: Subscription;
+  paymentsFromServiceSub: Subscription
+
+  constructor(private paymentsService: PaymentsService,
+              private auth: AuthService,
+              private _snackbarService: SnackbarService,
+              private fb: FormBuilder) {
+    this.paymentsFromService = this.paymentsService.getPayments()
+    this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
+    this.paymentsFromServiceSub = this.paymentsService.getPayments().subscribe(payments => {
+      this.allPayments = []
+      payments?.forEach(payment => this.allPayments.push({
+        shortPayment: payment,
+        isSelected: this.cachedPayments.some(cPayment => cPayment.shortPayment._id === payment._id && cPayment.isSelected)
+      }))
+      this.updateOnChange()
     })
   }
 
   ngOnInit() {
-    this.getPayments()
   }
 
-
-  getPayments() {
-    this.serverLoad = true
-    this.paymentsService.getPayments().subscribe(payments => {
-      this.serverLoad = false
-      if (payments)
-        this.payments = payments
-    }, error => {
-      this.serverLoad = false
-      if (error.error.msg)
-        this._snackbarService.openSnackBar(error.error.msg, true)
+  countAllPrice(): void {
+    this.totalPrice = 0;
+    this.allPayments.forEach(payment => {
+      if (payment.isSelected)
+        this.totalPrice += payment.shortPayment.price
     })
   }
 
+  selectAll(): void {
+    if (this.allPayments.some(payment => !payment['isSelected']))
+      this.allPayments.forEach(payment => payment.isSelected = true)
+    else
+      this.allPayments.forEach(payment => payment.isSelected = false)
+
+    this.updateOnChange()
+  }
+
+  isAnythingSelected(): boolean {
+    return this.allPayments.some(payment => payment.isSelected)
+  }
+
+  selectAllCheckBoxStatus(): boolean {
+    return this.allPayments.every(payment => payment.isSelected)
+  }
+
+  payForAllSelected(): void {
+    this.paymentServerAction = true;
+    const allSelectedPayments: ShortPayment[] = []
+    this.allPayments.filter(payment => payment.isSelected).forEach(payment =>allSelectedPayments.push(payment.shortPayment))
+    this.buyAllItems(allSelectedPayments)
+  }
+
+  updateOnChange(): void {
+    this.countAllPrice()
+    this.cachedPayments = this.allPayments
+  }
+
+
   buyItem(item: ShortPayment) {
-    this.serverItemPurchaseLoad = true;
-    this.auth.getUser().subscribe(user => {
-      if (!user)
-        return this.auth.logOut()
-      this.paymentsService.payForOneItem(user.clubCardId, item).subscribe(response => {
-        this.serverItemPurchaseLoad = false;
-        window.location.href = response.url
-        return;
-      }, error => {
-        this.serverItemPurchaseLoad = false
-        if (error.error.msg)
-          this._snackbarService.openSnackBar(error.error.msg, true)
-      })
+    this.paymentServerAction = true;
+    this.paymentsService.payForOneItem(item).subscribe(response => {
+      this.paymentServerAction = false;
+      window.location.href = response.url
+      return;
+    }, error => {
+      this.paymentServerAction = false
+      if (error.error.msg)
+        this._snackbarService.openSnackBar(error.error.msg, true)
     })
   }
 
   buyAllItems(items: ShortPayment[]) {
-    this.serverItemPurchaseLoad = true;
-    this.auth.getUser().subscribe(user => {
-      if (!user)
-        return this.auth.logOut()
-      this.paymentsService.payForAllItems(user.clubCardId, items).subscribe(response => {
-        this.serverItemPurchaseLoad = false;
-        window.location.href = response.url
-        return;
-      })
+    this.paymentServerAction = true;
+    this.paymentsService.payForAllItems(items).subscribe(response => {
+      this.paymentServerAction = false;
+      window.location.href = response.url
+      return;
     }, error => {
-      this.serverItemPurchaseLoad = false;
+      this.paymentServerAction = false;
       if (error.error.msg)
         this._snackbarService.openSnackBar(error.error.msg, true)
     })
   }
 
+  deleteAllSelectedPayments(items: ShortPayment[]) {
+    this.paymentServerAction = true
+    const itemsToDelete: DeletePaymentInfo[] = []
+    items.forEach(item => itemsToDelete.push({id: item._id, type: item.type}))
+    console.log("Items to delete: " + JSON.stringify(itemsToDelete))
+    this.paymentsService.deletePayments(itemsToDelete).subscribe(response => {
+      this.paymentServerAction = false
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
+      if (response.msg)
+        this._snackbarService.openSnackBar(response.msg, false)
+      return;
+    }, error => {
+      this.paymentServerAction = false
+      if (error.error.msg)
+        this._snackbarService.openSnackBar(error.error.msg, true)
+      return;
+    })
+  }
+
+  deleteOneItem(item: ShortPayment) {
+    this.paymentServerAction = true
+    this.paymentsService.deletePayments([{type: item.type, id: item._id}]).subscribe(response => {
+      this.paymentServerAction = false
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
+      if (response.msg)
+        this._snackbarService.openSnackBar(response.msg, false)
+      return;
+    }, error => {
+      this.paymentServerAction = false
+      if (error.error.msg)
+        this._snackbarService.openSnackBar(error.error.msg, true)
+      return;
+    })
+  }
+
+  ngOnDestroy() {
+    this.loadPaymentsSub.unsubscribe()
+    this.paymentsFromServiceSub.unsubscribe()
+  }
 }
