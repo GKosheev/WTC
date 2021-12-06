@@ -12,13 +12,13 @@ export type Subscription = mongoose.Document & {
     subInfo: SubInfo,
     paymentInfo: SubPaymentInfo,
     subId: mongoose.Schema.Types.ObjectId,
-    createdAt: Date
+    createdAt: string
 }
 
 interface SubPaymentInfo {
     price: number,
     paid: boolean,
-    paidAt: Date
+    paidAt: string
 }
 
 export interface SubInfo {

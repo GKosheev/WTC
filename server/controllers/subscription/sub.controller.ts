@@ -20,7 +20,7 @@ interface ShortSubPayment {
     images?: string[],
     paymentInfo: {
         price: number,
-    }
+    },
     subInfo: {
         subType: string,
         subName: string,
