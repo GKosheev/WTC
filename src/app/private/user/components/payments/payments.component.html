@@ -1,18 +1,23 @@
 <div *ngIf="(paymentsFromService | async) as allPays; else noPayments">
-  <button (click)="buyAllItems(allPays)" [disabled]="paymentServerAction">Pay For All</button>
-  <button (click)="deleteAllSelectedPayments(allPays)" [disabled]="paymentServerAction">Delete All Payments</button>
-  <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()">Select All</mat-checkbox>
-  <button (click)="payForAllSelected()" [disabled]="!isAnythingSelected() || paymentServerAction">Pay For All Selected</button>
-  <div *ngIf="allPays; then payList else noPayments"></div>
-  <ng-template #payList>
-    <div *ngFor="let sub of allPayments">
-      <h4 *ngIf="sub.shortPayment.type==='sub'">{{sub.shortPayment.name + '  ' + sub.shortPayment.type}}
-        <button (click)="buyItem(sub.shortPayment)" [disabled]="this.paymentServerAction">Pay</button>
-        <button (click)="deleteOneItem(sub.shortPayment)" [disabled]="this.paymentServerAction">Delete</button>
-        <mat-checkbox color="primary" [(ngModel)]="sub.isSelected" (change)="countAllPrice()" [disabled]="paymentServerAction"></mat-checkbox>
-      </h4>
-    </div>
-  </ng-template>
+  <div *ngIf="allPays && allPays.length; else noPayments">
+    <button (click)="buyAllItems(allPays)" [disabled]="paymentServerAction">Pay For All</button>
+    <button (click)="deleteAllSelectedPayments(allPays)" [disabled]="paymentServerAction">Delete All Payments</button>
+    <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()">Select All</mat-checkbox>
+    <button (click)="payForAllSelected()" [disabled]="!isAnythingSelected() || paymentServerAction">Pay For All
+      Selected
+    </button>
+    <div *ngIf="allPays; then payList else noPayments"></div>
+    <ng-template #payList>
+      <div *ngFor="let sub of allPayments">
+        <h4 *ngIf="sub.shortPayment.type==='sub'">{{sub.shortPayment.name + '  ' + sub.shortPayment.type}}
+          <button (click)="buyItem(sub.shortPayment)" [disabled]="this.paymentServerAction">Pay</button>
+          <button (click)="deleteOneItem(sub.shortPayment)" [disabled]="this.paymentServerAction">Delete</button>
+          <mat-checkbox color="primary" [(ngModel)]="sub.isSelected" (change)="countAllPrice()"
+                        [disabled]="paymentServerAction"></mat-checkbox>
+        </h4>
+      </div>
+    </ng-template>
+  </div>
 </div>
 <ng-template #noPayments>
   <!--  <button [disabled]="true">Pay For All</button>-->

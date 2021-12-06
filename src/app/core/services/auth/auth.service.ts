@@ -89,7 +89,7 @@ export class AuthService {
   }
 
   register(user: UserRegister): Observable<Response> {
-    return this.http.post<Response>(environment.register_api, {user})
+    return this.http.post<Response>(environment.register_api, user)
   }
 
   confirmEmail(token: string): Observable<Response> {
@@ -97,7 +97,7 @@ export class AuthService {
   }
 
   resendConfirmEmailLink(email: string): Observable<Response> {
-    return this.http.post<Response>(environment.resend_link_api, {email})
+    return this.http.post<Response>(environment.resend_link_api, {email: email})
   }
 
   forgotPassword(email: string): Observable<Response> {

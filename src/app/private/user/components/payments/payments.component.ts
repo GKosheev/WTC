@@ -3,9 +3,8 @@ import {PaymentsService} from "../../services/payments/payments.service";
 import {ShortPayment} from "../../interfaces/payments/ShortPayment";
 import {AuthService} from "../../../../core/services/auth/auth.service";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
-import {Observable, of, Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {DeletePaymentInfo} from "../../interfaces/payments/DeletePaymentInfo";
-import {FormBuilder} from "@angular/forms";
 
 
 interface ShortPaymentCB {
@@ -33,13 +32,15 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
   constructor(private paymentsService: PaymentsService,
               private auth: AuthService,
-              private _snackbarService: SnackbarService,
-              private fb: FormBuilder) {
+              private _snackbarService: SnackbarService) {
     this.paymentsFromService = this.paymentsService.getPayments()
     this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
     this.paymentsFromServiceSub = this.paymentsService.getPayments().subscribe(payments => {
       this.allPayments = []
-      payments?.forEach(payment => this.allPayments.push({
+      if (!payments || !payments.length)
+        return;
+
+      payments.forEach(payment => this.allPayments.push({
         shortPayment: payment,
         isSelected: this.cachedPayments.some(cPayment => cPayment.shortPayment._id === payment._id && cPayment.isSelected)
       }))
@@ -78,7 +79,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   payForAllSelected(): void {
     this.paymentServerAction = true;
     const allSelectedPayments: ShortPayment[] = []
-    this.allPayments.filter(payment => payment.isSelected).forEach(payment =>allSelectedPayments.push(payment.shortPayment))
+    this.allPayments.filter(payment => payment.isSelected).forEach(payment => allSelectedPayments.push(payment.shortPayment))
     this.buyAllItems(allSelectedPayments)
   }
 
