@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {PaymentsService} from "../../services/payments/payments.service";
-import {ShortPayment} from "../../interfaces/payments/ShortPayment";
-import {AuthService} from "../../../../core/services/auth/auth.service";
-import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
-import {Observable, Subscription} from "rxjs";
-import {DeletePaymentInfo} from "../../interfaces/payments/DeletePaymentInfo";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { PaymentsService } from "../../services/payments/payments.service";
+import { ShortPayment } from "../../interfaces/payments/ShortPayment";
+import { AuthService } from "../../../../core/services/auth/auth.service";
+import { SnackbarService } from "../../../../shared/services/snackbar/snackbar.service";
+import { Observable, Subscription } from "rxjs";
+import { DeletePaymentInfo } from "../../interfaces/payments/DeletePaymentInfo";
 
 
 interface ShortPaymentCB {
@@ -31,8 +31,8 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   paymentsFromServiceSub: Subscription
 
   constructor(private paymentsService: PaymentsService,
-              private auth: AuthService,
-              private _snackbarService: SnackbarService) {
+    private auth: AuthService,
+    private _snackbarService: SnackbarService) {
     this.paymentsFromService = this.paymentsService.getPayments()
     this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
     this.paymentsFromServiceSub = this.paymentsService.getPayments().subscribe(payments => {
@@ -118,7 +118,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   deleteAllSelectedPayments(items: ShortPayment[]) {
     this.paymentServerAction = true
     const itemsToDelete: DeletePaymentInfo[] = []
-    items.forEach(item => itemsToDelete.push({id: item._id, type: item.type}))
+    items.forEach(item => itemsToDelete.push({ id: item._id, type: item.type }))
     console.log("Items to delete: " + JSON.stringify(itemsToDelete))
     this.paymentsService.deletePayments(itemsToDelete).subscribe(response => {
       this.paymentServerAction = false
@@ -137,7 +137,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
   deleteOneItem(item: ShortPayment) {
     this.paymentServerAction = true
-    this.paymentsService.deletePayments([{type: item.type, id: item._id}]).subscribe(response => {
+    this.paymentsService.deletePayments([{ type: item.type, id: item._id }]).subscribe(response => {
       this.paymentServerAction = false
       this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
       if (response.msg)
@@ -149,6 +149,10 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         this._snackbarService.openSnackBar(error.error.msg, true)
       return;
     })
+  }
+
+  getLengthOfSelectedPays(): number {
+    return this.allPayments.filter(payment => payment.isSelected).length
   }
 
   ngOnDestroy() {
