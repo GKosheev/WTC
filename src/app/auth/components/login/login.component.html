@@ -24,7 +24,10 @@
           <mat-error *ngIf="this.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </mat-card-content>
-      <button mat-stroked-button color="primary" class="btn-block" (click)="login()">Log in</button>
+      <div class="but_body">
+        <button mat-raised-button color="primary" (click)="login()" class="log_but">login</button>
+      </div>
+
     </form>
     <div class="nav_auth_bar">
       <a class="forgot_pass passive_but" routerLink="../forgot-password">Forgot Password</a>

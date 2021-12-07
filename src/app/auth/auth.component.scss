@@ -12,7 +12,19 @@
 }
 */
 
-
+@media (max-width:900px) {
+  #i1,#i2,#i3,span{
+    display: none;
+  }
+  .container{
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+  }
+}
+@media (min-width:900px) {
+  
 
 
 .block-second{
@@ -335,3 +347,4 @@ label span { font-size: 50pt; }
 .me{ display: none;}
 }
 
+}
