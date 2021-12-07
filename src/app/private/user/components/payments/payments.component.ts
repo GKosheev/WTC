@@ -123,6 +123,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     this.paymentsService.deletePayments(itemsToDelete).subscribe(response => {
       this.paymentServerAction = false
       this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
+      this.totalPrice = 0;
       if (response.msg)
         this._snackbarService.openSnackBar(response.msg, false)
       return;
