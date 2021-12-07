@@ -1,16 +1,54 @@
-<div *ngIf="!serverLoadSubs; then readyToShow; else stillLoading"></div>
+<div class="content mat-elevation-z24">
+  <div class="main">
+    <div *ngIf="!serverLoadSubs; then readyToShow; else stillLoading"></div>
 
-<ng-template #stillLoading>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>
-<ng-template #readyToShow>
-  <div *ngFor="let sub of this.subs">
-    <h1>{{sub.subType}}</h1>
-    <h3>{{sub.subStart + ' - ' + sub.subEnd}}</h3>
-    <div *ngFor="let subInfo of sub.subscriptions">
-      <h4>{{subInfo.name + '  ' + subInfo.price}}</h4>
-      <button mat-raised-button (click)="addToPayments(sub.subType, subInfo.name)" [disabled]="serverLoadAddSubPayment">Add to Payments</button>
-      <br><br><br><br>
-    </div>
+    <ng-template #stillLoading>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
+    <ng-template #readyToShow>
+      <div *ngFor="let sub of this.subs">
+        <h1>{{sub.subType}}({{sub.subStart + ' - ' + sub.subEnd}})</h1>
+        <div class="fusion-pricing-table pricing-table-5 full-boxed-pricing">
+          <div *ngFor="let subInfo of sub.subscriptions">
+            <div class="panel-wrapper fusion-column column col-lg-3 col-md-3 col-sm-3">
+              <div class="panel-container">
+                <div class="fusion-panel">
+                  <div class="panel-heading">
+                    <h3 class="title-row fusion-responsive-typography-calculated" data-fontsize="16"
+                      style="--fontSize:16; line-height: 1; --minFontSize:16;" data-lineheight="16px">{{subInfo.name}}
+                    </h3>
+                  </div>
+                  <div class="panel-body pricing-row">
+                    <div class="price "><span class="currency">$</span><span
+                        class="integer-part">{{subInfo.price}}</span><span class="time price-without-decimal">per
+                        season</span></div>
+                  </div>
+                  <div class="panel-footer footer-row">
+                    <div class="fusion-button-wrapper">
+                      <button mat-raised-button (click)="addToPayments(sub.subType, subInfo.name)"
+                        [disabled]="serverLoadAddSubPayment">Add to Payments</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+    </ng-template>
+
   </div>
-</ng-template>
+</div>

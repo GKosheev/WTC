@@ -1,0 +1,136 @@
+@import "/src/assets/styles/colors.scss";
+
+.content {
+	height: calc(100vh - 98px);
+	border-radius: 10px;
+	margin: 16px 16px 16px 32px;
+	padding: 16px 16px 16px 16px;
+	background-color: white;
+ }
+
+.main{
+	display: flex;
+	justify-content: center;
+ }
+
+ h1{
+	margin: 0;
+	font-size: 35px;
+	line-height: 1;
+	text-align: center;
+	padding:20px 0 20px 0;
+ }
+
+
+ //-----table-------//
+
+ .full-boxed-pricing .panel-container {
+	padding: 0 9px;
+	background-color: #F8F8F8;
+}
+
+.fusion-pricing-table {
+	display: flex;
+	margin: 0 0 20px;
+	box-sizing: border-box;
+	height: 75%;
+	padding: 15px;
+}
+
+
+.pricing-table-5 .panel-container, .pricing-table-5 .standout .panel-container, .pricing-table-5.full-boxed-pricing {
+	background-color: #ffffff;
+}
+
+.clearfix, .container, .container-fluid, .fusion-clearfix, .row {
+	clear: both;
+}
+
+
+.fusion-pricing-table .fusion-panel {
+	overflow: hidden;
+	margin: 0;
+	background-color: #fff;
+	box-shadow: none;
+	border-radius: 0;
+	background-clip: padding-box;
+	border: 1px solid #e5e4e3;
+}
+
+
+.fusion-pricing-table .panel-heading {
+	padding: 15px;
+	border-radius: 0;
+	background-clip: padding-box;
+	border-bottom: 1px solid #e5e4e3;
+	text-align: center;
+}
+
+.fusion-pricing-table .panel-body {
+	padding: 15px;
+	background-color: #f8f8f8;
+	text-align: center;
+}
+
+.fusion-pricing-table .panel-body .price {
+	position: relative;
+}
+
+.full-boxed-pricing .panel-body .price .currency {
+	top: -20px;
+	font-size: 21px;
+}
+
+.pricing-table-5.fusion-pricing-table .panel-body .price .integer-part {
+	color: #006838;
+}
+
+.full-boxed-pricing .panel-body .price .integer-part {
+	font-size: 55px;
+}
+
+.fusion-pricing-table .panel-body .price .time.price-without-decimal {
+	margin-left: 0;
+}
+
+.full-boxed-pricing .panel-body .price .time {
+	font-size: 14px!important;
+}
+
+.pricing-table-5 .fusion-panel, .pricing-table-5 .panel-wrapper:last-child .fusion-panel, .pricing-table-5 .standout .fusion-panel, .pricing-table-5 .panel-heading, .pricing-table-5 .panel-body, .pricing-table-5 .panel-footer {
+	border-color: #919191;
+}
+
+.fusion-pricing-table .panel-footer {
+	padding: 15px;
+	background-color: #f8f8f8;
+	border-radius: 0;
+	background-clip: padding-box;
+	border-color: #e5e4e3;
+	text-align: center;
+}
+
+.fusion-button.button-15{border-radius:2px 2px 2px 2px;}
+.button-default{
+	background: #a0ce4e;
+    color: #ffffff;
+    border-color: #ffffff;
+
+	 display: inline-block;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-family: PT Sans;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0px;
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    border-radius: 2px 2px 2px 2px;
+    text-transform: uppercase;
+    transition: all .2s;
+
+	 padding: 10px;
+}
