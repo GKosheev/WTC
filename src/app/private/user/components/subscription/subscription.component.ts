@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SubscriptionService} from "../../services/subscription/subscription.service";
-import {SubType} from "../../interfaces/subscription/SubType";
+import {SubConfig} from "../../interfaces/subscription/SubConfig";
 import * as moment from "moment";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
 import {PaymentsService} from "../../services/payments/payments.service";
@@ -12,15 +12,15 @@ import {Subscription} from "rxjs";
   styleUrls: ['./subscription.component.scss']
 })
 export class SubscriptionComponent implements OnInit, OnDestroy {
-  subs: SubType[] = []
+  subs: SubConfig[] = []
   serverLoadSubs: boolean = false;
   serverLoadAddSubPayment: boolean = false;
-  loadPaymentSubscription: Subscription
+  loadAllPayments: Subscription
 
   constructor(private subService: SubscriptionService,
               private snackBar: SnackbarService,
               private paymentService: PaymentsService) {
-    this.loadPaymentSubscription = this.paymentService.loadPayments().subscribe()
+    this.loadAllPayments = this.paymentService.loadPayments().subscribe()
   }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadPaymentSubscription.unsubscribe()
+    this.loadAllPayments.unsubscribe()
   }
 
 
@@ -50,7 +50,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   addToPayments(subType: string, subName: string): void {
     this.serverLoadAddSubPayment = true
     this.subService.addSubToPayments(subType, subName).subscribe(async response => {
-      this.loadPaymentSubscription = await this.paymentService.loadPayments().subscribe()
+      this.loadAllPayments = await this.paymentService.loadPayments().subscribe()
       this.serverLoadAddSubPayment = false;
       if (response.msg)
         this.snackBar.openSnackBar(response.msg, false, 5)

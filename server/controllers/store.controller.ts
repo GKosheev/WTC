@@ -8,7 +8,7 @@ import Joi from "joi";
 
 
 interface StoreBody {
-  _id: string,
+  id: string,
   name: string,
   quantity: number
 }
@@ -49,11 +49,13 @@ function initShortStorePayment(itemFromStore: StoreConfig, quantity: number): Sh
 }
 
 const joiQuantityValidation = Joi.object({
+
   quantity: Joi.number().integer().required().greater(0).max(5) // quantity must be from 1 to 5
 })
 
 // TODO joi check if item.quantity integer && >0
 export async function addItemToStorePayments(req: Request, res: Response) {
+
   const user: User = res.locals.user
   const item: StoreBody = req.body
 
@@ -61,12 +63,12 @@ export async function addItemToStorePayments(req: Request, res: Response) {
   if (quantityValidation.error)
     res.status(400).json({msg: quantityValidation.error.message})
 
-  const itemFromStore = await StoreConfigModel.findOne({_id: item._id, name: item.name})
+  const itemFromStore = await StoreConfigModel.findOne({_id: mongoose.Types.ObjectId(item.id)})
   if (!itemFromStore)
     return res.status(400).json({msg: `Item ${item.name} not found`})
   if (itemFromStore.quantity < item.quantity)
     return res.status(400).json({msg: `You can't buy that amount of items, only ${itemFromStore.quantity}  '${itemFromStore.name}' left`})
-  await StoreConfigModel.updateOne({clubCardId: user.clubCardId}, {$set: {quantity: itemFromStore.quantity - item.quantity}})
+  await StoreConfigModel.updateOne({_id: mongoose.Types.ObjectId(item.id)}, {$inc: {quantity: -item.quantity}})
 
   const storePayment = await StorePaymentModel.findOne({clubCardId: user.clubCardId})
   const storePaymentToAdd: ShortStorePayment = initShortStorePayment(itemFromStore, item.quantity)

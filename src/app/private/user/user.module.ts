@@ -20,6 +20,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MessageDialogComponent} from "./components/message-dialog/message-dialog.component";
 import {SubscriptionComponent} from './components/subscription/subscription.component';
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -36,19 +37,20 @@ import {SubscriptionComponent} from './components/subscription/subscription.comp
     MessageDialogComponent,
     SubscriptionComponent
   ],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    SharedModule,
+    imports: [
+        CommonModule,
+        UserRoutingModule,
+        SharedModule,
 
-    /* players list */
-    MatProgressBarModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    /* players list */
-    MatTooltipModule,
-  ],
+        /* players list */
+        MatProgressBarModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        /* players list */
+        MatTooltipModule,
+        MatSliderModule,
+    ],
   providers: [
   ]
 })

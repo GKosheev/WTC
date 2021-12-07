@@ -26,5 +26,9 @@ export const environment = {
 
   /* subscription service */
   get_all_subscriptions_api: 'api/subscription/all',
-  subscription_to_payments_api: 'api/subscription/subscribe'
+  subscription_to_payments_api: 'api/subscription/subscribe',
+
+  /* store service */
+  get_all_store_items_api: '/api/store/all',
+  buy_store_item_api: '/api/store/buy-item',
 };

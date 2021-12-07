@@ -8,7 +8,7 @@ const storeItemsSchema = new mongoose.Schema<StoreItem>({
   images: [{type: String}],
   itemInfo: {
     name: {type: String, required: true},
-    quantity: {type: String, required: true},
+    quantity: {type: Number, required: true},
     description: {type: String, default: '-'},
     issued: {type: Boolean, required: true, default: false}
   },

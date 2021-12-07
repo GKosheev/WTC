@@ -1,4 +1,4 @@
-export interface SubType {
+export interface SubConfig {
   _id: string,
   subType: string,
   images: string[],

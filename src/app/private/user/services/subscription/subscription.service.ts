@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {SubType} from "../../interfaces/subscription/SubType";
+import {SubConfig} from "../../interfaces/subscription/SubConfig";
 import {environment} from "../../../../../environments/environment";
 import {Observable} from "rxjs";
 
@@ -14,8 +14,8 @@ export class SubscriptionService {
   }
 
 
-  getAllSubs(): Observable<SubType[] | null> {
-    return this.http.get<SubType[] | null>(environment.get_all_subscriptions_api)
+  getAllSubs(): Observable<SubConfig[] | null> {
+    return this.http.get<SubConfig[] | null>(environment.get_all_subscriptions_api)
   }
 
   addSubToPayments(subType: string, subName: string) {
