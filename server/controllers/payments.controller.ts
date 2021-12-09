@@ -24,6 +24,7 @@ interface ShortPayments {
   _id: string,
   name: string,
   type: string,
+  images: string[],
   price: number,
   quantity: number,
   description: string,
@@ -42,6 +43,7 @@ export async function getAllPayments(req: Request, res: Response) {
           _id: payment._id,
           name: payment.subInfo.subType + ' ' + payment.subInfo.subName,
           type: config.payment_type.subscription,
+          images: payment.images,
           price: payment.paymentInfo.price,
           quantity: 1,
           description: payment.subInfo.description
@@ -54,6 +56,7 @@ export async function getAllPayments(req: Request, res: Response) {
           _id: payment._id,
           name: payment.itemInfo.name,
           type: config.payment_type.store,
+          images: payment.images,
           price: payment.paymentInfo.price,
           quantity: payment.itemInfo.quantity,
           description: payment.itemInfo.description
@@ -104,20 +107,29 @@ async function checkSubPayments(subPays: SubPayment, paymentIdsToDelete: mongoos
   return null
 }
 
+async function mongooseObjectIdToString(arr: mongoose.Types.ObjectId[]) {
+  const new_arr: string[] = []
+  for await (const elem of arr) {
+    new_arr.push(elem.toString())
+  }
+  return new_arr
+}
+
 async function updateStorePayments(storePays: StorePayments, paymentsIdsToDelete: mongoose.Types.ObjectId[], clubCardId: string) {
   const allPayments: string[] = []
   const paymentsToDelete: string[] = []
-  const paymentForStoreUpdate: { id: mongoose.Types.ObjectId, quantity: number }[] = []
+  const paymentsForStoreUpdate: { id: mongoose.Types.ObjectId, quantity: number }[] = []
+  const paymentsIdsToDeleteStrFormat = await mongooseObjectIdToString(paymentsIdsToDelete)
 
   if (!storePays.storePayments.length)
     return `Payment not found`
   for await (const payment of storePays.storePayments) {
     if (!payment.paymentInfo.paid)
       allPayments.push(payment._id.toString())
-    if (paymentsIdsToDelete.includes(payment._id))
-      paymentForStoreUpdate.push({id: payment.itemId, quantity: payment.itemInfo.quantity})
+    if (paymentsIdsToDeleteStrFormat.includes(payment._id.toString()))
+      paymentsForStoreUpdate.push({id: payment.itemId, quantity: payment.itemInfo.quantity})
   }
-  for await (const paymentToDelete of paymentsIdsToDelete) {
+  for await (const paymentToDelete of paymentsIdsToDeleteStrFormat) {
     paymentsToDelete.push(paymentToDelete.toString())
   }
   if (!oneArrayHasAllElementsAnother(paymentsToDelete, allPayments))
@@ -127,15 +139,13 @@ async function updateStorePayments(storePays: StorePayments, paymentsIdsToDelete
     $pull: {
       storePayments: {
         "paymentInfo.paid": false,
-        _id: {$in: paymentsIdsToDelete}
+        _id: {$in: paymentsIdsToDeleteStrFormat}
       }
     }
   }, {multi: false})
 
-  for (const storeItem of paymentForStoreUpdate)
+  for (const storeItem of paymentsForStoreUpdate)
     await StoreConfigModel.updateOne({_id: storeItem.id}, {$inc: {quantity: storeItem.quantity}})
-
-
   return null
 }
 
@@ -179,7 +189,7 @@ export async function deletePayments(req: Request, res: Response) {
   }
   /* TODO  await CourtPaymentModel.updateOne(...)*/
 
-  return res.status(200).json({msg: finalLength > 1 ? 'All payments have been deleted' : 'Payment has been deleted'})
+  return res.status(200).json({msg: finalLength > 1 ? 'Payments have been deleted' : 'Payment has been deleted'})
 
 }
 

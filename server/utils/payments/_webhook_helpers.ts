@@ -31,13 +31,12 @@ export async function updatePaidStatus(metadata: StripeMetadata) {
           return updateSubError
       }
     }
-
     if (userStripePayment.ids.storeIds.length) {
       for (const itemId of userStripePayment.ids.storeIds) {
         const item = await StorePaymentModel.findOneAndUpdate({
           clubCardId: metadata.clubCardId,
           "storePayments._id": itemId
-        }, {$set: {"storePayments.$.itemInfo.paid": true, "storePayments.$.itemInfo.paidAt": paidDate}})
+        }, {$set: {"storePayments.$.paymentInfo.paid": true, "storePayments.$.paymentInfo.paidAt": paidDate}})
         if (!item)
           return `Item with id ${itemId} wasn't found`
       }
