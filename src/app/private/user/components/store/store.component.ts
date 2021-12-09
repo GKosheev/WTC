@@ -2,18 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StoreService} from "../../services/store/store.service";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
 import {PaymentsService} from "../../services/payments/payments.service";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {StoreConfig} from "../../interfaces/store/StoreConfig";
-
-export interface CustomStoreConfig {
-  id: string,
-  name: string,
-  price: number,
-  quantity: number,
-  images: string[],
-  description: string,
-  selectedQuantity: number
-}
+import {CustomStoreConfig} from "../../interfaces/store/CustomStoreConfig";
 
 
 @Component({
@@ -23,41 +14,33 @@ export interface CustomStoreConfig {
 })
 export class StoreComponent implements OnInit, OnDestroy {
 
-  storeItems: CustomStoreConfig[] = []
+  allStoreItems: Observable<CustomStoreConfig[] | null>
   serverLoadStoreItems: boolean = false;
   serverLoadAddStorePayment: boolean = false;
   loadAllPayments: Subscription
-  allStoreItems: Subscription
+  loadStoreItems: Subscription
+
+  // itemsFromService: Observable<StoreConfig[] | null>
 
   constructor(private storeService: StoreService,
               private snackBar: SnackbarService,
               private paymentService: PaymentsService) {
-    this.loadAllPayments = this.paymentService.loadPayments().subscribe()
-    this.allStoreItems = this.updateStoreItems()
+    this.serverLoadStoreItems = true
+    this.loadAllPayments = this.paymentService.loadPayments().subscribe(() => this.serverLoadStoreItems = false, error => this.serverLoadStoreItems = false)
+    this.loadStoreItems = this.updateStoreItems()
+    this.allStoreItems = this.storeService.getCustomStoreItems()
   }
 
   ngOnInit(): void {
   }
 
   updateStoreItems(): Subscription {
-    this.serverLoadStoreItems = true
-    return this.storeService.getAllStoreItems().subscribe(items => {
-        this.storeItems = []
-        this.serverLoadStoreItems = false
-        if (items)
-          items.forEach(item => this.storeItems.push({
-            id: item._id,
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-            images: item.images,
-            description: item.description,
-            selectedQuantity: 1
-          }))
-        // this.storeItems = items
+    this.serverLoadAddStorePayment = true
+    return this.storeService.loadStoreItems().subscribe(items => {
+        this.serverLoadAddStorePayment = false
       },
       error => {
-        this.serverLoadStoreItems = false
+        this.serverLoadAddStorePayment = false
         if (error.error.msg) this.snackBar.openSnackBar(error.error.msg, false)
       })
   }
@@ -66,11 +49,12 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.serverLoadAddStorePayment = true
     this.storeService.addStoreItemToPayments(_id, name, quantity).subscribe(async response => {
       this.loadAllPayments = await this.paymentService.loadPayments().subscribe()
-      this.allStoreItems = this.updateStoreItems()
+      this.loadStoreItems = this.updateStoreItems()
       this.serverLoadAddStorePayment = false
       if (response.msg)
         this.snackBar.openSnackBar(response.msg, false, 5)
     }, error => {
+      this.serverLoadAddStorePayment = false
       if (error.error.msg)
         this.snackBar.openSnackBar(error.error.msg, true, 5)
     })

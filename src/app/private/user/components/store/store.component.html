@@ -7,19 +7,21 @@
 
 
 <ng-template #loaded>
-  <div *ngIf="storeItems.length; then itemsToShow; else noItemsFound"></div>
-  <ng-template #itemsToShow>
-    <div *ngFor="let item of storeItems">
-      <img [src]="item.images[0]" width="150" alt="Item">
-      <h1>{{item.name}}</h1>
-      <h3>Remaining quantity: {{item.quantity}}</h3>
-      <h3>Price: {{item.price}}</h3>
+    <div *ngIf="(allStoreItems | async) as allItems; else noItemsFound">
+
+      <div *ngFor="let item of allItems">
+      <img [src]="item.itemInfo.images[0]" width="150" alt="Item">
+      <h1>{{item.itemInfo.name}}</h1>
+      <h3>Remaining quantity: {{item.itemInfo.quantity}}</h3>
+      <h3>Price: {{item.itemInfo.price}}</h3>
       <h3>Selected Quantity: {{item.selectedQuantity}}</h3>
-      <mat-slider min="1" max="5" [(ngModel)]="item.selectedQuantity" [disabled]="item.quantity <=0"
+      <mat-slider min="1" [max]="item.itemInfo.quantity>5?5: item.itemInfo.quantity" [(ngModel)]="item.selectedQuantity"
+                  [disabled]="item.itemInfo.quantity <=0"
                   [value]="item.selectedQuantity" color="primary" [thumbLabel]="true"></mat-slider>
-      <button (click)="addItemToPayments(item.id, item.name, item.selectedQuantity)">Add To Payments</button>
+      <button (click)="addItemToPayments(item.itemInfo._id, item.itemInfo.name, item.selectedQuantity)" [disabled]="serverLoadAddStorePayment">Add To Payments
+      </button>
     </div>
-  </ng-template>
+    </div>
 
   <ng-template #noItemsFound>
     <div>No Items Found</div>

@@ -11,12 +11,12 @@
                     [disabled]="paymentServerAction">Delete All
               Payments
             </button>
-            <button mat-button color="warn" (click)="deleteAllSelected()" [disabled]="!isAnythingSelected() || paymentServerAction">Delete All
+            <button mat-button color="warn" (click)="deleteAllSelected()"
+                    [disabled]="!isAnythingSelected() || paymentServerAction">Delete All
               Selected
             </button>
-
-
-            <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()" [disabled]="paymentServerAction">Select All
+            <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()"
+                          [disabled]="paymentServerAction">Select All
             </mat-checkbox>
           </div>
 
@@ -59,7 +59,8 @@
                       <div class="description">{{sub.shortPayment.description}}</div>
 
                       <div class="card_but">
-                        <button mat-button color="warn" (click)="deleteOneItem(sub.shortPayment)" [disabled]="paymentServerAction">
+                        <button mat-button color="warn" (click)="deleteOneItem(sub.shortPayment)"
+                                [disabled]="paymentServerAction">
                           Delete
                         </button>
                         <!--<span (click)="buyItem(sub.shortPayment)">
