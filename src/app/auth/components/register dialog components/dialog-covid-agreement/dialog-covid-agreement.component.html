@@ -9,8 +9,9 @@
   </mat-dialog-content>
   <hr>
   <mat-dialog-actions>
-    <button md-raised-button (click)="onCloseConfirm()" mat-button color="basic" class="confirm_but">
-      CONFIRM</button>&nbsp;
-    <button md-raised-button (click)="onCloseCancel()" mat-button color="warn" class="cancel_but">DECLINE</button>
+    <button mat-button color="primary" (click)="onCloseConfirm()">
+      CONFIRM
+    </button>&nbsp;
+    <button mat-button color="warn" (click)="onCloseCancel()">DECLINE</button>
   </mat-dialog-actions>
 </div>

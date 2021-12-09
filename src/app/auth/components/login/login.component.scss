@@ -1,4 +1,4 @@
-     @import "/src/assets/styles/buttons.scss";
+@import "/src/assets/styles/buttons.scss";
 
 .login-wrapper {
   height: 100%;
@@ -13,13 +13,6 @@
 .nav_auth_bar{
   width: 100%;
   background: #333;
-}
-
-.forgot_pass{
-  float: left;
-}
-.Create_Acc{
-  float: right;
 }
 
 .box {
