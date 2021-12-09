@@ -3,13 +3,20 @@
     <div class="main">
       <div class="row">
         <div *ngIf="allPays && allPays.length; else noPayments">
-          <div class="title_bar" style="font-weight:700px;">
+          <div class="title_bar" style="font-weight:700">
             <button mat-button color="primary" (click)="buyAllItems(allPays)" [disabled]="paymentServerAction">Pay For
-              All</button>
-            <button mat-button color="primary" (click)="deleteAllSelectedPayments(allPays)"
-              [disabled]="paymentServerAction">Delete All
-              Payments</button>
-            <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()">Select All
+              All
+            </button>
+            <button mat-button color="warn" (click)="deleteManyPayments(allPays)"
+                    [disabled]="paymentServerAction">Delete All
+              Payments
+            </button>
+            <button mat-button color="warn" (click)="deleteAllSelected()" [disabled]="!isAnythingSelected() || paymentServerAction">Delete All
+              Selected
+            </button>
+
+
+            <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()" [disabled]="paymentServerAction">Select All
             </mat-checkbox>
           </div>
 
@@ -20,13 +27,13 @@
 
               <div class="payments_body">
                 <div class="card_info">
-                  <div class="card_checbox">
+                  <div class="card_checkbox">
                     <mat-checkbox color="primary" [(ngModel)]="sub.isSelected" (change)="countAllPrice()"
-                      [disabled]="paymentServerAction"></mat-checkbox>
+                                  [disabled]="paymentServerAction"></mat-checkbox>
                   </div>
                   <div class="card_img">
-                    <img loading="lazy" src="https://cdn1.ozone.ru/multimedia/1025750644.jpg" alt=""
-                      class="card_img_body">
+                    <img loading="lazy" [src]="sub.shortPayment.images[0]" alt=""
+                         class="card_img_body">
                     <div class="div">
                       <div class="add_space">
                         <div class="space">
@@ -37,14 +44,24 @@
                   </div>
                   <div class="card_description">
                     <div class="card_title">
-                      <span *ngIf="sub.shortPayment.type==='sub'"><strong>{{sub.shortPayment.name + ' ' +
-                          sub.shortPayment.type}}</strong></span>
+                      <span *ngIf="sub.shortPayment.type==='sub'; else otherType">
+                        <strong>
+                          {{sub.shortPayment.name + ' ' + sub.shortPayment.type}}
+                        </strong>
+                      </span>
+
+                      <ng-template #otherType>
+                        <strong>
+                          {{sub.shortPayment.name}}
+                        </strong>
+                      </ng-template>
+
                       <div class="description">{{sub.shortPayment.description}}</div>
 
                       <div class="card_but">
-                        <span (click)="deleteOneItem(sub.shortPayment)">
+                        <button mat-button color="warn" (click)="deleteOneItem(sub.shortPayment)" [disabled]="paymentServerAction">
                           Delete
-                        </span>
+                        </button>
                         <!--<span (click)="buyItem(sub.shortPayment)">
                           Pay
                         </span>-->
@@ -72,19 +89,14 @@
                     -->
                   </div>
 
-                  <div class="card_quantity">
+                  <div class="card_quantity" *ngIf="sub.shortPayment.type==='store'">
                     <div class="quantity">
-
-                      <!--<mat-form-field *ngIf="quantity.Value===imput_chek" class="example-form-field" appearance="fill">
-                  <mat-label>Clearable input</mat-label>
-                  <input matInput type="text">
-                </mat-form-field>-->
-
-                      <div class="full_quantity">
-                        <span *ngIf="2>3" style="color: #5a6c7d;font-size: 12px;line-height: 16px;padding-top: 4px;">
-                          445&nbsp;
-                          $/pc.</span>
-                      </div>
+                      <h4>{{' x' + sub.shortPayment.quantity}}</h4>
+                      <!--                      <div class="full_quantity">
+                                              <span *ngIf="2>3" style="color: #5a6c7d;font-size: 12px;line-height: 16px;padding-top: 4px;">
+                                                445&nbsp;
+                                                $/pc.</span>
+                                            </div>-->
                     </div>
                   </div>
                 </div>
@@ -110,55 +122,50 @@
       <!--<h4 *ngFor="let payment of allPayments"> {{payment.shortPayment.name + ' ' + payment.isSelected}}</h4>-->
 
 
-
-      <div class=" price_list">
+      <div class="price_list">
         <div class="price_list_body">
           <section class="total">
 
-            <div class="Full_Price_Description">
-              <div class="Full_Price_Quantity">
-                <span style="color: #001a34;font-size: 20px;font-weight: 700;line-height: 1.4em;">Yours
-                  basket</span>
+            <div class="total_price_description">
+              <div class="total_price_quantity">
+                <span style="color: #001a34;font-size: 20px;font-weight: 700;line-height: 1.4em;">Selected Items</span>
                 <span
                   style="color: #5a6c7d;font-size: 14px;line-height: 1.29em;text-align: end;">{{getLengthOfSelectedPays()}}
-                  products</span>
+                  items</span>
               </div>
-              <div class="Full_Price" *ngFor="let payment of allPayments">
-                <span *ngIf="payment.isSelected"
-                  style="color: #5a6c7d;font-size: 14px;line-height: 1.29em;text-align: end;">{{payment.shortPayment.name
-                  + ' ' + payment.shortPayment.type}}</span>
-                <span style="color: #001a34;" *ngIf="payment.isSelected">{{payment.shortPayment.quantity + 'x '}}</span>
-              </div>
+              <div class="selected_items_list" *ngFor="let payment of allPayments">
+
+                <span class="selected_item" *ngIf="payment.isSelected && payment.shortPayment.type==='sub'">
+                  {{payment.shortPayment.name + ' ' + payment.shortPayment.type}}
+                </span>
+
+                <span class="selected_item"
+                      *ngIf="payment.isSelected && payment.shortPayment.type==='store'"> {{payment.shortPayment.name}}</span>
+
+                <span style="color: #001a34;"
+                      *ngIf="payment.isSelected">{{payment.shortPayment.quantity + 'x' + payment.shortPayment.price.toFixed(2)}}</span>
 
 
-              <div class="totalScoreWeb">
+              </div>
+              <div class="total_price">
                 <span style="color: #001a34;font-weight: 700;">Total price</span>
                 <span
-                  style="color: #001a34;;;font-size: 20px;line-height: 1.29em;text-align: end;font-weight: 700;">{{this.totalPrice}}$</span>
+                  style="color: #001a34;;;font-size: 20px;line-height: 1.29em;text-align: end;font-weight: 700;">{{this.totalPrice.toFixed(2) }}
+                  $</span>
               </div>
             </div>
 
-            <div style="padding: 24px;">
-              <div class="bay_button_body">
-                <button routerLink="../product-payment-page">
-                  <span class="bay_button_body_span_1">
-                    <button class="bay_button_body_span_2" (click)="payForAllSelected()"
-                      [disabled]="!isAnythingSelected() || paymentServerAction">Pay For
-                      All
-                      Selected
-                    </button>
-                  </span>
-                </button>
-              </div>
+            <div class="total_price_button_position">
+              <button mat-raised-button class="total_price_button" (click)="payForAllSelected()" color="primary"
+                      [disabled]="!isAnythingSelected() || paymentServerAction">Pay For All Selected
+              </button>
             </div>
           </section>
         </div>
       </div>
-
     </div>
   </div>
   <ng-template #noPayments>
-    <!--  <button [disabled]="true">Pay For All</button>-->
-    <h4 style="font-size: 28px; font-weight:600px">No payments were found</h4>
+    <h4 style="font-size: 28px; font-weight:600">No payments were found</h4>
   </ng-template>
 </div>

@@ -35,7 +35,7 @@ import {MatSliderModule} from "@angular/material/slider";
     CourtComponent,
     CourtBookingComponent,
     MessageDialogComponent,
-    SubscriptionComponent
+    SubscriptionComponent,
   ],
     imports: [
         CommonModule,

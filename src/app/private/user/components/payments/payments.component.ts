@@ -5,12 +5,10 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 import { SnackbarService } from "../../../../shared/services/snackbar/snackbar.service";
 import { Observable, Subscription } from "rxjs";
 import { DeletePaymentInfo } from "../../interfaces/payments/DeletePaymentInfo";
+import {ShortPaymentCB} from "../../interfaces/payments/ShortPaymentCB";
 
 
-interface ShortPaymentCB {
-  shortPayment: ShortPayment,
-  isSelected: boolean
-}
+
 
 @Component({
   selector: 'app-payments',
@@ -55,7 +53,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     this.totalPrice = 0;
     this.allPayments.forEach(payment => {
       if (payment.isSelected)
-        this.totalPrice += payment.shortPayment.price
+        this.totalPrice += payment.shortPayment.price*payment.shortPayment.quantity
     })
   }
 
@@ -115,26 +113,6 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     })
   }
 
-  deleteAllSelectedPayments(items: ShortPayment[]) {
-    this.paymentServerAction = true
-    const itemsToDelete: DeletePaymentInfo[] = []
-    items.forEach(item => itemsToDelete.push({ id: item._id, type: item.type }))
-    console.log("Items to delete: " + JSON.stringify(itemsToDelete))
-    this.paymentsService.deletePayments(itemsToDelete).subscribe(response => {
-      this.paymentServerAction = false
-      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
-      this.totalPrice = 0;
-      if (response.msg)
-        this._snackbarService.openSnackBar(response.msg, false)
-      return;
-    }, error => {
-      this.paymentServerAction = false
-      if (error.error.msg)
-        this._snackbarService.openSnackBar(error.error.msg, true)
-      return;
-    })
-  }
-
   deleteOneItem(item: ShortPayment) {
     this.paymentServerAction = true
     this.paymentsService.deletePayments([{ type: item.type, id: item._id }]).subscribe(response => {
@@ -150,6 +128,34 @@ export class PaymentsComponent implements OnInit, OnDestroy {
       return;
     })
   }
+
+  deleteManyPayments(items: ShortPayment[]) {
+    this.paymentServerAction = true
+    const itemsToDelete: DeletePaymentInfo[] = []
+    items.forEach(item => itemsToDelete.push({ id: item._id, type: item.type }))
+    this.paymentsService.deletePayments(itemsToDelete).subscribe(response => {
+      this.paymentServerAction = false
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
+      this.totalPrice = 0;
+      if (response.msg)
+        this._snackbarService.openSnackBar(response.msg, false)
+      return;
+    }, error => {
+      this.paymentServerAction = false
+      if (error.error.msg)
+        this._snackbarService.openSnackBar(error.error.msg, true)
+      return;
+    })
+  }
+
+  deleteAllSelected(): void{
+    this.paymentServerAction = true
+    const allSelectedPayments: ShortPayment[] = []
+    this.allPayments.filter(payment => payment.isSelected).forEach(payment => allSelectedPayments.push(payment.shortPayment))
+    this.deleteManyPayments(allSelectedPayments)
+  }
+
+
 
   getLengthOfSelectedPays(): number {
     return this.allPayments.filter(payment => payment.isSelected).length
