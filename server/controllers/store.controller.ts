@@ -29,7 +29,7 @@ interface ShortStorePayment {
 
 export async function getAllStorePayments(req: Request, res: Response) {
   const allItems: StoreConfig[] = await StoreConfigModel.find({})
-  return res.status(200).send(allItems)
+  return res.status(200).send(allItems.filter(item => item.quantity > 0))
 }
 
 
