@@ -36,9 +36,7 @@ export class StoreComponent implements OnInit, OnDestroy {
 
   updateStoreItems(): Subscription {
     this.serverLoadAddStorePayment = true
-    return this.storeService.loadStoreItems().subscribe(items => {
-        this.serverLoadAddStorePayment = false
-      },
+    return this.storeService.loadStoreItems().subscribe(() => this.serverLoadAddStorePayment = false,
       error => {
         this.serverLoadAddStorePayment = false
         if (error.error.msg) this.snackBar.openSnackBar(error.error.msg, false)
@@ -54,6 +52,7 @@ export class StoreComponent implements OnInit, OnDestroy {
       if (response.msg)
         this.snackBar.openSnackBar(response.msg, false, 5)
     }, error => {
+      this.loadStoreItems = this.updateStoreItems()
       this.serverLoadAddStorePayment = false
       if (error.error.msg)
         this.snackBar.openSnackBar(error.error.msg, true, 5)

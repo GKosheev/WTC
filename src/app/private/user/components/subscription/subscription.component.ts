@@ -55,6 +55,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
       if (response.msg)
         this.snackBar.openSnackBar(response.msg, false, 5)
     }, error => {
+      this.serverLoadAddSubPayment = false;
       if (error.error.msg)
         this.snackBar.openSnackBar(error.error.msg, true, 5)
     })
