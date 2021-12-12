@@ -6,6 +6,8 @@ import {joiUserRegister} from "./validations/auth/joi/register";
 import {UserRegisterInput} from "../interfaces/auth/UserRegisterInput";
 import {findUserByEmail} from "../services/db services/UserService";
 import {initToken} from "../services/db services/TokenService";
+import {subExpired, setSubStatusToDefault} from "../utils/subscription/sub_helpers";
+import config from "../config/config";
 
 
 export async function registerMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -21,7 +23,6 @@ export async function registerMiddleware(req: Request, res: Response, next: Next
   return next()
 }
 
-
 export async function loginMiddleware(req: Request, res: Response, next: NextFunction) {
   const email = req.body.email
   const password = req.body.password
@@ -30,7 +31,7 @@ export async function loginMiddleware(req: Request, res: Response, next: NextFun
   if (userLoginValidation.error)
     return res.status(400).json({msg: userLoginValidation.error.message})
 
-  const [user, error] = await findUserByEmail(email)
+  let [user, error] = await findUserByEmail(email)
   if (!user)
     return res.status(400).json({msg: "User with such email doesn't exist", wrongEmail: true})
   if (error)
@@ -50,6 +51,9 @@ export async function loginMiddleware(req: Request, res: Response, next: NextFun
     await confirmEmailMessage(user.profile.firstName, user.profile.email, String(token.token))
     return res.status(400).json({msg: 'Check your email to verify your account'})
   }
+  if (user.roles[0] === config.roles.member && subExpired(user.subscription.subStarts, user.subscription.subEnds))
+    user = await setSubStatusToDefault(user) //setting new user after updating sub status
+
   let user_ = JSON.parse(JSON.stringify(user))
   delete user_.private.hashedPassword
   delete user_.private.secureAnswer

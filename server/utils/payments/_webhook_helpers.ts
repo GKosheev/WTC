@@ -19,17 +19,16 @@ export async function updatePaidStatus(metadata: StripeMetadata) {
 
     const paidDate = moment(moment.now()).format(config.time_format.momentTimeCustomFullFormat)
     if (userStripePayment.ids.subIds.length) {
-      for (const subId of userStripePayment.ids.subIds) {
-        const sub = await SubPaymentModel.findOneAndUpdate({
-          clubCardId: metadata.clubCardId,
-          "subPayments._id": subId
-        }, {$set: {"subPayments.$.paymentInfo.paid": true, "subPayments.$.paymentInfo.paidAt": paidDate}})
-        if (!sub)
-          return `Payment wasn't found`
-        const updateSubError = await updateUserSubscription(metadata.clubCardId, subId, sub)
-        if (updateSubError)
-          return updateSubError
-      }
+      const oneAndOnlyPossibleSub = userStripePayment.ids.subIds[0]
+      const sub = await SubPaymentModel.findOneAndUpdate({
+        clubCardId: metadata.clubCardId,
+        "subPayments._id": oneAndOnlyPossibleSub
+      }, {$set: {"subPayments.$.paymentInfo.paid": true, "subPayments.$.paymentInfo.paidAt": paidDate}})
+      if (!sub)
+        return `Payment wasn't found`
+      const updateSubError = await updateUserSubscription(metadata.clubCardId, oneAndOnlyPossibleSub, sub)
+      if (updateSubError)
+        return updateSubError
     }
     if (userStripePayment.ids.storeIds.length) {
       for (const itemId of userStripePayment.ids.storeIds) {
@@ -45,10 +44,8 @@ export async function updatePaidStatus(metadata: StripeMetadata) {
     if (userStripePayment.ids.courtIds.length) {
       //TODO search courtPaymentId && update "paid" status
     }
-
     return null
   } catch (err) {
     return `err: ${JSON.stringify(err)}`
   }
-
 }
