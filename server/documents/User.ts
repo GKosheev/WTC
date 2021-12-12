@@ -15,10 +15,10 @@ export type User = mongoose.Document & {
 
 interface Subscription {
   type: string,
-  subStart: string,
-  subEnd: string,
+  subStarts: string,
+  subEnds: string,
   price: string,
-  paidAt: Date,
+  paidAt: string,
 }
 
 interface Profile {
