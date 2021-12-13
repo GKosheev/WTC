@@ -16,9 +16,9 @@
         <mat-form-field class="example-full-width">
           <mat-label>Enter your password</mat-label>
           <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="YourSecretPassword"
-                 [formControl]="password" required>
+            [formControl]="password" required>
           <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hidePassword">
+            [attr.aria-pressed]="hidePassword">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="this.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
@@ -29,7 +29,7 @@
       </div>
     </form>
     <div class="nav_auth_bar">
-      <a style="float:left" routerLink="../forgot-password">Forgot password</a>
+      <a style="float:left; margin-top: 8px;" routerLink="../forgot-password">Forgot password</a>
       <button mat-button color="primary" style="float:right" routerLink="../register">Create account</button>
     </div>
   </mat-card>
