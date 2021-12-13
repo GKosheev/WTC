@@ -5,7 +5,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 import { SnackbarService } from "../../../../shared/services/snackbar/snackbar.service";
 import { Observable, Subscription } from "rxjs";
 import { DeletePaymentInfo } from "../../interfaces/payments/DeletePaymentInfo";
-import {ShortPaymentCB} from "../../interfaces/payments/ShortPaymentCB";
+import { ShortPaymentCB } from "../../interfaces/payments/ShortPaymentCB";
 
 
 
@@ -53,7 +53,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     this.totalPrice = 0;
     this.allPayments.forEach(payment => {
       if (payment.isSelected)
-        this.totalPrice += payment.shortPayment.price*payment.shortPayment.quantity
+        this.totalPrice += payment.shortPayment.price * payment.shortPayment.quantity
     })
   }
 
@@ -94,6 +94,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
       window.location.href = response.url
       return;
     }, error => {
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
       this.paymentServerAction = false
       if (error.error.msg)
         this._snackbarService.openSnackBar(error.error.msg, true)
@@ -107,6 +108,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
       window.location.href = response.url
       return;
     }, error => {
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
       this.paymentServerAction = false;
       if (error.error.msg)
         this._snackbarService.openSnackBar(error.error.msg, true)
@@ -122,6 +124,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         this._snackbarService.openSnackBar(response.msg, false)
       return;
     }, error => {
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
       this.paymentServerAction = false
       if (error.error.msg)
         this._snackbarService.openSnackBar(error.error.msg, true)
@@ -141,6 +144,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         this._snackbarService.openSnackBar(response.msg, false)
       return;
     }, error => {
+      this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
       this.paymentServerAction = false
       if (error.error.msg)
         this._snackbarService.openSnackBar(error.error.msg, true)
@@ -148,7 +152,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     })
   }
 
-  deleteAllSelected(): void{
+  deleteAllSelected(): void {
     this.paymentServerAction = true
     const allSelectedPayments: ShortPayment[] = []
     this.allPayments.filter(payment => payment.isSelected).forEach(payment => allSelectedPayments.push(payment.shortPayment))

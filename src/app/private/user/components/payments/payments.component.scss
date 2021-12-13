@@ -5,7 +5,8 @@
   border-radius: 10px;
   margin: 16px 16px 16px 32px;
   padding: 16px 16px 45px 16px;
-
+  background: none;
+  box-shadow: none !important;
 }
 
 .main {
@@ -398,5 +399,38 @@
 }
 
 .total_price_button {
-  padding: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width:1088px) {
+  .main{
+    flex-direction: column;
+  }
+  .price_list{
+    margin: 30px 0px 26px 0px;
+    max-width: 100%;
+  }
+  .total{
+    width: 100% !important;
+  }
+
+  .title_bar{
+    margin-right: 25px;
+    flex-wrap: wrap;
+  }
+  
+  .payments_body{
+    margin-right: 25px;
+  }
+
+  .total_price_description{
+    padding: 25px;
+  }
+}
+
+@media (max-width:959px) {
+  .content{
+    margin: 16px 16px 16px 16px;
+    padding: 0px;
+  }
 }
