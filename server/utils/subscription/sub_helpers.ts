@@ -48,3 +48,12 @@ export function subDurationToISO(subStarts: string, subEnds: string): [string, s
 
   return [final_sub_start, final_sub_end]
 }
+
+
+export function curTimeWithinSubRange(subStarts: string, subEnds: string): boolean {
+  const [subStartsISO, subEndsISO] = subDurationToISO(subStarts, subEnds)
+  const subStartsForRangeISO = moment(moment(subStartsISO, config.time_format.momentDateISOFormat).add(-1, 'days').format(config.time_format.momentDateISOFormat))
+  const subEndsForRangeISO = moment(moment(subEndsISO, config.time_format.momentDateISOFormat).add(1, 'days').format(config.time_format.momentDateISOFormat))
+  const dateNow = moment(moment.now()).format(config.time_format.momentDateISOFormat)
+  return moment(dateNow).isAfter(subStartsForRangeISO) && moment(dateNow).isBefore(subEndsForRangeISO)
+}
