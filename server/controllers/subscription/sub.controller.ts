@@ -10,10 +10,11 @@ import config from "../../config/config";
 
 
 export async function getAllSubscriptions(req: Request, res: Response) {
+  const user: User = res.locals.user
   const allSubs: SubConfig[] = await SubConfigModel.find({})
   const availableSubs: SubConfig[] = []
   for await (const sub of allSubs) {
-    if (curTimeWithinSubRange(sub.subStart, sub.subEnd))
+    if (curTimeWithinSubRange(sub.subStart, sub.subEnd) && !user.roles.includes('member'))
       availableSubs.push(sub)
   }
 
