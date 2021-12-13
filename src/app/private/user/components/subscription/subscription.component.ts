@@ -5,6 +5,8 @@ import * as moment from "moment";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
 import {PaymentsService} from "../../services/payments/payments.service";
 import {Subscription} from "rxjs";
+import {SubscriptionInfo} from "../../interfaces/subscription/SubscriptionInfo";
+import {AuthService} from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: 'app-subscription',
@@ -16,19 +18,26 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   serverLoadSubs: boolean = false;
   serverLoadAddSubPayment: boolean = false;
   loadAllPayments: Subscription
+  userSub: Subscription
+  userSubscriptionInfo: SubscriptionInfo | null = null
 
   constructor(private subService: SubscriptionService,
               private snackBar: SnackbarService,
-              private paymentService: PaymentsService) {
+              private paymentService: PaymentsService,
+              private authService: AuthService) {
     this.loadAllPayments = this.paymentService.loadPayments().subscribe()
+    this.userSub = this.authService.getUser().subscribe(user => {
+      if (user) {
+        this.userSubscriptionInfo = user.subscription
+        this.userSubscriptionInfo.subStarts = moment(this.userSubscriptionInfo.subStarts, 'YYYY-MM-DD').format('MMMM-DD-YYYY')
+        this.userSubscriptionInfo.subEnds = moment(this.userSubscriptionInfo.subEnds, 'YYYY-MM-DD').format('MMMM-DD-YYYY')
+        this.userSubscriptionInfo.paidAt = moment(this.userSubscriptionInfo.paidAt).format('MM-DD-YYYY hh:mm a')
+      }
+    })
   }
 
   ngOnInit(): void {
     this.getAllSubs()
-  }
-
-  ngOnDestroy() {
-    this.loadAllPayments.unsubscribe()
   }
 
 
@@ -61,4 +70,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     })
   }
 
+  ngOnDestroy() {
+    this.loadAllPayments.unsubscribe()
+    this.userSub.unsubscribe()
+  }
 }
