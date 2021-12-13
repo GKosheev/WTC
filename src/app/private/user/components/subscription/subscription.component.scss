@@ -1,10 +1,10 @@
 @import "/src/assets/styles/colors.scss";
 
 .content {
-	height: calc(100vh - 98px);
+	min-height: calc(100vh - 160px);
 	border-radius: 10px;
 	margin: 16px 16px 16px 32px;
-	padding: 16px 16px 16px 16px;
+	padding: 16px 16px 45px 16px;
 	background-color: white;
  }
 
@@ -21,6 +21,14 @@
 	padding:20px 0 20px 0;
  }
 
+ .container{
+	 width: 100%;
+	 display: flex;
+	 justify-content: center;
+	 flex-direction: column;
+	 align-items: center
+ }
+
 
  //-----table-------//
 
@@ -31,6 +39,7 @@
 
 .fusion-pricing-table {
 	display: flex;
+	align-items: center;
 	margin: 0 0 20px;
 	box-sizing: border-box;
 	height: 75%;
@@ -57,7 +66,6 @@
 	border: 1px solid #e5e4e3;
 }
 
-
 .fusion-pricing-table .panel-heading {
 	padding: 15px;
 	border-radius: 0;
@@ -68,7 +76,7 @@
 
 .fusion-pricing-table .panel-body {
 	padding: 15px;
-	background-color: #f8f8f8;
+	background-color: #ffffff;
 	text-align: center;
 }
 
@@ -76,7 +84,19 @@
 	position: relative;
 }
 
+.price{
+	margin-top: 20px;
+}
+
+@media (max-width:1356px) {
+	.fusion-pricing-table{
+		display: block;
+	}
+}
+
+
 .full-boxed-pricing .panel-body .price .currency {
+	position: relative;
 	top: -20px;
 	font-size: 21px;
 }
@@ -101,36 +121,20 @@
 	border-color: #919191;
 }
 
+.panel-wrapper{
+	margin-top: 20px;
+}
+
 .fusion-pricing-table .panel-footer {
 	padding: 15px;
-	background-color: #f8f8f8;
+	background-color: #ffffff;
 	border-radius: 0;
 	background-clip: padding-box;
 	border-color: #e5e4e3;
 	text-align: center;
 }
 
-.fusion-button.button-15{border-radius:2px 2px 2px 2px;}
-.button-default{
-	background: #a0ce4e;
-    color: #ffffff;
-    border-color: #ffffff;
-
-	 display: inline-block;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-family: PT Sans;
-    font-weight: 400;
-    font-style: normal;
-    letter-spacing: 0px;
-    border-width: 0px 0px 0px 0px;
-    border-style: solid;
-    border-radius: 2px 2px 2px 2px;
-    text-transform: uppercase;
-    transition: all .2s;
-
-	 padding: 10px;
+button:hover{
+	background: $dark_green;
+	color: white;
 }
