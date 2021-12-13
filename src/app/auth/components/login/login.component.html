@@ -23,14 +23,13 @@
           </button>
           <mat-error *ngIf="this.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
+        <a routerLink="../forgot-password" style="font-size:13px;">Forgot password</a>
       </mat-card-content>
       <div class="login_button">
-        <button mat-raised-button color="primary" (click)="login()" class="log_but">login</button>
+        <button mat-button color="primary" style="float:left; left: -15px;" routerLink="../register">Create
+          account</button>
+        <button mat-raised-button color="primary" style="float:right;" (click)="login()" class="log_but">login</button>
       </div>
     </form>
-    <div class="nav_auth_bar">
-      <a style="float:left; margin-top: 8px;" routerLink="../forgot-password">Forgot password</a>
-      <button mat-button color="primary" style="float:right" routerLink="../register">Create account</button>
-    </div>
   </mat-card>
 </div>
