@@ -69,8 +69,8 @@ export async function addItemToStorePayments(req: Request, res: Response) {
   if (itemFromStore.quantity < item.quantity)
     return res.status(400).json({msg: `You can't buy that amount of items, only ${itemFromStore.quantity}  '${itemFromStore.name}' left`})
   await StoreConfigModel.updateOne({_id: mongoose.Types.ObjectId(item.id)}, {$inc: {quantity: -item.quantity}})
-
   const storePayment = await StorePaymentModel.findOne({clubCardId: user.clubCardId})
+
   const storePaymentToAdd: ShortStorePayment = initShortStorePayment(itemFromStore, item.quantity)
   if (!storePayment) {
     const initNewStorePayment = new StorePaymentModel({
@@ -80,6 +80,17 @@ export async function addItemToStorePayments(req: Request, res: Response) {
     await initNewStorePayment.save()
     return res.status(200).json({msg: 'Store payment has been inited'})
   }
+  for await (const payment of storePayment.storePayments) {
+    if (payment.itemId.toString() === item.id && !payment.paymentInfo.paid) {
+      await StorePaymentModel.updateOne({
+        clubCardId: user.clubCardId,
+        storePayments: {$elemMatch: {itemId: payment.itemId, 'paymentInfo.paid': false}},
+      }, {$inc: {'storePayments.$.itemInfo.quantity': item.quantity}})
+      return res.status(200).json({msg: 'Item quantity updated'})
+    }
+  }
+
+
   await StorePaymentModel.updateOne({clubCardId: user.clubCardId}, {$push: {storePayments: storePaymentToAdd}})
   return res.status(200).json({msg: 'Store payment has been added'})
 }
