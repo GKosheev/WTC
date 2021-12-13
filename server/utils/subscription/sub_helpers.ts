@@ -21,7 +21,10 @@ export async function setSubStatusToDefault(user: User) {
 
 export function subExpired(subStarts: string, subEnds: string): boolean {
   const dateNow = moment(moment.now()).format(config.time_format.momentDateISOFormat)
-  return moment(dateNow, config.time_format.momentDateISOFormat).isAfter(moment(subEnds, config.time_format.momentDateISOFormat))
+  const final_sub_starts = moment(moment(subStarts, config.time_format.momentDateISOFormat).add(-1, 'days').format(config.time_format.momentDateISOFormat), config.time_format.momentDateISOFormat)
+  const final_sub_ends = moment(moment(subEnds, config.time_format.momentDateISOFormat).add(1, 'days').format(config.time_format.momentDateISOFormat), config.time_format.momentDateISOFormat)
+  // return moment(dateNow, config.time_format.momentDateISOFormat).isAfter(moment(subEnds, config.time_format.momentDateISOFormat))
+  return !(moment(dateNow).isAfter(final_sub_starts) && moment(dateNow).isBefore(final_sub_ends))
 }
 
 
