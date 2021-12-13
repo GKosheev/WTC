@@ -22,8 +22,8 @@ export async function updatePaidStatus(metadata: StripeMetadata) {
       const oneAndOnlyPossibleSub = userStripePayment.ids.subIds[0]
       const sub = await SubPaymentModel.findOneAndUpdate({
         clubCardId: metadata.clubCardId,
-        "subPayments._id": oneAndOnlyPossibleSub
-      }, {$set: {"subPayments.$.paymentInfo.paid": true, "subPayments.$.paymentInfo.paidAt": paidDate}})
+        subPayments: {$elemMatch: {_id: oneAndOnlyPossibleSub}}
+      }, {$set: {"subPayments.$.paymentInfo.paid": true, "subPayments.$.paymentInfo.paidAt": paidDate}}, {new: true})
       if (!sub)
         return `Payment wasn't found`
       const updateSubError = await updateUserSubscription(metadata.clubCardId, oneAndOnlyPossibleSub, sub)
@@ -34,7 +34,7 @@ export async function updatePaidStatus(metadata: StripeMetadata) {
       for (const itemId of userStripePayment.ids.storeIds) {
         const item = await StorePaymentModel.findOneAndUpdate({
           clubCardId: metadata.clubCardId,
-          "storePayments._id": itemId
+          storePayments: {$elemMatch: {_id: itemId}}
         }, {$set: {"storePayments.$.paymentInfo.paid": true, "storePayments.$.paymentInfo.paidAt": paidDate}})
         if (!item)
           return `Item with id ${itemId} wasn't found`

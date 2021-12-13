@@ -5,8 +5,6 @@ import {UserRegisterInput} from "../../interfaces/auth/UserRegisterInput";
 import bcrypt from "bcrypt";
 import config from "../../config/config";
 import {SubPayment} from "../../documents/subscription/SubPayment";
-import moment from "moment";
-import {subDurationToISO} from "../../utils/subscription/sub_helpers";
 
 
 async function generateClubCardId(): Promise<string> {
