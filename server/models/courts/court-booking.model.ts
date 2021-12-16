@@ -25,8 +25,9 @@ const courtIdSchema = new mongoose.Schema<CourtId>({
 const courtBookingSchema = new mongoose.Schema<CourtBooking>({
     date: {type: String, required: true, unique: true},   //ISO format from config.time_format.momentDateISOFormat
     courtType: {type: String, required: true},
-    courtIds: [{type: courtIdSchema}]
-}, {_id: false})
+    courtIds: [{type: courtIdSchema}],
+    images: [{type: String}]
+})
 
 
 const CourtBookingModel = mongoose.model<CourtBooking>('Court_Payments', courtBookingSchema)
