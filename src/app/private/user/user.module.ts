@@ -21,6 +21,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MessageDialogComponent} from "./components/message-dialog/message-dialog.component";
 import {SubscriptionComponent} from './components/subscription/subscription.component';
 import {MatSliderModule} from "@angular/material/slider";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {MatSliderModule} from "@angular/material/slider";
         /* players list */
         MatTooltipModule,
         MatSliderModule,
+        FlexLayoutModule,
     ],
   providers: [
   ]

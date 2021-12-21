@@ -3,7 +3,6 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import * as moment from "moment";
-import {FormControl} from "@angular/forms";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 export interface Court {
@@ -14,7 +13,7 @@ export interface Court {
 
 
 @Component({
-  selector: 'app-court',
+  selector: 'court',
   templateUrl: './court.component.html',
   styleUrls: ['./court.component.scss']
 })

@@ -20,6 +20,11 @@ const routes: Routes = [
     canActivateChild: [RoleGuard, AuthGuard],
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/private/home',
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
         data: {
@@ -80,26 +85,28 @@ const routes: Routes = [
       {
         path: 'courts',
         component: CourtsComponent,
-        data: {
-          roles: ['member']
-        },
-        children: [
-          {
-            path: ':court/:date',
-            component: CourtComponent,
-            data: {
-              roles: ['member']
-            }
-          }
-        ]
-      },
-      {
-        path: 'book/:court/:date/:id/:time',
-        component: CourtBookingComponent,
+        canActivate: [AuthGuard, RoleGuard],
         data: {
           roles: ['member']
         }
       },
+
+      {
+        path: 'court-book/:courtType/:date/:courtId/:time',
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+          roles: ['member']
+        },
+        component: CourtBookingComponent
+      },
+      {
+        path: 'court-edit/:courtType/:date/:courtId/:time',
+        canActivate: [AuthGuard, RoleGuard],
+        data: {
+          roles: ['member']
+        },
+        component: CourtBookingComponent
+      }
     ]
   },
 

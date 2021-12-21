@@ -35,6 +35,10 @@ export const environment = {
   /* store service */
   get_all_store_items_api: 'http://localhost:5000/api/store/all',
   buy_store_item_api: 'http://localhost:5000/api/store/buy-item',
+
+  /* courts service */
+  get_courts_general_info: 'http://localhost:5000/api/courts/info',
+  get_courts: 'http://localhost:5000/api/courts'
 };
 
 /*

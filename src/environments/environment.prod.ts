@@ -31,4 +31,8 @@ export const environment = {
   /* store service */
   get_all_store_items_api: '/api/store/all',
   buy_store_item_api: '/api/store/buy-item',
+
+  /* courts service */
+  get_courts_general_info: '/api/courts/info',
+  get_courts: '/api/courts'
 };
