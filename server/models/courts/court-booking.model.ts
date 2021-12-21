@@ -11,7 +11,7 @@ const playerSchema = new mongoose.Schema<Player>({
 const courtSchema = new mongoose.Schema<Court>({
     members: [{type: playerSchema, required: true}],
     guests: [{type: playerSchema}],
-    startTime: {type: String, required: true}, // both startTime & endTime config.time_format.momentTimeISOFormat
+    startTime: {type: String, required: true}, // both startTime & endTime config.time_format.momentTimeISOFormat???
     endTime: {type: String, required: true},
     createdBy: {type: mongoose.Schema.Types.ObjectId, required: true},
     createdAt: {type: Date, required: true, default: Date.now()}

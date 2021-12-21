@@ -6,13 +6,13 @@ const courtsConfigSchema = new mongoose.Schema<CourtsConfig>({
   description: {type: String, default: '-'},
   images: [{type: String}],
   courtType: {type: String, required: true, unique: true},
-  courts: {
+  courts: [{
     courtId: {type: Number, required: true}, // unique: true?
     time: [{type: String, required: true}],
-  },
+  }],
   priceConfigs: {
     subType: {type: String, required: true},
-    price: {type: String, required: true}
+    price: {type: Number, required: true}
   }
 })
 
