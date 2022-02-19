@@ -6,7 +6,8 @@ const storeConfigSchema = new mongoose.Schema<StoreConfig>({
   price: {type: Number, required: true},
   quantity: {type: Number, required: true},
   images: [{type: String}],
-  description: {type: String}
+  description: {type: String},
+  tags: [{type: String}]
 })
 
 const StoreConfigModel = mongoose.model<StoreConfig>('Store_Config', storeConfigSchema)

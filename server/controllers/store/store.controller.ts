@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
 import mongoose from "mongoose";
-import StoreConfigModel from "../models/store/store-config.model";
-import StorePaymentModel from "../models/store/store-payments.model";
-import {StoreConfig} from "../documents/store/StoreConfig";
-import {User} from "../documents/User";
+import StoreConfigModel from "../../models/store/store-config.model";
+import StorePaymentModel from "../../models/store/store-payments.model";
+import {StoreConfig} from "../../documents/store/StoreConfig";
+import {User} from "../../documents/User";
 import Joi from "joi";
 
 
@@ -27,8 +27,13 @@ interface ShortStorePayment {
 }
 
 
-export async function getAllStorePayments(req: Request, res: Response) {
-  const allItems: StoreConfig[] = await StoreConfigModel.find({})
+export async function getAllStoreItems(req: Request, res: Response) {
+  let tag = req.query.tag;
+  let allItems: StoreConfig[] = []
+  if (tag === 'all')
+    allItems = await StoreConfigModel.find({})
+  else
+    allItems = await StoreConfigModel.find({tags: tag})
   return res.status(200).send(allItems.filter(item => item.quantity > 0))
 }
 
@@ -53,7 +58,6 @@ const joiQuantityValidation = Joi.object({
   quantity: Joi.number().integer().required().greater(0).max(5) // quantity must be from 1 to 5
 })
 
-// TODO joi check if item.quantity integer && >0
 export async function addItemToStorePayments(req: Request, res: Response) {
 
   const user: User = res.locals.user

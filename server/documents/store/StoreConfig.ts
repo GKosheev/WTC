@@ -6,5 +6,6 @@ export type StoreConfig = mongoose.Document & {
   price: number,
   quantity: number,
   images: string[],
-  description: string
+  description: string,
+  tags: string[]
 }
