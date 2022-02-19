@@ -82,16 +82,16 @@ const routes: Routes = [
           roles: ['member']
         }
       },
-      {
+     /* {
         path: 'courts',
         component: CourtsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {
           roles: ['member']
         }
-      },
+      },*/
 
-      {
+/*      {
         path: 'court-book/:courtType/:date/:courtId/:time',
         canActivate: [AuthGuard, RoleGuard],
         data: {
@@ -106,7 +106,7 @@ const routes: Routes = [
           roles: ['member']
         },
         component: CourtBookingComponent
-      }
+      }*/
     ]
   },
 
