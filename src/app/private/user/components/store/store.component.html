@@ -1,29 +1,62 @@
-<div *ngIf="!serverLoadStoreItems; then loaded; else stillLoading"></div>
+<div *ngIf="currentTag; then tagSelected; else tagNotSelected"></div>
+<ng-template #tagSelected>
+  <div *ngIf="!serverLoadStoreItems; then loaded; else stillLoading"></div>
 
 
-<ng-template #stillLoading>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>
+  <ng-template #stillLoading>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-template>
 
 
-<ng-template #loaded>
+  <ng-template #loaded>
+    <button (click)="goBack()">Back</button>
     <div *ngIf="(allStoreItems | async) as allItems; else noItemsFound">
+      <div *ngIf="allItems.length; else noItemsFound">
+        <div *ngFor="let item of allItems">
+          <img [src]="item.itemInfo.images[0]" width="150" alt="Item">
+          <h1>{{item.itemInfo.name}}</h1>
+          <h3>Remaining quantity: {{item.itemInfo.quantity}}</h3>
+          <h3>Price: {{item.itemInfo.price}}</h3>
+          <h3>Selected Quantity: {{item.selectedQuantity}}</h3>
+          <mat-slider min="1" [max]="item.itemInfo.quantity>5?5: item.itemInfo.quantity"
+                      [(ngModel)]="item.selectedQuantity"
+                      [disabled]="item.itemInfo.quantity <=0"
+                      [value]="item.selectedQuantity" color="primary" [thumbLabel]="true"></mat-slider>
+          <button (click)="addItemToPayments(item.itemInfo._id, item.itemInfo.name, item.selectedQuantity)"
+                  [disabled]="serverLoadAddStorePayment">Add To Payments
+          </button>
+        </div>
+      </div>
 
-      <div *ngFor="let item of allItems">
-      <img [src]="item.itemInfo.images[0]" width="150" alt="Item">
-      <h1>{{item.itemInfo.name}}</h1>
-      <h3>Remaining quantity: {{item.itemInfo.quantity}}</h3>
-      <h3>Price: {{item.itemInfo.price}}</h3>
-      <h3>Selected Quantity: {{item.selectedQuantity}}</h3>
-      <mat-slider min="1" [max]="item.itemInfo.quantity>5?5: item.itemInfo.quantity" [(ngModel)]="item.selectedQuantity"
-                  [disabled]="item.itemInfo.quantity <=0"
-                  [value]="item.selectedQuantity" color="primary" [thumbLabel]="true"></mat-slider>
-      <button (click)="addItemToPayments(item.itemInfo._id, item.itemInfo.name, item.selectedQuantity)" [disabled]="serverLoadAddStorePayment">Add To Payments
-      </button>
     </div>
-    </div>
-
-  <ng-template #noItemsFound>
-    <div>No Items Found</div>
+    <ng-template #noItemsFound>
+      <div>No Items Found</div>
+    </ng-template>
   </ng-template>
 </ng-template>
+
+
+<ng-template #tagNotSelected>
+  <div *ngIf="!serverLoadTags; then serverFinishedLoadingTags; else serverLoadingTags"></div>
+
+  <ng-template #serverLoadingTags>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-template>
+
+
+  <ng-template #serverFinishedLoadingTags>
+      <div *ngIf="(allTags | async) as tags">
+        <div *ngFor="let tag of tags">
+          <a routerLink='/private/user/store' [queryParams]="{tag: tag.name}">
+          <h1>{{tag.name}}</h1>
+          <img [src]="tag.img" width="150" alt="Tag">
+          </a>
+          <hr>
+        </div>
+      </div>
+
+  </ng-template>
+</ng-template>
+
+
+

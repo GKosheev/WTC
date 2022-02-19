@@ -32,13 +32,15 @@ export const environment = {
   get_all_subscriptions_api: 'http://localhost:5000/api/subscription/all',
   subscription_to_payments_api: 'http://localhost:5000/api/subscription/subscribe',
 
-  /* store service */
+  /* store&tags service */
   get_all_store_items_api: 'http://localhost:5000/api/store/all',
   buy_store_item_api: 'http://localhost:5000/api/store/buy-item',
+  get_all_tags_api: 'http://localhost:5000/api/tags/all',
 
   /* courts service */
   get_courts_general_info: 'http://localhost:5000/api/courts/info',
-  get_courts: 'http://localhost:5000/api/courts'
+  get_courts: 'http://localhost:5000/api/courts',
+
 };
 
 /*

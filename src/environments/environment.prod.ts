@@ -28,9 +28,10 @@ export const environment = {
   get_all_subscriptions_api: 'api/subscription/all',
   subscription_to_payments_api: 'api/subscription/subscribe',
 
-  /* store service */
+  /* store&tags service */
   get_all_store_items_api: '/api/store/all',
   buy_store_item_api: '/api/store/buy-item',
+  get_all_tags_api: '/api/tags/all',
 
   /* courts service */
   get_courts_general_info: '/api/courts/info',
