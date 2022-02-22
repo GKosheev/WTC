@@ -9,7 +9,7 @@
         <div *ngIf="userSubscriptionInfo && userSubscriptionInfo.type!=='nonMember'">
           <h2>Subscription Info</h2>
           <h4>Type: {{this.userSubscriptionInfo.type}}</h4>
-          <h4>Period: {{this.userSubscriptionInfo.subStarts + ' - ' + this.userSubscriptionInfo.subStarts}}</h4>
+          <h4>Period: {{this.userSubscriptionInfo.subStarts + ' - ' + this.userSubscriptionInfo.subEnds}}</h4>
           <h4>Price: {{this.userSubscriptionInfo.price}}</h4>
           <h4>Paid At: {{this.userSubscriptionInfo.paidAt}}</h4>
         </div>
