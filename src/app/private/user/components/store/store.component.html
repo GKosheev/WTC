@@ -30,7 +30,7 @@
               <h3>Selected Quantity: {{item.selectedQuantity}}</h3>
               <mat-slider min="1" [max]="item.itemInfo.quantity>5?5: item.itemInfo.quantity"
                           [(ngModel)]="item.selectedQuantity"
-                          [disabled]="item.itemInfo.quantity <=0"
+                          [disabled]="item.itemInfo.quantity <=0 || serverLoadAddStorePayment"
                           [value]="item.selectedQuantity" color="primary" [thumbLabel]="true"></mat-slider>
 
               <hr>
