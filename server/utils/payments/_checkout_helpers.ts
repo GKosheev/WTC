@@ -8,7 +8,7 @@ export function returnSubscriptionStripeFormat(subInfo: SubInfo): StripeLineItem
       currency: 'cad',
       product_data: {
         name: subInfo.subName,
-        description: subInfo.description,
+        description: subInfo.description ? subInfo.description : '-',
         images: subInfo.images, //up to 8 images
         metadata: {subId: subInfo.paymentId}     //subPrefix.concat(subInfo.clubCardId)
       },
@@ -24,7 +24,7 @@ export function returnStoreStripeFormat(itemInfo: ItemInfo): StripeLineItemsForm
       currency: 'cad',
       product_data: {
         name: itemInfo.itemName,
-        description: itemInfo.description,//(description)
+        description: itemInfo.description ? itemInfo.description : '-',//(description)
         images: itemInfo.images, //(images) up to 8 images
         metadata: {strId: itemInfo.paymentId}             //     metadata: storePrefix.concat(itemInfo.clubCardId)
       },
@@ -40,7 +40,7 @@ export function returnCourtStripeFormat(courtInfo: CourtInfo): StripeLineItemsFo
       currency: 'cad',
       product_data: {
         name: courtInfo.courtType,
-        description: courtInfo.description,
+        description: courtInfo.description ? courtInfo.description : '-',
         images: courtInfo.images,
         metadata: {crt: courtInfo.paymentId}
       },
