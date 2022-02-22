@@ -9,22 +9,33 @@
 
 
   <ng-template #loaded>
-    <button (click)="goBack()">Back</button>
+    <button mat-raised-button (click)="goBack()" class="back-button">Back</button>
     <div *ngIf="(allStoreItems | async) as allItems; else noItemsFound">
       <div *ngIf="allItems.length; else noItemsFound">
-        <div *ngFor="let item of allItems">
-          <img [src]="item.itemInfo.images[0]" width="150" alt="Item">
-          <h1>{{item.itemInfo.name}}</h1>
-          <h3>Remaining quantity: {{item.itemInfo.quantity}}</h3>
-          <h3>Price: {{item.itemInfo.price}}</h3>
-          <h3>Selected Quantity: {{item.selectedQuantity}}</h3>
-          <mat-slider min="1" [max]="item.itemInfo.quantity>5?5: item.itemInfo.quantity"
-                      [(ngModel)]="item.selectedQuantity"
-                      [disabled]="item.itemInfo.quantity <=0"
-                      [value]="item.selectedQuantity" color="primary" [thumbLabel]="true"></mat-slider>
-          <button (click)="addItemToPayments(item.itemInfo._id, item.itemInfo.name, item.selectedQuantity)"
-                  [disabled]="serverLoadAddStorePayment">Add To Payments
-          </button>
+        <div class="grid-shop-container">
+          <div *ngFor="let item of allItems">
+            <div class="grid-shop-item">
+              <img [src]="item.itemInfo.images[0]" width="150" height="150" alt="Item">
+              <h1>{{item.itemInfo.name}}
+                <mat-icon *ngIf="item.itemInfo.description" class="info_icon" color="primary"
+                          [matTooltip]="item.itemInfo.description" matTooltipPosition="below">info
+                </mat-icon>
+              </h1>
+              <h3>Remaining quantity: {{item.itemInfo.quantity}}</h3>
+              <h3>Price: {{'$' + item.itemInfo.price}}</h3>
+              <h3>Selected Quantity: {{item.selectedQuantity}}</h3>
+              <mat-slider min="1" [max]="item.itemInfo.quantity>5?5: item.itemInfo.quantity"
+                          [(ngModel)]="item.selectedQuantity"
+                          [disabled]="item.itemInfo.quantity <=0"
+                          [value]="item.selectedQuantity" color="primary" [thumbLabel]="true"></mat-slider>
+
+              <hr>
+              <button mat-raised-button color="primary"
+                      (click)="addItemToPayments(item.itemInfo._id, item.itemInfo.name, item.selectedQuantity)"
+                      [disabled]="serverLoadAddStorePayment">Add To Payments
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -45,16 +56,22 @@
 
 
   <ng-template #serverFinishedLoadingTags>
-      <div *ngIf="(allTags | async) as tags">
-        <div *ngFor="let tag of tags">
-          <a routerLink='/private/user/store' [queryParams]="{tag: tag.name}">
-          <h1>{{tag.name}}</h1>
-          <img [src]="tag.img" width="150" alt="Tag">
+    <div *ngIf="(allTags | async) as tags">
+      <div class="grid-tag-container">
+        <div class="grid-tag-item">
+          <a routerLink='/private/user/store' [queryParams]="{tag: 'all'}">
+            <h1>All</h1>
+            <img src="https://c.tenor.com/wL_BPLh3K7QAAAAd/billy-herrington-cyberpunk.gif" width="200" alt="All tag">
           </a>
-          <hr>
+        </div>
+        <div *ngFor="let tag of tags" class="grid-tag-item">
+          <a routerLink='/private/user/store' [queryParams]="{tag: tag.name}">
+            <h1>{{tag.name}}</h1>
+            <img [src]="tag.img" width="150" [alt]="tag.name + ' Tag'">
+          </a>
         </div>
       </div>
-
+    </div>
   </ng-template>
 </ng-template>
 
