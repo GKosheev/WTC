@@ -26,6 +26,7 @@ export class StoreComponent implements OnInit, OnDestroy {
   tagSelected: boolean = false
   serverLoadTags: boolean = true;
   currentTag: string = ''
+  inputValue: string = ''
 
 
   constructor(private storeService: StoreService,
@@ -82,6 +83,12 @@ export class StoreComponent implements OnInit, OnDestroy {
       if (error.error.msg)
         this.snackBar.openSnackBar(error.error.msg, true, 5)
     })
+  }
+
+  hideFilteredItem(item: CustomStoreConfig) {
+    if (!this.inputValue)
+      return false;
+    return item.itemInfo.name.toLowerCase().indexOf(this.inputValue.toLowerCase()) === -1
   }
 
   ngOnDestroy() {

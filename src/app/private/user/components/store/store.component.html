@@ -12,9 +12,13 @@
     <button mat-raised-button (click)="goBack()" class="back-button">Back</button>
     <div *ngIf="(allStoreItems | async) as allItems; else noItemsFound">
       <div *ngIf="allItems.length; else noItemsFound">
+        <mat-form-field appearance="standard" class="filter">
+          <mat-label>Filter</mat-label>
+          <input matInput placeholder="Cola" [(ngModel)]="inputValue">
+        </mat-form-field>
         <div class="grid-shop-container">
           <div *ngFor="let item of allItems">
-            <div class="grid-shop-item">
+            <div class="grid-shop-item" *ngIf="!hideFilteredItem(item)">
               <img [src]="item.itemInfo.images[0]" width="150" height="150" alt="Item">
               <h1>{{item.itemInfo.name}}
                 <mat-icon *ngIf="item.itemInfo.description" class="info_icon" color="primary"
