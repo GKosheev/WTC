@@ -7,6 +7,7 @@ import subscription from './subscription/sub.route'
 import store from './store/store.route'
 import courts from './courts/courts.route'
 import tags from './store/item_tag.route'
+import purchases from './purchases.route'
 
 const router = express.Router()
 
@@ -18,5 +19,6 @@ router.use('/payments', payments)
 router.use('/subscription', subscription)
 router.use('/store', store)
 router.use('/tags', tags)
+router.use('/purchases', purchases)
 
 export default router
