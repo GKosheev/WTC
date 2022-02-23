@@ -21,7 +21,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MessageDialogComponent} from "./components/message-dialog/message-dialog.component";
 import {SubscriptionComponent} from './components/subscription/subscription.component';
 import {MatSliderModule} from "@angular/material/slider";
+import {MatExpansionModule} from '@angular/material/expansion';
+
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {PurchasesComponent} from './components/purchases/purchases.component';
 
 @NgModule({
   declarations: [
@@ -37,24 +40,27 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     CourtBookingComponent,
     MessageDialogComponent,
     SubscriptionComponent,
+    PurchasesComponent,
   ],
-    imports: [
-        CommonModule,
-        UserRoutingModule,
-        SharedModule,
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    SharedModule,
 
-        /* players list */
-        MatProgressBarModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        /* players list */
-        MatTooltipModule,
-        MatSliderModule,
-        FlexLayoutModule,
-    ],
-  providers: [
-  ]
+    /*Purchases*/
+    MatExpansionModule,
+
+    /* players list */
+    MatProgressBarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    /* players list */
+    MatTooltipModule,
+    MatSliderModule,
+    FlexLayoutModule,
+  ],
+  providers: []
 })
 export class UserModule {
 }

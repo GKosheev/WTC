@@ -13,6 +13,7 @@ import {CourtBookingComponent} from "./components/court-booking/court-booking.co
 import {RoleGuard} from "../../core/guards/roles/role.guard";
 import {AuthGuard} from "../../core/guards/auth/auth.guard";
 import {SubscriptionComponent} from "./components/subscription/subscription.component";
+import {PurchasesComponent} from "./components/purchases/purchases.component";
 
 const routes: Routes = [
   {
@@ -82,6 +83,13 @@ const routes: Routes = [
           roles: ['member']
         }
       },
+      {
+        path: 'purchases',
+        component: PurchasesComponent,
+        data: {
+          roles: ['public']
+        }
+      }
      /* {
         path: 'courts',
         component: CourtsComponent,

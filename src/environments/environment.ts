@@ -37,6 +37,9 @@ export const environment = {
   buy_store_item_api: 'http://localhost:5000/api/store/buy-item',
   get_all_tags_api: 'http://localhost:5000/api/tags/all',
 
+  /* user purchases */
+  get_all_user_purchases_api: 'http://localhost:5000/api/purchases/all',
+
   /* courts service */
   get_courts_general_info: 'http://localhost:5000/api/courts/info',
   get_courts: 'http://localhost:5000/api/courts',

@@ -1,0 +1,66 @@
+.content {
+  background-color: white;
+  height: calc(100vh - 98px);
+  border-radius: 10px;
+  margin: 16px 16px 16px 32px;
+
+  //  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+}
+.to-issue-header{
+  text-align: center;
+}
+
+table {
+  margin-left: 30px;
+  border-collapse: collapse;
+ // color: #4a4a4d;
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 90%;
+}
+th {
+  padding: 10px 15px;
+  vertical-align: middle;
+  text-align: center;
+}
+td:not(:first-child) {
+  padding: 10px 15px;
+  vertical-align: middle;
+  text-align: center;
+//  border-top:1px solid #CCC;box-shadow: inset 0 1px 0 #CCC;
+  border-bottom:1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff
+
+}
+thead {
+  background: #004a9f;
+  color: #fff;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+th:first-child {
+  border-top-left-radius: 5px;
+  text-align: left;
+}
+th:last-child {
+  border-top-right-radius: 5px;
+}
+tbody tr:nth-child(even) {
+//  background: #f0f0f2;
+}
+
+td {
+  border-bottom:1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff
+}
+td:first-child {
+ //  border-left: 1px solid #cecfd5;
+  font-weight: bold;
+  border-bottom:1px solid #ffffff;
+}
+

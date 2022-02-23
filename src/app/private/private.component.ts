@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from "../shared/interfaces/user.interface";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
@@ -8,18 +8,23 @@ import {Router} from "@angular/router";
 import {PaymentsService} from "./user/services/payments/payments.service";
 import {Observable, of, Subscription} from "rxjs";
 import {ShortPayment} from "./user/interfaces/payments/ShortPayment";
+import {Purchase} from "./user/interfaces/purchases/Purchase";
+import {PurchasesService} from "./user/services/purchases/purchases.service";
 
 @Component({
   selector: 'private',
   templateUrl: './private.component.html',
   styleUrls: ['./private.component.scss'],
 })
-export class PrivateComponent implements AfterViewInit, OnInit {
+export class PrivateComponent implements AfterViewInit, OnInit, OnDestroy {
   user: User | null = null
   firstName: string | undefined = undefined
   lastName: string | undefined = undefined
-  loadPayments$: Observable<ShortPayment[] | null> = of(null)
+  loadPayments: Subscription | null = null
+  loadPurchases: Subscription | null = null
+
   allPayments$: Observable<ShortPayment[] | null> = of(null)
+  allPurchases$: Observable<Purchase[] | null> = of(null)
 
   /*
 private userId$: Observable<string> = this.activatedRoute.params.pipe(
@@ -36,7 +41,8 @@ private userId$: Observable<string> = this.activatedRoute.params.pipe(
               private auth: AuthService,
               private cd: ChangeDetectorRef,
               private router: Router,
-              private paymentsService: PaymentsService) {
+              private paymentsService: PaymentsService,
+              private purchasesService: PurchasesService) {
   }
 
   async ngOnInit() {
@@ -45,8 +51,11 @@ private userId$: Observable<string> = this.activatedRoute.params.pipe(
       this.firstName = user?.profile.firstName
       this.lastName = user?.profile.lastName
     })
-    this.loadPayments$ = this.paymentsService.loadPayments()
+    this.loadPayments = this.paymentsService.loadPayments().subscribe()
+    this.loadPurchases = this.purchasesService.loadPurchases().subscribe()
+
     this.allPayments$ = this.paymentsService.getPayments()
+    this.allPurchases$ = this.purchasesService.getPurchases()
 
   }
 
@@ -76,5 +85,14 @@ private userId$: Observable<string> = this.activatedRoute.params.pipe(
       this.logOut()
       return false;
     }
+  }
+
+  countNotIssuedItems(purchases: Purchase[]): number {
+    return purchases.filter(purchase => !purchase.issued).length
+  }
+
+  ngOnDestroy() {
+    this.loadPurchases?.unsubscribe()
+    this.loadPayments?.unsubscribe()
   }
 }

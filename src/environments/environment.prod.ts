@@ -33,6 +33,9 @@ export const environment = {
   buy_store_item_api: '/api/store/buy-item',
   get_all_tags_api: '/api/tags/all',
 
+  /* user purchases */
+  get_all_user_purchases_api: '/api/purchases/all',
+
   /* courts service */
   get_courts_general_info: '/api/courts/info',
   get_courts: '/api/courts'

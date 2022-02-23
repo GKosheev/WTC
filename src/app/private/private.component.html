@@ -70,6 +70,25 @@
         <mat-icon>person</mat-icon>
         <span>Profile</span>
       </button>
+
+      <div *ngIf="(allPurchases$ | async) as purchases; else noPurchases">
+      <button mat-button class="menu-button" routerLink="user/purchases">
+        <mat-icon
+          [matBadge]="countNotIssuedItems(purchases)"
+          matBadgeColor="primary"
+          matBadgeSize="small"
+          [matBadgeHidden]="!countNotIssuedItems(purchases)">
+          shopping_cart
+        </mat-icon>
+        <span>Purchases</span>
+      </button>
+      </div>
+        <ng-template #noPurchases>
+          <button mat-button class="menu-button" routerLink="user/purchases">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Purchases</span>
+          </button>
+        </ng-template>
       <!--      </div>-->
 
 
@@ -102,7 +121,6 @@
       </button>
 
       <mat-divider *ngIf="isMember()"></mat-divider>
-      <div *ngIf="(loadPayments$ | async)"></div>
       <div *ngIf="(allPayments$ | async) as allPays; else noPayments">
         <div *ngIf="allPayments$; else noPayments">
           <button mat-button class="menu-button" routerLink="user/payments">
