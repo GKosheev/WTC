@@ -27,4 +27,5 @@ interface ItemPaymentInfo {
   price: number,
   paid: boolean,
   paidAt: string,
+  issuedAt: string
 }

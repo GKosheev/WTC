@@ -14,7 +14,7 @@
       <tr *ngFor="let purchase of purchases">
         <td class="item-name">{{purchase.name}}</td>
         <td>{{'x' + purchase.quantity}}</td>
-        <td>{{'$' + purchase.price * purchase.quantity}}</td>
+        <td>{{'$' + (purchase.price * purchase.quantity).toFixed(2)}}</td>
         <td>
           <mat-icon
             [color]="purchase.paid?'primary': 'warn'"

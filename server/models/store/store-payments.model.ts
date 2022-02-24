@@ -15,7 +15,8 @@ const storeItemsSchema = new mongoose.Schema<StoreItem>({
   paymentInfo: {
     price: {type: Number, required: true},
     paid: {type: Boolean, required: true, default: false},
-    paidAt: {type: String, required: true, default: '-'}
+    paidAt: {type: String, required: true, default: '-'},
+    issuedAt: {type: String, required: true, default: '-'}
   },
   itemId: {type: mongoose.Schema.Types.ObjectId, required: true},
   createdAt: {

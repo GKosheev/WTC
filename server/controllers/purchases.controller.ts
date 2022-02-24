@@ -16,6 +16,7 @@ export interface StorePurchases {
   description: string,
   paid: boolean,
   issued: boolean,
+  issuedAt: string,
   createdAt: string,
   paidAt: string
 }
@@ -38,7 +39,8 @@ export async function getAllPurchases(req: Request, res: Response) {
           paid: payment.paymentInfo.paid,
           issued: payment.itemInfo.issued,
           createdAt: payment.createdAt,
-          paidAt: payment.paymentInfo.paidAt
+          paidAt: payment.paymentInfo.paidAt,
+          issuedAt: payment.paymentInfo.issuedAt
         })
     }
   if (!purchases.length)

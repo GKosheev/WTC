@@ -10,5 +10,5 @@ export interface Purchase {
   issued: boolean,
   createdAt: string,
   paidAt: string
-  /* issuedAt: string */
+  issuedAt: string
 }
