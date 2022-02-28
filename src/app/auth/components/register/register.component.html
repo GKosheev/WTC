@@ -167,9 +167,11 @@
         </div>
         <br>
         <br>
-        <button mat-stroked-button *ngIf="!serverAction" type="submit" color="primary" class="btn-block"
-                [disabled]="!registerForm.valid || !agreementIsValid()" (click)="onSubmit()">Register
+        <button mat-raised-button [disabled]="!registerForm.valid || !agreementIsValid()"
+                *ngIf="!serverAction" type="submit" color="primary" class="register-button"
+                 (click)="onSubmit()">Register
         </button>
+        <!---->
         <mat-spinner *ngIf="serverAction"></mat-spinner>
       </form>
     </mat-step>

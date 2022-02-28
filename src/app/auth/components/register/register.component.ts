@@ -106,7 +106,7 @@ export class RegisterComponent implements OnInit {
               private auth: AuthService,
               private router: Router,
               private snackbar: SnackbarService) {
-    this.stepperOrientation = observer.observe('(min-width: 959px)')
+    this.stepperOrientation = observer.observe('(min-width: 1100px)')
       .pipe(map(({matches}) => matches ? 'horizontal' : 'vertical'));
   }
 
@@ -204,8 +204,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.serverAction = true;
-    if (this.registerForm.invalid || !this.agreementIsValid())
+    if (this.registerForm.invalid || !this.agreementIsValid()) {
+      this.serverAction = false;
       return;
+    }
     else {
       let userRegister: UserRegister = {
         profile: {

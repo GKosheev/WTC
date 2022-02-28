@@ -1,25 +1,44 @@
 @import "/src/assets/styles/buttons.scss";
 
 .login-wrapper {
-  // width: 434px;
-  // height: 600px;
+  width: 480px;
+  // height: 50px;
 }
-.login_but{
+
+@media (max-width: 1100px){
+  .login-wrapper {
+    height: 400px;
+  }
+  .register-wrapper{
+    height: 0;
+    margin-bottom: 400px;
+  }
+
+  .login-wrapper mat-card-header {
+    text-align: center;
+    width: 100%;
+  }
+
+}
+
+.login_but {
   float: left;
 }
-.Next_but{
+
+.Next_but {
   float: right;
 }
+
 .register-wrapper {
   border-style: solid;
   border-width: 1px;
   border-color: #CDCECF;
+ // max-height: 500px
 }
 
 .login-wrapper .example-form {
   overflow: auto;
- // height: calc(100vh - 250px);
-  // height: 600px;
+  //  height: 600px;
   // max-width: 450px;
 }
 
@@ -62,6 +81,7 @@
   margin-left: 10px;
 }
 
+
 @media (max-width: 502px) {
   .login-wrapper .mat-card {
     padding: 40px 40px 40px;
@@ -71,6 +91,7 @@
     width: 100%;
   }
 }
+
 
 .policy {
   position: relative;
@@ -100,11 +121,15 @@
   margin-top: 5px;
 }
 
-.Agreement{
+.Agreement {
   display: flex;
 }
-.ok{
+
+.ok {
   margin: 16px 10px 10px 10px;
 }
 
+.register-button {
+  float: right;
+}
 
