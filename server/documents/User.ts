@@ -34,7 +34,8 @@ interface Profile {
   shareMyPhone: boolean,
   twitter: string,
   instagram: string,
-  facebook: string
+  facebook: string,
+  img: string
 }
 
 

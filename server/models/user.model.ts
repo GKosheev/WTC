@@ -33,7 +33,8 @@ const userSchema = new mongoose.Schema<User>({
     shareMyPhone: {type: Boolean, required: true, default: false},
     twitter: {type: String, default: '-'},
     instagram: {type: String, default: '-'},
-    facebook: {type: String, default: '-'}
+    facebook: {type: String, default: '-'},
+    img: {type: String, default: '-'}
   },
   agreements: {
     privacyPolicy: {type: String, required: true},
