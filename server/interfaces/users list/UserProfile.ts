@@ -7,5 +7,6 @@ export interface UserProfile {
     twitter: string,
     instagram: string,
     facebook: string,
-    subType: string
+    subType: string,
+    img: string
 }

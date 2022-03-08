@@ -44,7 +44,8 @@ export class ProfileService {
             shareMyPhone: user.profile.shareMyPhone,
             twitter: user.profile.twitter,
             instagram: user.profile.instagram,
-            facebook: user.profile.facebook
+            facebook: user.profile.facebook,
+            img: user.profile.img,
           })
         if (user?._id)
           this.clubCardId = user?._id
@@ -61,7 +62,11 @@ export class ProfileService {
   }
 
   saveChanges(profile: ProfileEdit | undefined, userID: string): Observable<Response> {
-    return this.http.post<Response>(environment.save_changes_api, {id: userID, profile: profile})
+    return this.http.post<Response>(environment.edit_profile_api, {id: userID, profile: profile})
+  }
+
+  uploadProfileImg(formData: FormData): Observable<Response> {
+    return this.http.post<Response>(environment.upload_image_api, formData)
   }
 
 }

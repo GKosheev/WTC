@@ -17,7 +17,9 @@ export const environment = {
   send_message_api: '/api/users/send-message', // /:userId
 
   /* profile service */
-  save_changes_api: '/api/profile/edit-profile',
+  edit_profile_api: '/api/profile/edit-profile',
+  upload_image_api: '/api/profile/upload-image',
+
 
   /* payments services */
   get_all_payments_api: '/api/payments/all',
@@ -38,5 +40,12 @@ export const environment = {
 
   /* courts service */
   get_courts_general_info: '/api/courts/info',
-  get_courts: '/api/courts'
+  get_courts: '/api/courts',
+
+
+  assetsPath: {
+    user_profile: './assets/',
+    private_component: './assets/',
+    edit_profile: './assets/',
+  }
 };

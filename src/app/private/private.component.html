@@ -55,7 +55,9 @@
     -->
 
     <div *ngIf="this.user">
-      <img class="avatar mat-elevation-z8" src="../../assets/img/anonymous.jpg" alt="Your beautiful photo"/>
+      <img class="avatar mat-elevation-z8"
+           [src]="user.profile.img && user.profile.img!== '-'?picturePath + 'profile-images/' + user.profile.img: picturePath + 'img/anonymous.jpg'"
+           alt="Your beautiful photo"/>
       <h4 class="name">{{this.firstName + ' ' + this.lastName}}</h4>
       <p class="designation">{{user.roles.indexOf('member') > -1 ? 'Member' : 'nonMember'}}</p>
       <p class="designation" *ngIf="user.profile.rating !== '-' || ''">{{user.profile.rating}}</p>
@@ -72,23 +74,23 @@
       </button>
 
       <div *ngIf="(allPurchases$ | async) as purchases; else noPurchases">
-      <button mat-button class="menu-button" routerLink="user/purchases">
-        <mat-icon
-          [matBadge]="countNotIssuedItems(purchases)"
-          matBadgeColor="primary"
-          matBadgeSize="small"
-          [matBadgeHidden]="!countNotIssuedItems(purchases)">
-          shopping_cart
-        </mat-icon>
-        <span>Purchases</span>
-      </button>
+        <button mat-button class="menu-button" routerLink="user/purchases">
+          <mat-icon
+            [matBadge]="countNotIssuedItems(purchases)"
+            matBadgeColor="primary"
+            matBadgeSize="small"
+            [matBadgeHidden]="!countNotIssuedItems(purchases)">
+            shopping_cart
+          </mat-icon>
+          <span>Purchases</span>
+        </button>
       </div>
-        <ng-template #noPurchases>
-          <button mat-button class="menu-button" routerLink="user/purchases">
-            <mat-icon>shopping_cart</mat-icon>
-            <span>Purchases</span>
-          </button>
-        </ng-template>
+      <ng-template #noPurchases>
+        <button mat-button class="menu-button" routerLink="user/purchases">
+          <mat-icon>shopping_cart</mat-icon>
+          <span>Purchases</span>
+        </button>
+      </ng-template>
       <!--      </div>-->
 
 
@@ -99,10 +101,10 @@
         <span>Store</span>
       </button>
 
-<!--      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/courts">
-        <mat-icon>date_range</mat-icon>
-        <span>Court booking</span>
-      </button>-->
+      <!--      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/courts">
+              <mat-icon>date_range</mat-icon>
+              <span>Court booking</span>
+            </button>-->
       <button mat-button class="menu-button" routerLink="user/subscription">
         <mat-icon>book_online</mat-icon>
         <span>Subscription</span>
@@ -137,22 +139,22 @@
         </div>
       </div>
     </div>
-      <ng-template #noPayments>
-        <button mat-button class="menu-button" routerLink="user/payments">
-          <mat-icon>payment</mat-icon>
-          <span>Payments</span>
-        </button>
-      </ng-template>
-      <!--      <div fxShow="false" fxShow.lt-md="true">-->
-      <mat-divider></mat-divider>
-      <button mat-button class="menu-button" (click)="logOut()">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
+    <ng-template #noPayments>
+      <button mat-button class="menu-button" routerLink="user/payments">
+        <mat-icon>payment</mat-icon>
+        <span>Payments</span>
       </button>
-      <!--      </div>-->
-      <!-- </div>-->
-      <mat-divider></mat-divider>
-      <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
+    </ng-template>
+    <!--      <div fxShow="false" fxShow.lt-md="true">-->
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button" (click)="logOut()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+    <!--      </div>-->
+    <!-- </div>-->
+    <mat-divider></mat-divider>
+    <img src="../../assets/img/WTC.jpg" class="logo" alt="WTC logo">
   </mat-sidenav>
 
 

@@ -3,5 +3,6 @@ export interface TableData {
   fullName: string,
   phone: string,
   email: string,
-  rating: string
+  rating: string,
+  img: string
 }

@@ -21,8 +21,8 @@ export const environment = {
   send_message_api: 'http://localhost:5000/api/users/send-message', // /:userId
 
   /* profile service */
-  save_changes_api: 'http://localhost:5000/api/profile/edit-profile',
-
+  edit_profile_api: 'http://localhost:5000/api/profile/edit-profile',
+  upload_image_api: 'http://localhost:5000/api/profile/upload-image',
   /* payments service */
   get_all_payments_api: 'http://localhost:5000/api/payments/all',
   create_checkout_session_api: 'http://localhost:5000/api/payments/create-checkout-session',
@@ -43,6 +43,13 @@ export const environment = {
   /* courts service */
   get_courts_general_info: 'http://localhost:5000/api/courts/info',
   get_courts: 'http://localhost:5000/api/courts',
+
+
+  assetsPath: {
+    user_profile: '../../../../../assets/',
+    private_component: '../../assets/',
+    edit_profile: '../../../../../assets/',
+  }
 
 };
 

@@ -15,4 +15,5 @@ export interface Profile {
   twitter: string,
   instagram: string,
   facebook: string,
+  img: string
 }

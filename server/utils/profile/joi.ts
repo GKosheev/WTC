@@ -8,5 +8,6 @@ export const joiUpdateProfile = Joi.object({
     shareMyPhone: Joi.boolean().required(),
     twitter: Joi.any(),
     instagram: Joi.any(),
-    facebook: Joi.any()
+    facebook: Joi.any(),
+    img: Joi.any()
 })

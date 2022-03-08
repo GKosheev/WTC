@@ -25,6 +25,7 @@ export interface User {
     twitter: string,
     instagram: string,
     facebook: string,
+    img: string
   }
   agreements: {
     clubPolicy: string,

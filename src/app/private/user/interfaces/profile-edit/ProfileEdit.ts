@@ -6,5 +6,6 @@ export interface ProfileEdit {
   facebook: string,
   receiveClubEmails: boolean,
   shareMyPhone: boolean,
-  shareMyEmail: boolean
+  shareMyEmail: boolean,
+  img: string
 }

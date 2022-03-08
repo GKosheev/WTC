@@ -6,5 +6,6 @@ export interface UserProfile {
   rating: string,
   twitter: string,
   instagram: string,
-  facebook: string
+  facebook: string,
+  img: string
 }

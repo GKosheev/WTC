@@ -25,6 +25,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {PurchasesComponent} from './components/purchases/purchases.component';
+import { ChangeProfileImageComponent } from './components/change-profile-image/change-profile-image.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {PurchasesComponent} from './components/purchases/purchases.component';
     MessageDialogComponent,
     SubscriptionComponent,
     PurchasesComponent,
+    ChangeProfileImageComponent,
   ],
   imports: [
     CommonModule,

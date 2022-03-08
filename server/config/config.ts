@@ -40,7 +40,8 @@ const config = {
     store: 'store',
     subscription: 'sub',
     court: 'court'
-  }
+  },
+  assetsPath: mod === 'dev' ? '../../src/assets/' : '../../../../dist/wtc/assets/'
 };
 
 

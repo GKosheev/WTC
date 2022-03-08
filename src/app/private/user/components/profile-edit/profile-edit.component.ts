@@ -4,7 +4,9 @@ import {ProfileService} from "../../services/profiles/profile.service";
 import {Router} from "@angular/router";
 import {ProfileEdit} from "../../interfaces/profile-edit/ProfileEdit";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
-
+import {ChangeProfileImageComponent} from "../change-profile-image/change-profile-image.component";
+import {MatDialog} from "@angular/material/dialog";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-profile-edit',
@@ -20,7 +22,12 @@ export class ProfileEditComponent implements OnInit {
   instagram: string = '';
   facebook: string = '';
 
-  constructor(private profileService: ProfileService, private router: Router, private _snackBar: SnackbarService) {
+  picturePath: string = environment.assetsPath.edit_profile
+
+  constructor(private profileService: ProfileService,
+              private router: Router,
+              private _snackBar: SnackbarService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -35,6 +42,7 @@ export class ProfileEditComponent implements OnInit {
         this.editProfile.receiveClubEmails = userProfile.receiveClubEmails
         this.editProfile.shareMyEmail = userProfile.shareMyEmail
         this.editProfile.shareMyPhone = userProfile.shareMyPhone
+        this.editProfile.img = userProfile.img
       }
     })
   }
@@ -46,9 +54,16 @@ export class ProfileEditComponent implements OnInit {
         this._snackBar.openSnackBar(res.msg, false)
       return this.router.navigate(['private/user/profile'])
     }, error => {
-      if (error.msg)
-        this._snackBar.openSnackBar(error.msg, true)
+      if (error.error.msg)
+        this._snackBar.openSnackBar(error.error.msg, true)
       return;
     })
   }
+
+  changeImage(): void {
+    this.dialog.open(ChangeProfileImageComponent, {
+      width: '400px'
+    })
+  }
+
 }
