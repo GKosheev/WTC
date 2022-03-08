@@ -237,8 +237,8 @@ export async function createCheckoutSession(req: Request, res: Response) {
       },
       mode: "payment",
       line_items: line_items,
-      success_url: 'http://localhost:4200/#/private/user/payments', //TODO success url
-      cancel_url: 'https://google.com'  // TODO cancel url
+      success_url: config.paymentUrls.success_url,
+      cancel_url: config.paymentUrls.cancel_url
     })
     await stripePayment.save()
     return res.status(200).json({url: session.url})
