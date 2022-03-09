@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'public'
+    redirectTo: 'auth'
   },
   {
     path: 'auth',
@@ -21,10 +21,10 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     loadChildren: () => import('./private/private.module').then(m => m.PrivateModule)
   },
-  {
+/*  {
     path: 'public',
     loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
-  },
+  },*/
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'}
 ];
