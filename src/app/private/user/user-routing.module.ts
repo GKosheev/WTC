@@ -5,11 +5,7 @@ import {UserProfileComponent} from "./components/user-profile/user-profile.compo
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileEditComponent} from "./components/profile-edit/profile-edit.component";
 import {StoreComponent} from "./components/store/store.component";
-import {TennisLadderComponent} from "./components/tennis-ladder/tennis-ladder.component";
 import {PaymentsComponent} from "./components/payments/payments.component";
-import {CourtsComponent} from "./components/courts/courts.component";
-import {CourtComponent} from "./components/court/court.component";
-import {CourtBookingComponent} from "./components/court-booking/court-booking.component";
 import {RoleGuard} from "../../core/guards/roles/role.guard";
 import {AuthGuard} from "../../core/guards/auth/auth.guard";
 import {SubscriptionComponent} from "./components/subscription/subscription.component";
@@ -23,7 +19,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/private/home',
+        redirectTo: '/private/user/profile',
       },
       {
         path: 'profile',
@@ -70,13 +66,6 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'singles-tennis-ladder',
-        component: TennisLadderComponent,
-        data: {
-          roles: ['member']
-        }
-      },
-      {
         path: 'store',
         component: StoreComponent,
         data: {
@@ -90,31 +79,6 @@ const routes: Routes = [
           roles: ['public']
         }
       }
-     /* {
-        path: 'courts',
-        component: CourtsComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: {
-          roles: ['member']
-        }
-      },*/
-
-/*      {
-        path: 'court-book/:courtType/:date/:courtId/:time',
-        canActivate: [AuthGuard, RoleGuard],
-        data: {
-          roles: ['member']
-        },
-        component: CourtBookingComponent
-      },
-      {
-        path: 'court-edit/:courtType/:date/:courtId/:time',
-        canActivate: [AuthGuard, RoleGuard],
-        data: {
-          roles: ['member']
-        },
-        component: CourtBookingComponent
-      }*/
     ]
   },
 

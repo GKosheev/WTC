@@ -12,11 +12,11 @@ const routes: Routes = [
     component: PrivateComponent,
     canLoad: [AuthGuard],
     children: [
-      {
+/*      {
         path: 'home',
         component: HomeComponent,
         canLoad: [AuthGuard]
-      },
+      },*/
       {
         path: 'user',
         canLoad: [AuthGuard],
@@ -33,7 +33,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home'
+        redirectTo: '/private/user/profile' // TODO change to home when it's ready
       }
     ]
   },

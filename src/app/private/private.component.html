@@ -64,10 +64,11 @@
 
       <!-- <div fxShow="false" fxShow.lt-md="true">-->
       <mat-divider></mat-divider>
-      <button mat-button class="menu-button" routerLink="home">
+<!--      <button mat-button class="menu-button" routerLink="home">
         <mat-icon>home</mat-icon>
         <span>Home</span>
-      </button>
+      </button>-->
+      <!--TODO uncomment when it's ready-->
       <button mat-button class="menu-button" routerLink="user/profile">
         <mat-icon>person</mat-icon>
         <span>Profile</span>
@@ -117,10 +118,10 @@
       </button>
 
 
-      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/singles-tennis-ladder">
+<!--      <button *ngIf="isMember()" mat-button class="menu-button" routerLink="user/singles-tennis-ladder">
         <mat-icon>info</mat-icon>
         <span>Tennis Ladder</span>
-      </button>
+      </button>-->
 
       <mat-divider *ngIf="isMember()"></mat-divider>
       <div *ngIf="(allPayments$ | async) as allPays; else noPayments">

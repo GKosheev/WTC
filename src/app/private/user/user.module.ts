@@ -8,11 +8,7 @@ import {UserProfileComponent} from "./components/user-profile/user-profile.compo
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileEditComponent} from "./components/profile-edit/profile-edit.component";
 import {StoreComponent} from "./components/store/store.component";
-import {TennisLadderComponent} from "./components/tennis-ladder/tennis-ladder.component";
 import {PaymentsComponent} from "./components/payments/payments.component";
-import {CourtsComponent} from "./components/courts/courts.component";
-import {CourtComponent} from "./components/court/court.component";
-import {CourtBookingComponent} from "./components/court-booking/court-booking.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
@@ -34,11 +30,7 @@ import { ChangeProfileImageComponent } from './components/change-profile-image/c
     ProfileComponent,
     ProfileEditComponent,
     StoreComponent,
-    TennisLadderComponent,
     PaymentsComponent,
-    CourtsComponent,
-    CourtComponent,
-    CourtBookingComponent,
     MessageDialogComponent,
     SubscriptionComponent,
     PurchasesComponent,
