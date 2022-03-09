@@ -18,6 +18,7 @@ import {SubPayment} from "../documents/subscription/SubPayment";
 import StorePaymentModel from "../models/store/store-payments.model";
 import {StorePayments} from "../documents/store/StorePayments";
 import StoreConfigModel from "../models/store/store-config.model";
+import {receiptMessage} from "../services/sendgrid";
 
 
 interface ShortPayments {
@@ -249,7 +250,6 @@ export async function createCheckoutSession(req: Request, res: Response) {
 
 
 export async function webhook(req: Request, res: Response) {
-  console.log('Webhook works!')
   const stripe_sig = req.headers['stripe-signature'];
   let event: Stripe.Event;
 
@@ -262,9 +262,14 @@ export async function webhook(req: Request, res: Response) {
   const intent: any = event.data.object
   switch (event.type) {
     case 'payment_intent.succeeded':
-      // @ts-ignore
-      console.log('succeed receipt url: ' + event.data.object.charges.data[0].receipt_url) // returns valid receipt_url
-      //TODO send to user's email intent.receipt_url
+      /*      // @ts-ignore
+            console.log('succeed receipt url: ' + event.data.object.charges.data[0].receipt_url) // returns valid receipt_url
+            // @ts-ignore
+            console.log('email: ' + event.data.object.charges.data[0].billing_details.email)
+            //@ts-ignore
+            console.log('created: ' + event.data.object.charges.data[0].created)
+            //@ts-ignore*/
+      await receiptMessage(event.data.object.charges.data[0].billing_details.email, event.data.object.charges.data[0].receipt_url, event.data.object.charges.data[0].created)
       break;
     case 'checkout.session.completed':
       const metadata: StripeMetadata = intent.metadata
