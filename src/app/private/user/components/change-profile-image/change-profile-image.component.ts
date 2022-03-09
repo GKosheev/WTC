@@ -9,6 +9,7 @@ import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.ser
 })
 export class ChangeProfileImageComponent implements OnInit {
   fileName = '';
+  serverAction: boolean = false;
 
   constructor(private profileService: ProfileService, private _snackBar: SnackbarService) {
   }
@@ -26,17 +27,20 @@ export class ChangeProfileImageComponent implements OnInit {
 
       formData.append("profile-image", file);
 
+      this.serverAction = true;
       this.profileService.uploadProfileImg(formData).subscribe(response => {
         if (response.msg) {
+          this.serverAction = false;
           this._snackBar.openSnackBar(response.msg, false)
           setTimeout(() => {
             window.location.reload()
-          }, 1000)
+          }, 1500)
 
         }
       }, error => {
         if (error.error.msg)
           this._snackBar.openSnackBar(error.error.msg, true)
+        this.serverAction = false;
       })
     }
   }

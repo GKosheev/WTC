@@ -1,12 +1,7 @@
-<p>change-profile-image works!</p>
-
-
-
 <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".jpeg,.jpg,.png" #fileUpload>
 <div class="file-upload">
-
+  <mat-progress-bar mode="indeterminate" *ngIf="serverAction"></mat-progress-bar>
   {{fileName || "No file uploaded yet."}}
-
   <button mat-mini-fab color="primary" class="upload-btn"
           (click)="fileUpload.click()">
     <mat-icon>attach_file</mat-icon>
