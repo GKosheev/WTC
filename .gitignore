@@ -53,3 +53,6 @@ Thumbs.db
 # .rest file
 test.rest
 courts.rest
+
+# profile pictures
+/src/assets/profile-images/*
