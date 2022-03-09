@@ -1,36 +1,64 @@
 <div class="content">
-  <div *ngIf="(allPurchases$ | async) as purchases; else noPurchases">
-    <h1 class="to-issue-header">To Issue</h1>
-    <table>
-      <thead>
-      <th scope="col">Item</th>
-      <th scope="col">Qty</th>
-      <th scope="col">Total</th>
-      <th scope="col">Paid</th>
-      <th scope="col">Issued</th>
-      </thead>
-      <tbody>
+  <h1 class="to-issue-header">To Issue</h1>
+  <table>
+    <thead>
+    <th scope="col">Item</th>
+    <th scope="col">Qty</th>
+    <th scope="col">Total</th>
+    <th scope="col">Paid</th>
+    <th scope="col">Issued</th>
+    </thead>
+    <tbody *ngIf="(itemsToIssue | async) as purchases; else noItems">
 
-      <tr *ngFor="let purchase of purchases">
-        <td class="item-name">{{purchase.name}}</td>
-        <td>{{'x' + purchase.quantity}}</td>
-        <td>{{'$' + (purchase.price * purchase.quantity).toFixed(2)}}</td>
-        <td>
-          <mat-icon
-            [color]="purchase.paid?'primary': 'warn'"
-          >{{purchase.paid ? 'check' : 'close'}}</mat-icon>
-        </td>
-        <td>
-          <mat-icon
-            [color]="purchase.issued?'primary': 'warn'"
-          >{{purchase.issued ? 'check' : 'close'}}</mat-icon>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <ng-template #noPurchases>
-    <h1>No Purchases found</h1>
+    <tr *ngFor="let purchase of purchases">
+      <td class="item-name">{{purchase.name}}</td>
+      <td>{{'x' + purchase.quantity}}</td>
+      <td>{{'$' + (purchase.price * purchase.quantity).toFixed(2)}}</td>
+      <td>
+        <mat-icon
+          [color]="purchase.paid?'primary': 'warn'"
+        >{{purchase.paid ? 'check' : 'close'}}</mat-icon>
+      </td>
+      <td>
+        <mat-icon
+          [color]="purchase.issued?'primary': 'warn'"
+        >{{purchase.issued ? 'check' : 'close'}}</mat-icon>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <hr>
+  <h1 class="to-issue-header">Issued</h1>
+
+  <table>
+    <thead>
+    <th scope="col">Item</th>
+    <th scope="col">Qty</th>
+    <th scope="col">Total</th>
+    <th scope="col">Paid</th>
+    <th scope="col">Issued</th>
+    </thead>
+    <tbody *ngIf="(issuedItems | async) as purchases; else noItems">
+
+    <tr *ngFor="let purchase of purchases">
+      <td class="item-name">{{purchase.name}}</td>
+      <td>{{'x' + purchase.quantity}}</td>
+      <td>{{'$' + (purchase.price * purchase.quantity).toFixed(2)}}</td>
+      <td>
+        <mat-icon
+          [color]="purchase.paid?'primary': 'warn'"
+        >{{purchase.paid ? 'check' : 'close'}}</mat-icon>
+      </td>
+      <td>
+        <mat-icon
+          [color]="purchase.issued?'primary': 'warn'"
+        >{{purchase.issued ? 'check' : 'close'}}</mat-icon>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <ng-template #noItems>
+    <h4>No Items Found</h4>
   </ng-template>
 </div>
 
