@@ -3,7 +3,7 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanActivateChild,
-  CanLoad,
+  CanLoad, Router,
   RouterStateSnapshot
 } from '@angular/router';
 import {Observable} from 'rxjs';
@@ -15,7 +15,7 @@ import {SnackbarService} from "../../../shared/services/snackbar/snackbar.servic
   providedIn: 'root'
 })
 export class UnAuthGuard implements CanActivate, CanLoad, CanActivateChild {
-  constructor(private auth: AuthService, private snackbar: SnackbarService) {
+  constructor(private auth: AuthService, private snackbar: SnackbarService, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
@@ -33,9 +33,10 @@ export class UnAuthGuard implements CanActivate, CanLoad, CanActivateChild {
   private isAuthorized(): Observable<boolean> {
     return this.auth.getUser().pipe(
       map(user => {
-        if (user !== null)
+        if (user !== null) {
           this.snackbar.openSnackBar('You have already been authorized', false, 2)
-
+          this.router.navigateByUrl('/private/user')
+        }
         return user === null;
       })
     )
