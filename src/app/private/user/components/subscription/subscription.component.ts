@@ -70,6 +70,10 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     })
   }
 
+  ifWinterSubType(type: string): boolean {
+    return type.includes('Winter')
+  }
+
   ngOnDestroy() {
     this.loadAllPayments.unsubscribe()
     this.userSub.unsubscribe()

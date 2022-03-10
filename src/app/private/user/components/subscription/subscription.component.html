@@ -7,12 +7,34 @@
       </ng-template>
       <ng-template #readyToShow>
         <div *ngIf="userSubscriptionInfo && userSubscriptionInfo.type!=='nonMember'">
-          <h2>Subscription Info</h2>
-          <h4>Type: {{this.userSubscriptionInfo.type}}</h4>
-          <h4>Period: {{this.userSubscriptionInfo.subStarts + ' - ' + this.userSubscriptionInfo.subEnds}}</h4>
-          <h4>Price: {{this.userSubscriptionInfo.price}}</h4>
-          <h4>Paid At: {{this.userSubscriptionInfo.paidAt}}</h4>
+          <h1>Subscription Info</h1>
+<!--            <h1>Current Subscription Info</h1>
+            <h4>Type: {{this.userSubscriptionInfo.type}}</h4>
+            <h4>Period: {{this.userSubscriptionInfo.subStarts + ' - ' + this.userSubscriptionInfo.subEnds}}</h4>
+            <h4>Price: {{this.userSubscriptionInfo.price}}</h4>
+            <h4>Paid At: {{this.userSubscriptionInfo.paidAt}}</h4>-->
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img [src]="ifWinterSubType(userSubscriptionInfo.type)?'https://images5.fanpop.com/image/photos/27800000/Wonderful-Winter-winter-27867266-1280-960.jpg': 'https://isonewswire.com/wp-content/uploads/2020/10/article-illustration-summer-alt.png'"
+                     alt="Avatar" width="300px" height="300px">
+              </div>
+              <div class="flip-card-back">
+                <h2> {{this.userSubscriptionInfo.type}}</h2>
+               <!-- <h2>Period:<br>{{this.userSubscriptionInfo.subStarts + ' - ' + this.userSubscriptionInfo.subEnds}}</h2>-->
+            <!--    <h2>Starts:<br> {{this.userSubscriptionInfo.subStarts}}</h2>-->
+                <h2>Ends:<br> {{this.userSubscriptionInfo.subEnds}}</h2>
+                <h2>Total Price:<br> ${{this.userSubscriptionInfo.price}}</h2>
+                <h2>Paid At:<br> {{this.userSubscriptionInfo.paidAt}}</h2>
+
+
+              </div>
+            </div>
+          </div>
+
         </div>
+
+
         <div *ngFor="let sub of this.subs" style="width:100%;">
           <h1>{{sub.subType}}({{sub.subStart + ' - ' + sub.subEnd}})</h1>
           <div class="fusion-pricing-table pricing-table-5 full-boxed-pricing">
