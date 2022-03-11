@@ -45,7 +45,7 @@ const config = {
     success_url: mod === 'dev' ? 'http://localhost:4200/#/private/user/purchases' : 'https://waterloo-tennis-club.herokuapp.com/#/private/user/purchases',
     cancel_url: mod === 'dev' ? 'http://localhost:4200/#/private/user/payments' : 'https://waterloo-tennis-club.herokuapp.com/#/private/user/payments'
   },
-  assetsPath: mod === 'dev' ? '../../src/assets/' : '../../../../dist/wtc/assets/'
+  assetsPath: mod === 'dev' ? '../../src/assets/' : '/app/dist/wtc/assets/'
 };
 
 
