@@ -1,5 +1,5 @@
 import app from 'express'
-import asyncHandler from 'express-async-handler'
+const asyncHandler = require('express-async-handler')
 import {createCheckoutSession, deletePayments, getAllPayments, webhook} from "../controllers/payments.controller";
 import verifyToken from "../middlewares/verifyToken";
 import bodyParser from "body-parser";

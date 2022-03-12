@@ -1,5 +1,5 @@
 import app from 'express'
-import asyncHandler from 'express-async-handler'
+const asyncHandler = require('express-async-handler')
 import verifyToken from "../../middlewares/verifyToken";
 import {addItemToStorePayments, getAllStoreItems} from "../../controllers/store/store.controller";
 import authRole from "../../middlewares/roles";

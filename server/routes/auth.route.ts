@@ -1,5 +1,5 @@
 import app from 'express'
-import asyncHandler from 'express-async-handler'
+const asyncHandler = require('express-async-handler')
 import {registerMiddleware, loginMiddleware} from "../middlewares/auth";
 import {
     register,

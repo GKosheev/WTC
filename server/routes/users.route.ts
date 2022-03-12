@@ -1,5 +1,5 @@
 import app from 'express'
-import asyncHandler from "express-async-handler";
+const asyncHandler = require('express-async-handler')
 import authRole from "../middlewares/roles";
 import config from "../config/config";
 import {allUsers, messageToUser, getUserById} from '../controllers/users.controller'

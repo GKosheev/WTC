@@ -1,5 +1,5 @@
 import app from 'express'
-import asyncHandler from "express-async-handler";
+const asyncHandler = require('express-async-handler')
 import {editProfile, uploadImage} from "../controllers/profile.controller";
 import verifyToken from "../middlewares/verifyToken";
 import multer from "multer"
