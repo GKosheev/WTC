@@ -6,7 +6,7 @@
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
               <img
-                [src]="this.editProfile.img && this.editProfile.img !== '-'?picturePath + '/profile-images/' + this.editProfile.img: picturePath + 'img/anonymous.jpg'"
+                [src]="editProfile.img"
                 alt="UserProfile" class="rounded-circle" width="110" height="110">
               <button mat-raised-button color="primary" (click)="changeImage()">Change Image</button>
               <div class="mt-3">

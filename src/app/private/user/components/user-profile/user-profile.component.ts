@@ -8,7 +8,6 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MessageDialog, MessageDialogComponent} from "../message-dialog/message-dialog.component";
 import {MessageToUser} from "../../models/interfaces/MessageToUser";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {environment} from "../../../../../environments/environment";
 
 
 @Component({
@@ -24,7 +23,6 @@ export class UserProfileComponent implements OnInit {
     switchMap((userId: string) => this.tableService.loadUserData(userId))
   )
   message: MessageToUser = {} as MessageToUser;
-  picturePath: string = environment.assetsPath.user_profile
   constructor(private activatedRoute: ActivatedRoute,
               private tableService: UsersService,
               public dialog: MatDialog,

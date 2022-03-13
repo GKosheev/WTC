@@ -41,11 +41,4 @@ export const environment = {
   /* courts service */
   get_courts_general_info: '/api/courts/info',
   get_courts: '/api/courts',
-
-
-  assetsPath: {
-    user_profile: './assets/',
-    private_component: './assets/',
-    edit_profile: './assets/',
-  }
 };

@@ -43,14 +43,6 @@ export const environment = {
   /* courts service */
   get_courts_general_info: 'http://localhost:5000/api/courts/info',
   get_courts: 'http://localhost:5000/api/courts',
-
-
-  assetsPath: {
-    user_profile: '../../../../../assets/',
-    private_component: '../../assets/',
-    edit_profile: '../../../../../assets/',
-  }
-
 };
 
 /*

@@ -6,7 +6,6 @@ import {ProfileEdit} from "../../interfaces/profile-edit/ProfileEdit";
 import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
 import {ChangeProfileImageComponent} from "../change-profile-image/change-profile-image.component";
 import {MatDialog} from "@angular/material/dialog";
-import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-profile-edit',
@@ -22,7 +21,6 @@ export class ProfileEditComponent implements OnInit {
   instagram: string = '';
   facebook: string = '';
 
-  picturePath: string = environment.assetsPath.edit_profile
 
   constructor(private profileService: ProfileService,
               private router: Router,

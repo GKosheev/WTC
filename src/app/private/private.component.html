@@ -56,7 +56,7 @@
 
     <div *ngIf="this.user">
       <img class="avatar mat-elevation-z8"
-           [src]="user.profile.img && user.profile.img!== '-'?picturePath + 'profile-images/' + user.profile.img: picturePath + 'img/anonymous.jpg'"
+           [src]="user.profile.img"
            alt="Your beautiful photo"/>
       <h4 class="name">{{this.firstName + ' ' + this.lastName}}</h4>
       <p class="designation">{{user.roles.indexOf('member') > -1 ? 'Member' : 'nonMember'}}</p>

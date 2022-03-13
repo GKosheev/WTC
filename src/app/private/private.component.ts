@@ -10,7 +10,6 @@ import {Observable, of, Subscription} from "rxjs";
 import {ShortPayment} from "./user/interfaces/payments/ShortPayment";
 import {Purchase} from "./user/interfaces/purchases/Purchase";
 import {PurchasesService} from "./user/services/purchases/purchases.service";
-import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'private',
@@ -23,7 +22,6 @@ export class PrivateComponent implements AfterViewInit, OnInit, OnDestroy {
   lastName: string | undefined = undefined
   loadPayments: Subscription | null = null
   loadPurchases: Subscription | null = null
-  picturePath: string = environment.assetsPath.private_component
   allPayments$: Observable<ShortPayment[] | null> = of(null)
   allPurchases$: Observable<Purchase[] | null> = of(null)
 
