@@ -19,9 +19,17 @@ const config = {
   mongoURI: mod === 'dev' ? process.env.DEV_MONGO_URI : process.env.PROD_MONGO_URI,
   home_static_path: static_path,
   send_file_path: send_file_path,
+  default_user_picture: process.env.DEFAULT_USER_PICTURE_PATH,
   stripe: {
     stripe_private_key: process.env.STRIPE_PRIVATE_KEY,
     stripe_webhook_secret: mod === 'dev' ? process.env.STRIPE_WEBHOOK_SECRET_DEV : process.env.STRIPE_WEBHOOK_SECRET_PROD,
+  },
+  aws: {
+    access_id: process.env.AWS_ACCESS_KEY_ID,
+    secret_id: process.env.AWS_SECRET_KEY,
+    s3: {
+      bucket_name: process.env.AWS_S3_BUCKET_NAME
+    }
   },
   time_format: {
     momentDateISOFormat: 'YYYY-MM-DD',
@@ -45,7 +53,6 @@ const config = {
     success_url: mod === 'dev' ? 'http://localhost:4200/#/private/user/purchases' : 'https://waterloo-tennis-club.herokuapp.com/#/private/user/purchases',
     cancel_url: mod === 'dev' ? 'http://localhost:4200/#/private/user/payments' : 'https://waterloo-tennis-club.herokuapp.com/#/private/user/payments'
   },
-  assetsPath: mod === 'dev' ? '../../src/assets/' : '/app/dist/wtc/assets/'
 };
 
 

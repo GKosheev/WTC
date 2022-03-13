@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema<User>({
     twitter: {type: String, default: '-'},
     instagram: {type: String, default: '-'},
     facebook: {type: String, default: '-'},
-    img: {type: String, default: '-'}
+    img: {type: String, default: config.default_user_picture}
   },
   agreements: {
     privacyPolicy: {type: String, required: true},

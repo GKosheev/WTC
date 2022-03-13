@@ -3,15 +3,19 @@ const asyncHandler = require('express-async-handler')
 import {editProfile, uploadImage} from "../controllers/profile.controller";
 import verifyToken from "../middlewares/verifyToken";
 import multer from "multer"
-import config from "../config/config";
 
 const router = app.Router()
+// SET STORAGE
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
 
-const upload = multer({
-  dest: config.assetsPath
-  // you might also want to set some limits: https://github.com/expressjs/multer#limits
-});
-
+var upload = multer({ storage: storage })
 
 router.post('/edit-profile', asyncHandler(verifyToken), asyncHandler(editProfile))
 router.post('/upload-image', asyncHandler(verifyToken), upload.single('profile-image'), asyncHandler(uploadImage))
