@@ -275,7 +275,7 @@ export async function webhook(req: Request, res: Response) {
       const metadata: StripeMetadata = intent.metadata
       const updatePaidStatusError = await updatePaidStatus(metadata)
       if (updatePaidStatusError)
-        console.log(updatePaidStatusError)
+        console.log(updatePaidStatusError) //TODO if error during update - send error to the admin & user
       else
         console.log('Payment completed')
       break;
