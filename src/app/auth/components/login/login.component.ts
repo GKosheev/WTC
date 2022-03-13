@@ -13,6 +13,7 @@ import {SnackbarService} from "../../../shared/services/snackbar/snackbar.servic
 })
 export class LoginComponent implements OnInit {
   hidePassword: boolean = true
+  serverAction: boolean = false;
 
   email = new FormControl('', [Validators.required, Validators.pattern(regExp.email)]);
   password = new FormControl('', [Validators.required, Validators.pattern(regExp.password)])
@@ -48,13 +49,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    this.serverAction = true;
     let logUser: UserLogin = {
       email: this.email.value,
       password: this.password.value
     }
     this.auth.login(logUser).subscribe(() => {
+      this.serverAction = false;
       this.router.navigateByUrl('private')
     }, error => {
+      this.serverAction = false;
       if (error.error.msg)
         this.snackbar.openSnackBar(error.error.msg, true)
 

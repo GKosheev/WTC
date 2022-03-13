@@ -166,13 +166,14 @@
           <button class="policy" mat-button mat-raised-button (click)="openCovidAgreement()">COVID 19 Agreement</button>
         </div>
         <br>
-        <br>
-        <button mat-raised-button [disabled]="!registerForm.valid || !agreementIsValid()"
-                *ngIf="!serverAction" type="submit" color="primary" class="register-button"
-                 (click)="onSubmit()">Register
+        <mat-progress-bar mode="indeterminate" *ngIf="serverAction"></mat-progress-bar>
+        <br *ngIf="serverAction">
+        <button mat-raised-button [disabled]="!registerForm.valid || !agreementIsValid() || serverAction"
+                type="submit" color="primary" class="register-button"
+                (click)="onSubmit()">Register
         </button>
         <!---->
-        <mat-spinner *ngIf="serverAction"></mat-spinner>
+
       </form>
     </mat-step>
 

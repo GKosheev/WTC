@@ -12,9 +12,10 @@
           <input matInput placeholder="test@test.com" [formControl]="email" required>
           <mat-error *ngIf="this.email.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
-        <button *ngIf="!serverAction" mat-raised-button color="primary" class="send-button" (click)="forgotPassword()"
-                [disabled]="email.invalid">Send</button>
-        <mat-spinner *ngIf="serverAction"></mat-spinner>
+        <mat-progress-bar mode="indeterminate" *ngIf="serverAction"></mat-progress-bar>
+        <br *ngIf="serverAction">
+        <button mat-raised-button color="primary" class="send-button" (click)="forgotPassword()"
+                [disabled]="email.invalid || serverAction">Send</button>
       </mat-card-content>
     </form>
   </mat-card>

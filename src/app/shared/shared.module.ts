@@ -17,6 +17,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {LayoutModule} from "@angular/cdk/layout";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SnackbarService} from "./services/snackbar/snackbar.service";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {SnackbarService} from "./services/snackbar/snackbar.service";
     MatCheckboxModule,
     LayoutModule,
     MatSnackBarModule,
+    MatProgressBarModule
   ],
   providers: [
     SnackbarService
