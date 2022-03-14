@@ -1,4 +1,7 @@
+
+
 <div class="content mat-elevation-z24">
+  <button mat-raised-button color="primary" (click)="testPurchase()">HOW TO MAKE TEST PURCHASE</button>
   <!--
     <div *ngIf="(paymentsFromService | async) as allPays">
   -->
@@ -6,29 +9,29 @@
     <div class="row">
       <div class="title_bar" style="font-weight:700">
         <div *ngIf="paymentsFromService | async as allPays; else payNavbar">
-          <button mat-button color="primary" (click)="buyAllItems(allPays)" [disabled]="paymentServerAction">Pay For
+          <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()" style="margin-left: 4px;"
+                        [disabled]="paymentServerAction">
+          </mat-checkbox>
+<!--          <button mat-button color="primary" (click)="buyAllItems(allPays)" [disabled]="paymentServerAction">Pay For
             All
-          </button>
-          <button mat-button color="warn" (click)="deleteManyPayments(allPays)"
+          </button>-->
+<!--          <button mat-button color="warn" (click)="deleteManyPayments(allPays)"
                   [disabled]="paymentServerAction">Delete All
             Payments
-          </button>
+          </button>-->
           <button mat-button color="warn" (click)="deleteAllSelected()"
-                  [disabled]="!isAnythingSelected() || paymentServerAction">Delete All
-            Selected
+                  [disabled]="!isAnythingSelected() || paymentServerAction"><mat-icon>delete</mat-icon>
           </button>
-          <mat-checkbox color="primary" (change)="selectAll()" [checked]="selectAllCheckBoxStatus()"
-                        [disabled]="paymentServerAction">Select All
-          </mat-checkbox>
         </div>
         <ng-template #payNavbar>
-          <button mat-button color="primary" [disabled]="true">Pay For
+          <mat-checkbox color="primary" [disabled]="true"></mat-checkbox>
+<!--          <button mat-button color="primary" [disabled]="true">Pay For
             All
-          </button>
-          <button mat-button color="warn" [disabled]="true">Delete All Payments
-          </button>
-          <button mat-button color="warn" [disabled]="true">Delete All Selected</button>
-          <mat-checkbox color="primary" [disabled]="true">Select All</mat-checkbox>
+          </button>-->
+<!--          <button mat-button color="warn" [disabled]="true">Delete All Payments
+          </button>-->
+          <button mat-button color="warn" [disabled]="true"><mat-icon>delete</mat-icon></button>
+
         </ng-template>
       </div>
 
@@ -68,10 +71,10 @@
                 <div class="description">{{sub.shortPayment.description}}</div>
 
                 <div class="card_but">
-                  <button mat-button color="warn" (click)="deleteOneItem(sub.shortPayment)"
+<!--                  <button mat-button color="warn" (click)="deleteOneItem(sub.shortPayment)"
                           [disabled]="paymentServerAction">
                     Delete
-                  </button>
+                  </button>-->
                   <!--<span (click)="buyItem(sub.shortPayment)">
                     Pay
                   </span>-->
@@ -151,7 +154,7 @@
                     *ngIf="payment.isSelected && payment.shortPayment.type==='store'"> {{payment.shortPayment.name}}</span>
 
               <span style="color: #001a34;"
-                    *ngIf="payment.isSelected">{{payment.shortPayment.quantity + 'x' + payment.shortPayment.price.toFixed(2)}}</span>
+                    *ngIf="payment.isSelected">{{payment.shortPayment.quantity + ' x $' + payment.shortPayment.price.toFixed(2)}}</span>
 
 
             </div>
@@ -165,7 +168,7 @@
 
           <div class="total_price_button_position">
             <button mat-raised-button class="total_price_button" (click)="payForAllSelected()" color="primary"
-                    [disabled]="!isAnythingSelected() || paymentServerAction">Pay For All Selected
+                    [disabled]="!isAnythingSelected() || paymentServerAction">Pay
             </button>
           </div>
         </section>

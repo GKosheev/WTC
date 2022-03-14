@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { PaymentsService } from "../../services/payments/payments.service";
-import { ShortPayment } from "../../interfaces/payments/ShortPayment";
-import { AuthService } from "../../../../core/services/auth/auth.service";
-import { SnackbarService } from "../../../../shared/services/snackbar/snackbar.service";
-import { Observable, Subscription } from "rxjs";
-import { DeletePaymentInfo } from "../../interfaces/payments/DeletePaymentInfo";
-import { ShortPaymentCB } from "../../interfaces/payments/ShortPaymentCB";
-
-
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {PaymentsService} from "../../services/payments/payments.service";
+import {ShortPayment} from "../../interfaces/payments/ShortPayment";
+import {AuthService} from "../../../../core/services/auth/auth.service";
+import {SnackbarService} from "../../../../shared/services/snackbar/snackbar.service";
+import {Observable, Subscription} from "rxjs";
+import {DeletePaymentInfo} from "../../interfaces/payments/DeletePaymentInfo";
+import {ShortPaymentCB} from "../../interfaces/payments/ShortPaymentCB";
+import {MatDialog} from "@angular/material/dialog";
+import {TestPurchaseComponent} from "../test-purchase/test-purchase.component";
 
 
 @Component({
@@ -29,8 +29,9 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   paymentsFromServiceSub: Subscription
 
   constructor(private paymentsService: PaymentsService,
-    private auth: AuthService,
-    private _snackbarService: SnackbarService) {
+              private auth: AuthService,
+              private _snackbarService: SnackbarService,
+              private dialog: MatDialog) {
     this.paymentsFromService = this.paymentsService.getPayments()
     this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
     this.paymentsFromServiceSub = this.paymentsService.getPayments().subscribe(payments => {
@@ -117,7 +118,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
   deleteOneItem(item: ShortPayment) {
     this.paymentServerAction = true
-    this.paymentsService.deletePayments([{ type: item.type, id: item._id }]).subscribe(response => {
+    this.paymentsService.deletePayments([{type: item.type, id: item._id}]).subscribe(response => {
       this.paymentServerAction = false
       this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
       if (response.msg)
@@ -135,7 +136,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   deleteManyPayments(items: ShortPayment[]) {
     this.paymentServerAction = true
     const itemsToDelete: DeletePaymentInfo[] = []
-    items.forEach(item => itemsToDelete.push({ id: item._id, type: item.type }))
+    items.forEach(item => itemsToDelete.push({id: item._id, type: item.type}))
     this.paymentsService.deletePayments(itemsToDelete).subscribe(response => {
       this.paymentServerAction = false
       this.loadPaymentsSub = this.paymentsService.loadPayments().subscribe()
@@ -160,7 +161,6 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   }
 
 
-
   getLengthOfSelectedPays(): number {
     return this.allPayments.filter(payment => payment.isSelected).length
   }
@@ -168,5 +168,11 @@ export class PaymentsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.loadPaymentsSub.unsubscribe()
     this.paymentsFromServiceSub.unsubscribe()
+  }
+
+  testPurchase() {
+    this.dialog.open(TestPurchaseComponent, {
+      width: '500px'
+    })
   }
 }

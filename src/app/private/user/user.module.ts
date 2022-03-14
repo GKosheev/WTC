@@ -22,6 +22,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {PurchasesComponent} from './components/purchases/purchases.component';
 import { ChangeProfileImageComponent } from './components/change-profile-image/change-profile-image.component';
+import { TestPurchaseComponent } from './components/test-purchase/test-purchase.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ChangeProfileImageComponent } from './components/change-profile-image/c
     SubscriptionComponent,
     PurchasesComponent,
     ChangeProfileImageComponent,
+    TestPurchaseComponent,
   ],
   imports: [
     CommonModule,
