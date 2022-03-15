@@ -32,7 +32,7 @@ Currently, club uses [jegysoft](https://www.jegysoft.com/public/home/readPage.do
 Right now this website has:
 * Better UI/UX
 * Opportunity to send a private message to a user
-* Change profile image, contact info, hide/show email&phone to other users
+* Change profile image, contact info, hide/show email & phone to other users
 * Subscription (allows to use store and see list of users)
 * Store with item categories
 * Payments (with a receipt to entered email address)
@@ -95,7 +95,7 @@ STRIPE_PRIVATE_KEY=""
 STRIPE_WEBHOOK_SECRET_DEV=""
 STRIPE_WEBHOOK_SECRET_PROD=""
 
-#aws public&private keys
+#aws public & private keys
 AWS_ACCESS_KEY_ID=""
 AWS_SECRET_KEY=""
 
